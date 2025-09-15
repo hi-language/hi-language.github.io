@@ -1,279 +1,272 @@
-<!doctype html><html lang="en" class="scroll-smooth">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>Hi Language</title>
-<link rel="preconnect" href="https://cdn.jsdelivr.net">
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css"/>
 <style>
-.blob{position:absolute;border-radius:9999px;opacity:.15;filter:blur(100px);z-index:-1}
-.markdown-body{background:none;font-size:16px;line-height:1.7}
-.markdown-body pre{overflow:auto}
-.markdown-body code:not(pre code){background:rgba(175,184,193,.2);padding:.2em .4em;margin:0 2px;border-radius:6px}
-.no-scrollbar::-webkit-scrollbar{display:none}.no-scrollbar{scrollbar-width:none}
-.btn{transition:.15s transform}.btn:active{transform:scale(.98)}
-.anchor{scroll-margin-top:80px}
-pre{position:relative;border:1px solid #e5e7eb;border-radius:.75rem}
-.code-actions{position:absolute;top:.5rem;right:.5rem;display:flex;gap:.5rem;align-items:center;opacity:0;transition:opacity .2s ease-in-out}
-pre:hover .code-actions{opacity:1}
-.copy-btn{background:#0f172a;color:#fff;border-radius:.5rem;padding:.2rem .5rem;font-size:.75rem}
-.anchor-link{margin-left:.5rem;color:#9ca3af;text-decoration:none;opacity:0;transition:opacity .2s ease-in-out}.anchor:hover .anchor-link{opacity:1}
+.markdown-body{font-size:16px;line-height:1.7;padding:2rem 1.5rem;max-width:800px;margin:auto}.markdown-body pre{overflow:auto;background-color:#f6f8fa!important}.markdown-body h1{padding-bottom:.5em;border-bottom:1px solid #d0d7de;font-size:2.5em}.markdown-body h3{font-size:1.5em;padding-bottom:.3em;border-bottom:1px solid #d0d7de;margin-top:2.5rem}.markdown-body hr{margin:2.5rem 0}
+body{background-color:#fcfcfc}
+.blob-container{position:relative;height:8rem;width:100%;overflow:hidden;margin:-4rem 0}.blob{position:absolute;border-radius:9999px;filter:blur(60px);opacity:0.25;z-index:-1}.blob1{width:400px;height:300px;background:radial-gradient(circle at center, #a855f7, #3b82f6);top:-50px;left:calc(50% - 200px)}.blob2{width:500px;height:250px;background:radial-gradient(circle at center, #ec4899, #f97316);top:0;left:10%}.blob3{width:350px;height:350px;background:radial-gradient(circle at center, #14b8a6, #22c55e);top:-80px;right:5%}.blob4{width:450px;height:300px;background:radial-gradient(circle at center, #ef4444, #eab308);top:-40px;left:25%}
+@media(min-width:768px){.markdown-body{font-size:17px;padding:3rem 2rem}}
 </style>
 </head>
-<body class="bg-gray-50 text-gray-900 selection:bg-black/10 antialiased">
-<div class="fixed inset-0 -z-10 overflow-hidden">
-  <div class="blob w-[50vw] h-[50vw] max-w-lg max-h-lg bg-cyan-400 top-0 left-0 -translate-x-1/4"></div>
-  <div class="blob w-[60vw] h-[60vw] max-w-xl max-h-xl bg-purple-400 bottom-0 right-0 translate-x-1/4 translate-y-1/4"></div>
-</div>
-<header class="sticky top-0 z-20 bg-white/80 backdrop-blur border-b border-gray-200">
-  <div class="mx-auto max-w-5xl px-4 py-3 grid grid-cols-3 items-center">
-    <button id="menuBtn" class="h-9 w-9 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center btn lg:hidden" title="Menu"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
-    <div class="justify-self-start hidden lg:block"></div>
-    <div class="justify-self-center text-base font-semibold select-none pointer-events-none">Hi</div>
-    <div class="justify-self-end"><a href="https://github.com/hi-language" class="h-9 w-9 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center btn" target="_blank" rel="noopener" title="GitHub"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A12 12 0 0 0 0 12.64a12.15 12.15 0 0 0 8.2 11.55c.6.11.82-.27.82-.6v-2.17c-3.34.74-4.05-1.65-4.05-1.65a3.29 3.29 0 0 0-1.36-1.82c-1.1-.78.09-.77.09-.77a2.6 2.6 0 0 1 1.89 1.29 2.64 2.64 0 0 0 3.61 1 2.66 2.66 0 0 1 .78-1.65c-2.67-.31-5.47-1.36-5.47-6.06A4.8 4.8 0 0 1 6 7.57a4.45 4.45 0 0 1 .12-3.29s1-.33 3.3 1.26a11.39 11.39 0 0 1 6 0c2.3-1.59 3.3-1.26 3.3-1.26.44 1.03.48 2.2.12 3.29a4.79 4.79 0 0 1 1.27 3.32c0 4.72-2.8 5.75-5.47 6.06a2.97 2.97 0 0 1 .84 2.31v3.43c0 .34.22.73.83.6A12.16 12.16 0 0 0 24 12.64 12 12 0 0 0 12 .5Z"/></svg></a></div>
+<body class="text-gray-900 selection:bg-purple-500/10">
+<div class="flex flex-col h-dvh max-h-dvh overflow-hidden">
+<header id="topbar" class="sticky top-0 z-20 bg-white/80 backdrop-blur border-b border-gray-200">
+  <div class="mx-auto w-full max-w-none px-4 py-3 grid grid-cols-3 items-center">
+    <button id="sidebarBtnLeft" class="h-8 w-8 rounded-xl bg-gray-100 hover:bg-gray-200 active:scale-[.99] transition flex items-center justify-center" title="Menu"><i data-lucide="panel-left" class="h-5 w-5"></i></button>
+    <div class="justify-self-center text-lg font-bold tracking-wider">Hi</div>
+    <div class="justify-self-end"></div>
   </div>
 </header>
-
-<div class="max-w-5xl mx-auto flex">
-  <aside id="sidebar" class="fixed lg:sticky top-0 lg:top-16 h-dvh lg:h-auto z-50 w-64 max-w-[85vw] bg-white lg:bg-transparent border-r lg:border-none border-gray-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-out flex-shrink-0">
-    <div class="p-3 border-b flex items-center gap-2 lg:hidden"><span class="h-7 w-7 rounded-full bg-gray-900 text-white inline-flex items-center justify-center">✺</span><span class="font-medium truncate">Hi Language Docs</span></div>
-    <nav id="sideNav" class="flex-1 p-4 text-sm no-scrollbar overflow-y-auto space-y-2"></nav>
+<div class="flex flex-1 overflow-hidden">
+  <div id="sidebarOverlay" class="fixed inset-0 z-40 bg-black/20 hidden md:hidden"></div>
+  <aside id="sidebarLeft" class="fixed md:relative inset-y-0 left-0 z-50 w-64 max-w-[85vw] bg-white border-r border-gray-200 transform -translate-x-full transition-transform duration-200 ease-out flex flex-col md:translate-x-0 md:shadow-none">
+    <div class="p-3 border-b text-sm font-semibold">Hi Language</div>
+    <div class="flex-1 overflow-y-auto">
+      <div class="p-2"><button class="w-full text-left px-3 py-2 rounded-md bg-gray-100 font-medium text-sm">Introduction</button></div>
+    </div>
   </aside>
-
-  <main class="flex-1 min-w-0">
-    <div id="hero" class="text-center px-6 py-16 sm:py-24 border-b"></div>
-    <div id="docs-content" class="px-6 sm:px-8 py-12 space-y-12"></div>
+  <main id="chat" class="flex-1 overflow-y-auto">
+    <div id="content" class="markdown-body"></div>
   </main>
 </div>
-
-<div id="sidebarOverlay" class="fixed inset-0 z-40 bg-black/20 hidden lg:hidden"></div>
-
+</div>
+<script src="https://unpkg.com/lucide@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
-<script id="md" type="text/markdown">
-# Hi — A Corely Symbolic Language
-Inspired by JavaScript, for the whole world. By prioritizing symbols over keywords, Hi's core logic becomes more universal and intuitive to read across human languages.
-> Print helper: `_()` writes to the console.
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+const qs=s=>document.querySelector(s),esc=s=>s.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]||''));
+const contentEl=qs('#content'),sidebar=qs('#sidebarLeft'),overlay=qs('#sidebarOverlay'),sidebarBtn=qs('#sidebarBtnLeft');
+const mdContent=`# Welcome to Hi.
+
+A programming language designed from the ground up for a global community. Inspired by the simplicity and dynamism of JavaScript, but with a core philosophy that prioritizes symbols over keywords.
 
 ---
-## Hello, world
-As is tradition, let's start with the basics.
-~~~js
-// Hello World in Hi
+
+<div class="blob-container"><div class="blob blob1"></div></div>
+
+### A Personal Note
+
+When I started sketching out *Hi*, I wasn't just thinking about syntax. I was thinking about communication. Programming is a form of communication—between a developer and a computer, yes, but also between developers themselves. English is the de facto language of code, but what if we could lower that barrier, even slightly? By relying on a more universal set of symbols, *Hi* aims to be a little more approachable, a little more intuitive, no matter what your native language is. It's an experiment in clarity and minimalism.
+
+### The Basics: Hello World
+
+Let's start with the traditional greeting. The underscore \`_\` is our primary function for output, similar to \`console.log\`.
+
+\`\`\`js
+// This is hello world in Hi
 _("Hi world")
-~~~
+\`\`\`
+
+### Variables: Declaration & Assignment
+
+*Hi* simplifies variable management with two core symbols:
+
+-   \`:\` for declaration.
+-   \`=\` for assignment.
+
+\`\`\`js
+// Declare a variable 'message'
+message: "Hello from Hi!"
+
+// Assign a new value to it
+message = "The value has changed."
+
+_(message)
+\`\`\`
 
 ---
-## Declarations and Assignment
-Hi uses `:` to declare a name and `=` to assign or mutate its value. This clear separation avoids ambiguity.
-~~~js
-greeting: "Hi"
-name: "Orion"
-greeting = greeting + ", " + name
-_(greeting) // "Hi, Orion"
-~~~
 
----
-## Blocks: The Core Concept
-The `{}` syntax creates a **Block**, Hi's fundamental building unit. A Block is a container that can hold both properties and executable code. It’s an object and a function, simultaneously.
+<div class="blob-container"><div class="blob blob2"></div></div>
 
-### Function Block
-When a Block is followed by `()`, its code is executed.
-~~~js
+### The Core Concept: The Block \`{}\`
+
+This is where *Hi* truly diverges. The \`{}\` syntax doesn't create a simple "object" or "function". It creates a **Block**. A Block is a versatile container that can hold both properties and executable code. Think of it as a living entity that is always both an object and a function, simultaneously.
+
+#### Function Blocks
+
+If a Block's primary purpose is to be executed, it acts like a function.
+
+\`\`\`js
 sayHi: {
   _("Hi")
 }
-sayHi() // invokes the block, prints "Hi"
-~~~
 
-### Object Block
-A Block can hold data. Use `#` to mark members as private.
-~~~js
+// Call it just like a function
+sayHi()
+\`\`\`
+
+#### Object Blocks
+
+If it's primarily for storing data, it acts like an object. Properties are public by default. Use \`#\` to make them private.
+
+\`\`\`js
 player: {
-  name: "Orion"  // public
-  #hp: 100        // private
+  name: "Orion" // public property
+  #hp: 100     // private property
 }
-_(player.name)     // "Orion"
-// _(player.#hp)   // error: private
-~~~
 
-### Hybrid Block
-Combine state and methods in one Block. Privacy is respected within the Block's scope.
-~~~js
+_(player.name) // "Orion"
+// _(player.hp) -> This would be an error
+\`\`\`
+
+#### Hybrid Blocks
+
+The true power of Blocks is their ability to be both. Here's a stateful counter that exposes a method to modify its internal, private state.
+
+\`\`\`js
 counter: {
   #value: 0
+
   inc: {
+    // #value is accessible from within the parent block
     #value = #value + 1
     _("The count is now: " + #value)
   }
 }
 
-counter.inc() // "The count is now: 1"
-counter.inc() // "The count is now: 2"
-~~~
+counter.inc() // The count is now: 1
+counter.inc() // The count is now: 2
+\`\`\`
 
----
-## Parameters and Returns
-Pass data into Blocks using `(name, ...)` before the `{`. Like Rust, the last expression is implicitly returned. No `return` keyword needed.
-~~~js
-add: (a, b) { a + b }
-_( add(2, 3) ) // 5
+#### Blocks with Parameters
 
-greet: (name) {
-  "Hi, " + name // this string is returned
+Parameters are defined in parentheses, just like in JavaScript.
+
+\`\`\`js
+withParams: (str) {
+  _(str)
 }
-_( greet("Ada") ) // "Hi, Ada"
-~~~
+
+withParams("This string gets printed.")
+\`\`\`
 
 ---
-## Truthiness and Equality
-Truthiness is based on a value's "emptiness". The `==` operator is a strict equality check, like JavaScript's `===`.
-~~~js
-// Falsy Values
-0    // the official false
-""   // empty string
-{}   // empty block
-[]   // empty array
--0   // represents null or undefined
 
-// Truthy Values
-!0   // the official true
-4    // any non-zero number
-"hi" // any non-empty string
-~~~
+<div class="blob-container"><div class="blob blob3"></div></div>
 
----
-## Conditionals
-Hi uses ternary-style expressions that select which Block to execute.
-~~~js
-// if
-(condition) ? { /* then */ }
+### Logic & Control Flow
 
-// if / else
-(condition) ? { /* then */ } : { /* else */ }
+#### Truthiness & Falsiness
 
-// The result is the last expression of the chosen block
-message: (isMorning) ? { "Good morning" } : { "Hello" }
-~~~
+*Hi* has a simple but powerful set of rules for what is considered "true" or "false".
 
-Multi-branch conditionals chain naturally.
-~~~js
+-   \`0\` is the official \`false\` value.
+-   \`!0\` (not zero) is the official \`true\` value.
+-   Numbers other than \`0\` are truthy.
+-   Empty strings \`""\`, Blocks \`{}\`, and arrays \`[]\` are falsy. They become truthy once they contain something.
+-   \`-0\` is a special value representing \`null\` or \`undefined\`.
+-   \`==\` provides strict equality, equivalent to JavaScript's \`===\`.
+
+#### Conditionals
+
+Conditional logic uses a syntax inspired by the ternary operator, making \`if\` statements expressions that return values.
+
+\`\`\`js
+// Simple if
+(1 == 1) ? { _("It's true!") }
+
+// If / else
+// The last evaluated expression in a Block is its return value.
+result: (5 > 10) ? { "Five is greater" } : { "Five is not greater" }
+
+_(result) // "Five is not greater"
+\`\`\`
+
+The structure is naturally suited for \`else if\` chains.
+
+\`\`\`js
 score: 85
-grade: (score > 90) ? { "A" }
-     : (score > 80) ? { "B" }
-     :               { "C" }
+
+grade: (score >= 90) ? { "A" }
+     : (score >= 80) ? { "B" }
+     : { "C" }
 
 _(grade) // "B"
-~~~
+\`\`\`
 
 ---
-## Arrays
-Arrays are ordered lists, created with `[]`. Access and mutation use standard bracket notation.
-~~~js
+
+### Data Structures: Arrays
+
+Arrays are ordered lists of values, declared with \`[]\`.
+
+\`\`\`js
 primes: [2, 3, 5, 7]
-firstPrime: primes[0] // Access: 2
-primes[0] = 1          // Mutation
-_(primes)              // [1, 3, 5, 7]
-~~~
+
+// Access elements with zero-based indexing
+firstPrime: primes[0]
+_(firstPrime) // 2
+
+// Mutate elements
+primes[0] = 1
+_(primes) // [1, 3, 5, 7]
+\`\`\`
 
 ---
-## Loops
-A loop header followed by `* { ... }` runs the Block for each iteration. Loop controls are symbolic: `>>` for continue, `^` for break.
-~~~js
-// for (init; test; step)
+
+<div class="blob-container"><div class="blob blob4"></div></div>
+
+### Loops
+
+The \`*\` symbol signifies repetition, creating a loop.
+
+#### For Loops
+
+The syntax is a classic three-part C-style declaration followed by \`*\` and a Block.
+
+\`\`\`js
 (i: 0; i < 3; i = i + 1) * {
-  _(i) // prints 0, 1, 2
+  _("Loop iteration: " + i)
 }
+// Prints 0, 1, 2
+\`\`\`
 
-// while
-(true) * {
-  // ...
-  ^ // break when done
+#### While Loops
+
+For a \`while\` loop, simply provide a condition.
+
+\`\`\`js
+count: 0
+(count < 3) * {
+  _("While loop: " + count)
+  count = count + 1
 }
-~~~
+\`\`\`
 
+#### Loop Control
+
+*Hi* provides symbols to control loop flow:
+
+-   \`>>\` to \`continue\` to the next iteration.
+-   \`^\` to \`break\` out of the loop.
+
+\`\`\`js
+(i: 0; i < 10; i = i + 1) * {
+  (i == 2) ? { >> } // Skip iteration 2
+  (i == 5) ? { ^ }  // Stop when i is 5
+  _("i is " + i)
+}
+// Prints: 0, 1, 3, 4
+\`\`\`
 ---
-## Advanced Example: Closures
-Blocks can create closures, capturing their parent's private state to build powerful patterns like counters.
-~~~js
-makeCounter: {
-  #v: 0
-  { // this inner block is returned
-    inc: { #v = #v + 1; #v }
-    value: { #v }
-  }
-}
-c: makeCounter()
-c.inc()   // returns 1
-c.inc()   // returns 2
-_(c.value()) // prints 2
-~~~
 
----
-## Notes
-- Comments use `//`.
-- Private members (`#x`) are visible only inside their defining Block and any nested Blocks.
-- Hi is in active development. This page will grow with specs, a reference, and a playground. Contributions and feedback are welcome!
-</script>
+### The Road Ahead
 
-<script>
-document.addEventListener('DOMContentLoaded',()=>{
-  const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-  const md=window.markdownit({html:true,linkify:true,typographer:true,breaks:true});
-  const slug=s=>s.toLowerCase().trim().replace(/[^\w\- ]+/g,'').replace(/\s+/g,'-');
-  
-  const rawMd=$('#md')?.textContent||'';
-  const sections=rawMd.split(/\n---\n/);
-  
-  $('#hero').innerHTML=md.render(sections.shift()||'');
-  
-  const docsContent=$('#docs-content');
-  sections.forEach(s=>{
-    const sectionEl=document.createElement('section');
-    sectionEl.className='p-6 sm:p-8 bg-white/50 backdrop-blur-lg border border-gray-200/80 rounded-2xl shadow-sm';
-    sectionEl.innerHTML=md.render(s);
-    docsContent.appendChild(sectionEl);
-  });
-  
-  const heads=$$('#docs-content h2, #docs-content h3');
-  heads.forEach(h=>{
-    const titleText=(h.childNodes[0]?.nodeValue||'').trim();
-    h.id=slug(titleText);h.classList.add('anchor');
-    const a=document.createElement('a');a.href='#'+h.id;a.className='anchor-link';a.innerHTML='#';h.appendChild(a);
-  });
-  
-  $$('#docs-content pre>code').forEach(code=>{
-    window.hljs?.highlightElement(code);
-    const pre=code.parentElement,btn=document.createElement('button'),box=document.createElement('div');
-    btn.className='copy-btn btn';btn.textContent='Copy';
-    btn.onclick=async()=>{try{await navigator.clipboard.writeText(code.innerText);btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1200)}catch(e){}};
-    box.className='code-actions';box.append(btn);pre.appendChild(box);
-  });
-  
-  const nav=$('#sideNav'),frag=document.createDocumentFragment();
-  heads.forEach(h=>{
-    if(h.tagName!=='H2')return;
-    const a=document.createElement('a'),title=(h.childNodes[0]?.nodeValue||'').trim();
-    a.href='#'+h.id;a.className='block px-3 py-1.5 rounded-lg hover:bg-gray-100 text-gray-700 font-medium';a.textContent=title;frag.appendChild(a);
-  });
-  nav.appendChild(frag);
-
-  const links=$$('#sideNav a');
-  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(L=>L.classList.toggle('bg-gray-200/80',L.getAttribute('href')===id))}})},{rootMargin:'-80px 0px -60% 0px'});
-  heads.forEach(h=>io.observe(h));
-  
-  const overlay=$('#sidebarOverlay'),sidebar=$('#sidebar'),toggleSidebar=v=>{
-    const isOpen=v??!overlay.classList.contains('hidden');
-    overlay.classList.toggle('hidden',!isOpen);
-    sidebar.classList.toggle('-translate-x-full',!isOpen);
-  };
-  $('#menuBtn')?.addEventListener('click',()=>toggleSidebar(true));
-  overlay?.addEventListener('click',()=>toggleSidebar(false));
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleSidebar(false)});
-  links.forEach(l=>l.addEventListener('click',()=>window.innerWidth<1024&&toggleSidebar(false)));
-});
+*Hi* is in its early stages of development. The core concepts are taking shape, but there is much more to build and refine. This page will be updated as the language evolves. Thank you for taking a look.
+`;
+const md=window.markdownit({html:!0,highlight:(s,l)=>{if(l&&hljs.getLanguage(l))try{return hljs.highlight(s,{language:l,ignoreIllegals:!0}).value}catch(e){}return esc(s)}});
+contentEl.innerHTML=md.render(mdContent);
+lucide.createIcons();
+const toggle=()=>{sidebar.classList.toggle('-translate-x-full');overlay.classList.toggle('hidden')};
+sidebarBtn.onclick=toggle;overlay.onclick=toggle;
+})
 </script>
 </body>
 </html>
