@@ -1,200 +1,215 @@
-<!doctype html>
-<html lang="en">
+<!doctype html><html lang=en>
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>Hi Language — Symbolic, World‑First</title>
-
-<!-- Tailwind (for layout/spacing/utility) -->
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- GitHub Markdown skin + HLJS GitHub theme -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css"/>
-
+<meta name=viewport content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset=utf-8>
+<title>Hi Language</title>
+<link rel=preconnect href=https://cdn.jsdelivr.net>
+<script src=https://cdn.tailwindcss.com></script>
+<link rel=stylesheet href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">
+<link rel=stylesheet href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css">
 <style>
-:root{color-scheme:light}
-html,body{height:100%}
-.no-scrollbar::-webkit-scrollbar{display:none}
-.no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
-.markdown-body{font-size:16px;line-height:1.65}
-.markdown-body :is(h1,h2,h3){scroll-margin-top:84px}
+:root{--sbw:18rem}
+*{scroll-behavior:smooth}
+.markdown-body{font-size:16px;line-height:1.7}
 .markdown-body pre{overflow:auto}
-.copy-btn{position:absolute;top:.5rem;right:.5rem;font-size:.75rem;padding:.25rem .5rem;border-radius:.5rem;background:#0f172a;color:#fff;opacity:.9}
-.copy-btn:hover{opacity:1}
-.toc-link{display:block;padding:.5rem .75rem;border-radius:.75rem}
-.toc-link:hover{background:#f3f4f6}
-.toc-active{background:#eef2ff}
-.brand-dot{display:inline-flex;align-items:center;justify-content:center;height:28px;width:28px;border-radius:9999px;background:#0f172a;color:#fff}
-header{backdrop-filter:saturate(180%) blur(8px)}
-@media (min-width:1024px){
-  #contentWrap{grid-template-columns: 280px 1fr}
-  #sidebarLeft{position:sticky;top:64px;height:calc(100dvh - 64px);transform:none!important}
-  #sidebarOverlay{display:none!important}
-}
+.markdown-body code:not(pre code){background:rgba(175,184,193,.2);padding:.2em .4em;border-radius:6px}
+.no-scrollbar::-webkit-scrollbar{display:none}.no-scrollbar{scrollbar-width:none}
+.btn{transition:.15s transform}
+.btn:active{transform:scale(.98)}
+.anchor{scroll-margin-top:76px}
+.menu-card{position:fixed;z-index:60;min-width:12rem;border-radius:.75rem;border:1px solid #e5e7eb;background:#fff;box-shadow:0 10px 20px rgba(0,0,0,.08)}
+.code-actions{position:absolute;top:.5rem;right:.5rem;display:flex;gap:.5rem;align-items:center}
+.copy-btn{background:#0f172a;color:#fff;border-radius:.5rem;padding:.2rem .5rem;font-size:.75rem;opacity:.9}
+.char-c{font-size:.75rem;color:#64748b}
+pre{position:relative;border:1px solid #e5e7eb;border-radius:.75rem}
+@media (min-width:1024px){.lg\:grid-cols-layout{grid-template-columns:var(--sbw) 1fr}}
 </style>
+<script defer src="https://cdn.jsdelivr.net/npm/cash-dom/dist/cash.min.js"></script>
+<script defer src="https://unpkg.com/alpinejs" ></script>
+</head>
+<body class="bg-white text-gray-900 selection:bg-black/10" x-data="{left:false}" @keydown.window.escape="left=false">
+<header class="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-gray-200">
+  <div class="mx-auto w-full px-4 py-3 grid grid-cols-3 items-center">
+    <button class="h-9 w-9 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center btn" title="Menu" @click="left=true"><i data-lucide=panel-left class="h-5 w-5"></i></button>
+    <div class="justify-self-center text-base font-semibold select-none pointer-events-none">Hi</div>
+    <div class="justify-self-end"></div>
+  </div>
+</header>
 
-<!-- Alpine + Lucide + MarkdownIt + HLJS -->
-<script defer src="https://unpkg.com/alpinejs"></script>
+<div class="grid lg:grid-cols-layout">
+  <aside class="hidden lg:block border-r border-gray-200 min-h-[calc(100dvh-56px)]">
+    <div class="p-3 border-b flex items-center gap-2"><span class="h-7 w-7 rounded-full bg-gray-900 text-white inline-flex items-center justify-center">✺</span><span class="font-medium truncate">Hi</span></div>
+    <nav id="sideNav" class="p-2 text-sm no-scrollbar overflow-y-auto max-h-[calc(100dvh-56px-49px)] space-y-1"></nav>
+  </aside>
+
+  <main class="min-h-[calc(100dvh-56px)] overflow-y-auto no-scrollbar">
+    <section id="hero" class="px-6 sm:px-8 py-10 border-b">
+      <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Hi — a corely symbolic language</h1>
+        <p class="mt-3 text-gray-600">Inspired by JavaScript. Few keywords, many symbols. Designed so the core reads naturally across languages, for the whole world.</p>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <a href="#hello" class="px-3 py-1.5 rounded-full bg-gray-900 text-white text-sm btn">Get started</a>
+          <a href="https://github.com/hi-language" class="px-3 py-1.5 rounded-full bg-gray-100 hover:bg-gray-200 text-sm btn" target=_blank rel=noopener><i data-lucide=github class="h-4 w-4 inline -mt-0.5 mr-1"></i>GitHub</a>
+        </div>
+      </div>
+    </section>
+    <section id="suneHtml" class="px-6 sm:px-8 py-8"></section>
+  </main>
+</div>
+
+<!-- Mobile left sidebar -->
+<div class="fixed inset-0 z-40 bg-black/30 transition-opacity" :class="left?'opacity-100':'opacity-0 pointer-events-none'" @click="left=false"></div>
+<aside class="fixed inset-y-0 left-0 z-50 w-[min(85vw,var(--sbw))] max-w-[85vw] bg-white border-r border-gray-200 shadow-xl transform transition-transform duration-200 ease-out" :class="left?'translate-x-0':'-translate-x-full'">
+  <div class="p-3 border-b flex items-center gap-2"><span class="h-7 w-7 rounded-full bg-gray-900 text-white inline-flex items-center justify-center">✺</span><span class="font-medium truncate">Hi</span></div>
+  <nav id="sideNavMobile" class="p-2 text-sm overflow-y-auto no-scrollbar"></nav>
+</aside>
+
 <script src="https://unpkg.com/lucide@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
-</head>
-<body class="bg-white text-gray-900 selection:bg-black/10" x-data="{open:false}" @keydown.escape="open=false">
-  <!-- Topbar -->
-  <header class="sticky top-0 z-20 bg-white/85 border-b border-gray-200">
-    <div class="mx-auto max-w-6xl px-4 py-3 grid grid-cols-3 items-center">
-      <button class="h-8 w-8 rounded-xl bg-gray-100 hover:bg-gray-200 active:scale-[.99] transition flex items-center justify-center"
-              title="Menu" @click="open=true">
-        <i data-lucide="panel-left" class="h-5 w-5"></i>
-      </button>
-      <div class="justify-self-center text-base font-semibold tracking-tight select-none pointer-events-none">Hi</div>
-      <div class="justify-self-end"></div>
-    </div>
-  </header>
 
-  <!-- Content -->
-  <div id="contentWrap" class="mx-auto max-w-6xl lg:grid relative">
-    <!-- Left sidebar -->
-    <aside id="sidebarLeft" class="fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] bg-white border-r border-gray-200 shadow-xl transform -translate-x-full transition-transform duration-200 ease-out lg:static lg:shadow-none lg:w-auto">
-      <div class="p-3 border-b flex items-center gap-3">
-        <span class="brand-dot">✺</span>
-        <div class="min-w-0">
-          <div class="text-sm font-semibold truncate">Hi</div>
-          <div class="text-xs text-gray-500 truncate">A symbolic language for everyone</div>
-        </div>
-      </div>
-      <nav id="toc" class="p-2 overflow-y-auto no-scrollbar space-y-1 text-sm"></nav>
-      <div class="p-3 border-t text-xs text-gray-500">
-        <span>Still in development — more coming soon.</span>
-      </div>
-    </aside>
-    <div id="sidebarOverlay" class="fixed inset-0 z-40 bg-black/20 hidden" :class="open?'':'hidden'" @click="open=false"></div>
-    <script>
-      document.addEventListener('alpine:init',()=>{Alpine.effect(()=>{const a=document.getElementById('sidebarLeft');if(!a)return;a.style.transform=Alpine.store('open')?'translateX(0)':''})})
-    </script>
-
-    <!-- Main -->
-    <main id="main" class="min-h-[calc(100dvh-64px)]">
-      <section id="suneHtml" class="markdown-body px-4 sm:px-6 lg:px-10 py-8"></section>
-    </main>
-  </div>
-
-<script>
-document.addEventListener('DOMContentLoaded',()=>{
-
-  const md = window.markdownit({html:false,linkify:true,typographer:true,breaks:true})
-  const slug = s=>s.toLowerCase().trim()
-    .replace(/["'’]/g,'')
-    .replace(/&/g,' and ')
-    .replace(/[^a-z0-9]+/g,'-')
-    .replace(/^-+|-+$/g,'')||'sec'
-  const $ = s=>document.querySelector(s)
-  const $$ = s=>[...document.querySelectorAll(s)]
-  const icons = ()=>window.lucide&&lucide.createIcons()
-
-  const DOC = String.raw`
+<!-- Author the docs below in Markdown; use ~~~ fences to avoid breaking outer code-block -->
+<script id=md type="text/markdown">
 # Hi
-A new, symbolic programming language inspired by JavaScript — but with a "corely" symbolic design. Fewer keywords, more universal symbols. Hi aims to be approachable worldwide.
 
-> Tip: All code snippets below use JavaScript syntax highlighting while Hi is still evolving.
+Meet Hi — a corely symbolic language inspired by JavaScript.
+It keeps the core mostly symbols and uses keywords only where they’re truly practical.
 
-## Hello, world
-\`\`\`js
-// This is hello world in Hi
+- Minimal surface: prefer symbols over words.
+- Blocks are both objects and functions.
+- Privacy with `#private` members.
+- Boolean is truthiness by value (see below).
+
+> Print helper: `_()` writes to the console.
+
+## Hello, world {#hello}
+
+~~~js
+// Hello World in Hi
 _("Hi world")
-\`\`\`
+~~~
 
-## Symbols you’ll meet first
-- \`: \` declaration
-- \`= \` assignment
-- \`{ ... }\` a Block (both object and function)
-- \`#name\` private field in a Block
-- \`_("...")\` print (show text)
-- \`? :\` conditional (blocks return last value)
-- \`* { ... }\` loop body
-- \`>>\` continue, \`^\` break
+## Declarations and Assignment {#decl}
 
-Blocks are always both an object and a function. They can hold properties and executable code at once.
+- `:` declares a name.
+- `=` assigns or mutates a value.
 
-## Blocks
+~~~js
+greeting: "Hi"
+name: "Orion"
+greeting = greeting + ", " + name
+_(greeting) // "Hi, Orion"
+~~~
+
+## Blocks (object + function in one) {#blocks}
+
+In Hi, `{}` is a Block. It can hold properties and executable code.
+A Block is both an “object” and a “function” at the same time.
+
 ### Function Block
-\`\`\`js
+
+~~~js
 sayHi: {
   _("Hi")
 }
-sayHi()       // call the Block like a function
-\`\`\`
+sayHi() // invokes the block
+~~~
 
 ### Object Block
-\`\`\`js
+
+Public vs private fields; `#` marks private members.
+
+~~~js
 player: {
-  name: "Orion" // public
-  #hp: 100       // private
+  name: "Orion"  // public
+  #hp: 100        // private
 }
-_(player.name)   // "Orion"
-\`\`\`
+_(player.name)     // "Orion"
+// _(player.#hp)   // error: private
+~~~
 
 ### Hybrid Block
-\`\`\`js
+
+Blocks can expose methods and hold private state.
+
+~~~js
 counter: {
   #value: 0
   inc: {
-    value = value + 1
-    _("The count is now: " + value)
+    #value = #value + 1
+    _("The count is now: " + #value)
+    #value           // last expression returns
   }
 }
 
-counter.inc()  // The count is now: 1
-counter.inc()  // The count is now: 2
-\`\`\`
+counter.inc() // "The count is now: 1"
+counter.inc() // "The count is now: 2"
+~~~
 
-### Parameters
-\`\`\`js
+### Parameters and returns
+
+- Parameters use `(name, ...)` before the Block.
+- Like Rust, the last expression is returned (no `return` keyword).
+
+~~~js
 withParams: (str) {
   _(str)
+  str // returned
 }
-withParams("Hola") // prints Hola
-\`\`\`
 
-## Truthiness and equality
-Hi emphasizes clear truthiness:
-\`\`\`js
-0    // falsy (official false)
-!0   // truthy (official true)
+add: (a, b) { a + b }
+_( add(2, 3) ) // 5
+~~~
+
+## Truthiness and Equality {#truth}
+
+Truthiness is value-based:
+
+~~~js
+0    // falsy (the official false)
+!0   // truthy (the official true)
 4    // truthy
-""   // falsy  (truthy if non-empty)
-{}   // falsy  (truthy if contains fields or code ran)
-[]   // falsy  (truthy if non-empty)
--0   // falsy / null / undefined equivalent-ish in Hi's model
+""   // falsy (truthy if non-empty)
+{}   // falsy (truthy if it has content)
+[]   // falsy (truthy if it has content)
+-0   // falsy / null / undefined (represents “empty”)
+~~~
 
-// Equality is simple:
-==   // equivalent to JS ===
-\`\`\`
+Equality:
 
-## Conditionals
-Blocks return their last value (like Rust expressions).
-\`\`\`js
+~~~js
+==  // equivalent to JS ===
+~~~
+
+## Conditionals (ternary-style Blocks) {#conds}
+
+A conditional is an expression that selects a Block.
+
+~~~js
 // if
-(cond) ? { _("yes") }
+(cond) ? { /* then */ }
 
 // if / else
-(cond) ? { _("yes") } : { _("no") }
+(cond) ? { /* then */ } : { /* else */ }
 
-// as an expression
+// expression result is the last Block’s last expression
 tern: (cond) ? { "A" } : { "B" }
-_(tern) // prints A or B
+~~~
 
-// else-if chain
+Multi-branch:
+
+~~~js
 score: 85
 grade: (score > 90) ? { "A" }
      : (score > 80) ? { "B" }
-     :                 { "C" }
-_(grade) // "B"
-\`\`\`
+     :               { "C" }
 
-## Arrays
-\`\`\`js
+_(grade) // "B"
+~~~
+
+## Arrays {#arrays}
+
+~~~js
 primes: [2, 3, 5, 7]
 
 // Access
@@ -202,155 +217,134 @@ firstPrime: primes[0]
 
 // Mutation
 primes[0] = 1
-_(primes)  // [1, 3, 5, 7]
-\`\`\`
+_(primes) // [1, 3, 5, 7]
+~~~
 
-## Loops
-Use \`* { ... }\` after a loop header. \`>>\` continues, \`^\` breaks.
-\`\`\`js
-// for
+## Loops {#loops}
+
+`* { ... }` after a loop header runs the Block each iteration.
+
+~~~js
+// for (init; test; step)
 (i: 0; i < 5; i = i + 1) * {
   _(i)
-  (i == 2) ? { >> } // continue at i==2 (skip rest)
 }
 
 // while
-(done: !0) * {
-  // ...
-  ^ // break
-}
-\`\`\`
-
-## Putting it together
-Here are a few small programs that connect the dots.
-
-### FizzBuzz
-\`\`\`js
-fizzbuzz: (n) {
-  (n % 15 == 0) ? { "FizzBuzz" }
-: (n %  3 == 0) ? { "Fizz" }
-: (n %  5 == 0) ? { "Buzz" }
-:                 { n }
+(!0) * {
+  // do something forever...
+  ^ // break when done
 }
 
-(i: 1; i <= 16; i = i + 1) * {
-  _( fizzbuzz(i) )
+// Controls
+>>  // continue
+^   // break
+~~~
+
+## Bridging examples {#bridge}
+
+Closures over private state:
+
+~~~js
+makeCounter: {
+  #v: 0
+  {
+    inc: { #v = #v + 1; #v }
+    value: { #v }
+  }
 }
-\`\`\`
 
-### A tiny accumulator
-\`\`\`js
-acc: {
-  #sum: 0
-  add: (x) { sum = sum + x }
-  get: { sum }
+c: makeCounter()
+c.inc()   // 1
+c.inc()   // 2
+c.value() // 2
+~~~
+
+Tiny program with input and branching:
+
+~~~js
+welcome: (name) {
+  msg: (name && name != "") ? { "Hi, " + name + "!" } : { "Hi!" }
+  _(msg)
+  msg
 }
 
-acc.add(6)
-acc.add(7)
-_( acc.get() ) // 13
-\`\`\`
+welcome("Ada") // "Hi, Ada!"
+welcome("")    // "Hi!"
+~~~
 
-### Recursive example
-\`\`\`js
-fib: (n) {
-  (n < 2) ? { n } : { fib(n-1) + fib(n-2) }
-}
-_( fib(6) ) // 8
-\`\`\`
+## Notes {#notes}
 
-## Design philosophy
-Hi keeps its core "mostly symbols" to be friendlier across languages and writing systems. Keywords appear where they’re practical; everywhere else, symbols do the heavy lifting. The goal: an approachable, expressive language for the whole world.
+- Comments use `//`.
+- Strings are `"..."`.
+- Blocks return their last expression.
+- Private members (`#x`) are visible only inside their Block (and nested Blocks that resolve to it).
 
-—
+---
 
-Hi is in active development. Expect changes, clarifications, and more features, examples, and tooling soon. Stay tuned!
-`
+Hi is still in active development. This page will grow with specs, a reference, and a playground. Contributions and feedback are welcome!
+</script>
 
-  // Render docs
-  const root = $('#suneHtml')
-  root.innerHTML = md.render(DOC)
-
-  // Add ids to headings + build TOC
-  const heads = $$('h1, h2, h3', root) // query relative later
-  const tocEl = $('#toc')
-  const items=[]
-  $$('#suneHtml h1, #suneHtml h2, #suneHtml h3').forEach(h=>{
-    const level = +h.tagName.slice(1)
-    const id = h.id || slug(h.textContent||'')
-    h.id = id
-    // small anchor
-    const a=document.createElement('a')
-    a.href = '#'+id
-    a.className='ml-2 align-middle text-gray-300 hover:text-gray-500'
-    a.innerHTML = '<svg data-lucide="link-2" class="inline h-3.5 w-3.5"></svg>'
-    h.appendChild(a)
-
-    if(level<=3 && level>=1){
-      items.push({id,level,text:h.textContent.replace(/\s*$/,'')})
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)]
+  const md=window.markdownit({html:false,linkify:true,typographer:true,breaks:false})
+  const icons=()=>window.lucide&&lucide.createIcons()
+  const slug=s=>s.toLowerCase().trim().replace(/[^\w\- ]+/g,'').replace(/\s+/g,'-')
+  const render=()=>{
+    const src=$('#md')?.textContent||''
+    const html=md.render(src)
+    const root=$('#suneHtml')
+    root.className='markdown-body max-w-3xl mx-auto'
+    root.innerHTML=html
+    // add anchors + ids
+    $$('#suneHtml h2, #suneHtml h3').forEach(h=>{
+      if(!h.id){h.id=slug(h.textContent)}
+      h.classList.add('anchor')
+      const a=document.createElement('a');a.href='#'+h.id;a.className='ml-2 text-gray-300 hover:text-gray-500 align-middle';a.innerHTML='#';h.appendChild(a)
+    })
+    // highlight + copy buttons
+    document.querySelectorAll('#suneHtml pre>code').forEach(code=>{
+      hljs.highlightElement(code)
+      const pre=code.parentElement, t=code.textContent||'', btn=document.createElement('button'), meta=document.createElement('span'), box=document.createElement('div')
+      btn.className='copy-btn';btn.textContent='Copy'
+      btn.onclick=async e=>{e.stopPropagation();try{await navigator.clipboard.writeText(code.innerText);btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1100)}catch{}}
+      meta.className='char-c';meta.textContent=(t.length>=1e3?(t.length/1e3).toFixed(1)+'K':t.length)+' chars'
+      box.className='code-actions'
+      box.append(meta,btn);pre.appendChild(box)
+    })
+    buildNav()
+    icons()
+  }
+  const buildNav=()=>{
+    const heads=$$('#suneHtml h2,h3'), list=sec=>{
+      const nav=sec?$('#sideNavMobile'):$('#sideNav');if(!nav)return;nav.innerHTML=''
+      const ul=document.createElement('div')
+      heads.forEach(h=>{
+        const lvl=h.tagName==='H2'?0:1
+        const a=document.createElement('a')
+        a.href='#'+h.id
+        a.className=(lvl? 'pl-6 ':'')+'block px-2 py-1 rounded-lg hover:bg-gray-100 text-gray-700'
+        a.textContent=h.textContent.replace('#','').trim()
+        ul.appendChild(a)
+      })
+      nav.appendChild(ul)
+      // scroll spy
+      const links=[...ul.querySelectorAll('a')]
+      const io=new IntersectionObserver(es=>{
+        es.forEach(e=>{
+          if(e.isIntersecting){
+            const id='#'+e.target.id
+            links.forEach(L=>L.classList.toggle('bg-gray-100 font-medium',L.getAttribute('href')===id))
+          }
+        })
+      },{rootMargin:'-50% 0px -40% 0px',threshold:[0,1]})
+      $$('#suneHtml h2, #suneHtml h3').forEach(h=>io.observe(h))
+      links.forEach(L=>L.addEventListener('click',()=>{if(window.innerWidth<1024){document.body.__x?.$data.left=false}}))
     }
-  })
-
-  tocEl.innerHTML = [
-    '<div class="px-3 py-2 text-xs font-medium text-gray-500 uppercase tracking-wide">Contents</div>',
-    ...items.map(x=>{
-      const pad = x.level===1?'pl-3':x.level===2?'pl-5':'pl-8'
-      return `<a class="toc-link ${pad}" href="#${x.id}" data-id="${x.id}">${x.text}</a>`
-    })
-  ].join('')
-
-  // Scroll handling
-  tocEl.addEventListener('click',e=>{
-    const a=e.target.closest('a[href^="#"]'); if(!a) return
-    e.preventDefault()
-    const id=a.getAttribute('href').slice(1)
-    const el=document.getElementById(id); if(!el) return
-    window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-72,behavior:'smooth'})
-    const overlay=$("#sidebarOverlay"); if(getComputedStyle(overlay).display!=='none') document.body.__x?.$data.open=false
-  })
-
-  // Scrollspy
-  const links = $$('#toc .toc-link')
-  const map = Object.fromEntries(links.map(a=>[a.dataset.id,a]))
-  const io = new IntersectionObserver(es=>{
-    es.forEach(({isIntersecting, target})=>{
-      if(!isIntersecting) return
-      const id=target.id; if(map[id]){
-        links.forEach(l=>l.classList.remove('toc-active'))
-        map[id].classList.add('toc-active')
-      }
-    })
-  },{rootMargin:'-60px 0px -70% 0px',threshold:1e-3})
-  $$('#suneHtml h1, #suneHtml h2').forEach(h=>io.observe(h))
-
-  // Highlight + small copy buttons
-  hljs.highlightAll()
-  $$('#suneHtml pre>code').forEach(code=>{
-    const pre=code.parentElement
-    pre.style.position='relative'
-    const btn=document.createElement('button')
-    btn.className='copy-btn'
-    btn.innerHTML='<svg data-lucide="copy" class="inline h-3.5 w-3.5 mr-1 -mt-0.5"></svg>Copy'
-    btn.addEventListener('click',async e=>{
-      e.stopPropagation()
-      try{
-        await navigator.clipboard.writeText(code.innerText)
-        btn.innerHTML='<svg data-lucide="check" class="inline h-3.5 w-3.5 mr-1 -mt-0.5"></svg>Copied'
-        icons(); setTimeout(()=>{btn.innerHTML='<svg data-lucide="copy" class="inline h-3.5 w-3.5 mr-1 -mt-0.5"></svg>Copy'; icons()},1200)
-      }catch{}
-    })
-    pre.appendChild(btn)
-  })
-
-  // Sidebar toggle (Alpine) for mobile
-  const side=$("#sidebarLeft"), overlay=$("#sidebarOverlay")
-  const open=()=>{side.classList.remove('-translate-x-full');overlay.classList.remove('hidden')}
-  const close=()=>{side.classList.add('-translate-x-full');overlay.classList.add('hidden')}
-  document.querySelector('button[title="Menu"]').addEventListener('click',open,{passive:true})
-  overlay.addEventListener('click',close,{passive:true})
-
-  // Icons
-  icons()
+    list(false);list(true)
+  }
+  render()
 })
 </script>
 </body>
