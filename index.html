@@ -10,7 +10,7 @@
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Markdown & Highlighting Styles -->
@@ -155,6 +155,25 @@ greet: (name) {
   _("Hi, " + name)
 }
 greet("Orion")
+\`\`\`
+
+## Arrow Blocks
+
+To enhance conciseness, Hi adopts the \`=>\` ("fat arrow") from JavaScript for single-expression blocks. This provides a shorthand for a block that immediately returns the value of its expression, perfect for callbacks and functional patterns.
+
+It's a direct replacement for \`(params) { ^ expression }\`.
+
+\`\`\`javascript
+// Standard block
+add: (a, b) { ^ a + b }
+
+// Equivalent Arrow Block
+add: (a, b) => a + b
+
+// Useful for functional helpers
+numbers: [1, 2, 3]
+doubled: numbers.map((n) => n * 2)
+_(doubled) // [2, 4, 6]
 \`\`\`
 
 ## Booleans and Equality
