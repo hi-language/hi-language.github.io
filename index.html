@@ -119,7 +119,10 @@ sayHi() // Invokes the block
 A Block with named properties is an object. A \`#\` prefix denotes a private property, inaccessible from outside the block's scope.
 
 \`\`\`javascript
-player: { name: "Orion"; #hp: 100 }
+player: {
+  name: "Orion" // Public property
+  #hp: 100       // Private property
+}
 _(player.name) // "Orion"
 \`\`\`
 
@@ -144,9 +147,9 @@ greet: (name) { _("Hi, " + name) }
 greet("Orion")
 \`\`\`
 
-## Arrow Blocks
+## Arrow Expressions
 
-To enhance conciseness, Hi adopts the \`=>\` ("fat arrow") from JavaScript for single-expression blocks. This provides a shorthand for a block that immediately returns the value of its expression, perfect for callbacks and functional patterns.
+For concise single-expression functions, Hi provides the \`=>\` arrow syntax, inspired by JavaScript. It serves as a shorthand for a Block that immediately returns an expression, making it ideal for callbacks and functional patterns.
 
 It's a direct replacement for \`(params) { ^ expression }\`.
 
@@ -154,7 +157,7 @@ It's a direct replacement for \`(params) { ^ expression }\`.
 // Standard block
 add: (a, b) { ^ a + b }
 
-// Equivalent Arrow Block
+// Equivalent Arrow Expression
 add: (a, b) => a + b
 
 // Useful for functional helpers
@@ -260,7 +263,7 @@ active: !0
 
 ## Imports
 
-Modules are imported using the \`+\` and \`->\` operators. This allows for destructuring and aliasing of imported members.
+Modules are imported using the \`+\` and \`->\` operators. This allows for destructuring and aliasing of imported members. Placing the module source first allows development tools to provide immediate, context-aware autocompletion for the members being imported—a direct ergonomic improvement over JavaScript's syntax.
 
 \`\`\`javascript
 // Import 'block1' and 'block2' (as 'alias2') from a module
