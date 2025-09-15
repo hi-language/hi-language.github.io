@@ -49,7 +49,7 @@
         .markdown-body code {
             font-family: 'JetBrains Mono', monospace;
             font-size: 13px;
-            font-variant-ligatures: none; /* Your requested change, Master */
+            font-variant-ligatures: none;
         }
         :not(pre) > code {
             font-size: 85%;
@@ -137,15 +137,12 @@ counter: {
 
   inc: {
     value = value + 1 // Mutates parent's private state
-  }
-  
-  get: {
-    ^ value // The last expression is returned, use ^ to be explicit
+    _("The count is now: " + value)
   }
 }
 
-counter.inc()
-_(counter.get()) // Prints 1
+counter.inc() // Prints "The count is now: 1"
+counter.inc() // Prints "The count is now: 2"
 \`\`\`
 
 ### Blocks with Parameters
