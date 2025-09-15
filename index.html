@@ -1,95 +1,73 @@
-<!doctype html><html lang=en>
+<!doctype html><html lang="en" class="scroll-smooth">
 <head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hi Language</title>
-<link rel=preconnect href=https://cdn.jsdelivr.net>
-<script src=https://cdn.tailwindcss.com></script>
-<link rel=stylesheet href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">
-<link rel=stylesheet href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css">
 <style>
-:root{--sbw:18rem}
-*{scroll-behavior:smooth}
-.markdown-body{font-size:16px;line-height:1.7}
+.blob{position:absolute;border-radius:9999px;opacity:.15;filter:blur(100px);z-index:-1}
+.markdown-body{background:none;font-size:16px;line-height:1.7}
 .markdown-body pre{overflow:auto}
-.markdown-body code:not(pre code){background:rgba(175,184,193,.2);padding:.2em .4em;border-radius:6px}
+.markdown-body code:not(pre code){background:rgba(175,184,193,.2);padding:.2em .4em;margin:0 2px;border-radius:6px}
 .no-scrollbar::-webkit-scrollbar{display:none}.no-scrollbar{scrollbar-width:none}
 .btn{transition:.15s transform}.btn:active{transform:scale(.98)}
-.anchor{scroll-margin-top:76px}
+.anchor{scroll-margin-top:80px}
 pre{position:relative;border:1px solid #e5e7eb;border-radius:.75rem}
-.code-actions{position:absolute;top:.5rem;right:.5rem;display:flex;gap:.5rem;align-items:center}
-.copy-btn{background:#0f172a;color:#fff;border-radius:.5rem;padding:.2rem .5rem;font-size:.75rem;opacity:.9}
-.char-c{font-size:.75rem;color:#64748b}
-@media (max-width:480px){.char-c{display:none}}
-.anchor-link{margin-left:.5rem;color:#9ca3af;text-decoration:none}
-.anchor-link:hover{color:#6b7280}
-@media (min-width:1024px){.lg\:grid-cols-layout{grid-template-columns:var(--sbw) 1fr}}
+.code-actions{position:absolute;top:.5rem;right:.5rem;display:flex;gap:.5rem;align-items:center;opacity:0;transition:opacity .2s ease-in-out}
+pre:hover .code-actions{opacity:1}
+.copy-btn{background:#0f172a;color:#fff;border-radius:.5rem;padding:.2rem .5rem;font-size:.75rem}
+.anchor-link{margin-left:.5rem;color:#9ca3af;text-decoration:none;opacity:0;transition:opacity .2s ease-in-out}.anchor:hover .anchor-link{opacity:1}
 </style>
 </head>
-<body class="bg-white text-gray-900 selection:bg-black/10">
-<header class="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-gray-200">
-  <div class="mx-auto w-full px-4 py-3 grid grid-cols-3 items-center">
-    <button id=menuBtn class="h-9 w-9 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center btn" title="Menu"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+<body class="bg-gray-50 text-gray-900 selection:bg-black/10 antialiased">
+<div class="fixed inset-0 -z-10 overflow-hidden">
+  <div class="blob w-[50vw] h-[50vw] max-w-lg max-h-lg bg-cyan-400 top-0 left-0 -translate-x-1/4"></div>
+  <div class="blob w-[60vw] h-[60vw] max-w-xl max-h-xl bg-purple-400 bottom-0 right-0 translate-x-1/4 translate-y-1/4"></div>
+</div>
+<header class="sticky top-0 z-20 bg-white/80 backdrop-blur border-b border-gray-200">
+  <div class="mx-auto max-w-5xl px-4 py-3 grid grid-cols-3 items-center">
+    <button id="menuBtn" class="h-9 w-9 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center btn lg:hidden" title="Menu"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <div class="justify-self-start hidden lg:block"></div>
     <div class="justify-self-center text-base font-semibold select-none pointer-events-none">Hi</div>
-    <div class="justify-self-end"></div>
+    <div class="justify-self-end"><a href="https://github.com/hi-language" class="h-9 w-9 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center btn" target="_blank" rel="noopener" title="GitHub"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A12 12 0 0 0 0 12.64a12.15 12.15 0 0 0 8.2 11.55c.6.11.82-.27.82-.6v-2.17c-3.34.74-4.05-1.65-4.05-1.65a3.29 3.29 0 0 0-1.36-1.82c-1.1-.78.09-.77.09-.77a2.6 2.6 0 0 1 1.89 1.29 2.64 2.64 0 0 0 3.61 1 2.66 2.66 0 0 1 .78-1.65c-2.67-.31-5.47-1.36-5.47-6.06A4.8 4.8 0 0 1 6 7.57a4.45 4.45 0 0 1 .12-3.29s1-.33 3.3 1.26a11.39 11.39 0 0 1 6 0c2.3-1.59 3.3-1.26 3.3-1.26.44 1.03.48 2.2.12 3.29a4.79 4.79 0 0 1 1.27 3.32c0 4.72-2.8 5.75-5.47 6.06a2.97 2.97 0 0 1 .84 2.31v3.43c0 .34.22.73.83.6A12.16 12.16 0 0 0 24 12.64 12 12 0 0 0 12 .5Z"/></svg></a></div>
   </div>
 </header>
 
-<div class="grid lg:grid-cols-layout">
-  <aside class="hidden lg:block border-r border-gray-200 min-h-[calc(100dvh-56px)]">
-    <div class="p-3 border-b flex items-center gap-2"><span class="h-7 w-7 rounded-full bg-gray-900 text-white inline-flex items-center justify-center">✺</span><span class="font-medium truncate">Hi</span></div>
-    <nav id="sideNav" class="p-2 text-sm no-scrollbar overflow-y-auto max-h-[calc(100dvh-56px-49px)] space-y-1"></nav>
+<div class="max-w-5xl mx-auto flex">
+  <aside id="sidebar" class="fixed lg:sticky top-0 lg:top-16 h-dvh lg:h-auto z-50 w-64 max-w-[85vw] bg-white lg:bg-transparent border-r lg:border-none border-gray-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-out flex-shrink-0">
+    <div class="p-3 border-b flex items-center gap-2 lg:hidden"><span class="h-7 w-7 rounded-full bg-gray-900 text-white inline-flex items-center justify-center">✺</span><span class="font-medium truncate">Hi Language Docs</span></div>
+    <nav id="sideNav" class="flex-1 p-4 text-sm no-scrollbar overflow-y-auto space-y-2"></nav>
   </aside>
 
-  <main class="min-h-[calc(100dvh-56px)] overflow-y-auto no-scrollbar">
-    <section id="hero" class="px-6 sm:px-8 py-10 border-b">
-      <div class="max-w-3xl mx-auto">
-        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Hi — a corely symbolic language</h1>
-        <p class="mt-3 text-gray-600">Inspired by JavaScript. Few keywords, many symbols. Designed so the core reads naturally across languages, for the whole world.</p>
-        <div class="mt-4 flex flex-wrap gap-2">
-          <a href="#hello-world" class="px-3 py-1.5 rounded-full bg-gray-900 text-white text-sm btn">Get started</a>
-          <a href="https://github.com/hi-language" class="px-3 py-1.5 rounded-full bg-gray-100 hover:bg-gray-200 text-sm btn" target=_blank rel=noopener><svg xmlns="http://www.w3.org/2000/svg" class="inline -mt-0.5 mr-1" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A12 12 0 0 0 0 12.64a12.15 12.15 0 0 0 8.2 11.55c.6.11.82-.27.82-.6v-2.17c-3.34.74-4.05-1.65-4.05-1.65a3.29 3.29 0 0 0-1.36-1.82c-1.1-.78.09-.77.09-.77a2.6 2.6 0 0 1 1.89 1.29 2.64 2.64 0 0 0 3.61 1 2.66 2.66 0 0 1 .78-1.65c-2.67-.31-5.47-1.36-5.47-6.06A4.8 4.8 0 0 1 6 7.57a4.45 4.45 0 0 1 .12-3.29s1-.33 3.3 1.26a11.39 11.39 0 0 1 6 0c2.3-1.59 3.3-1.26 3.3-1.26.44 1.03.48 2.2.12 3.29a4.79 4.79 0 0 1 1.27 3.32c0 4.72-2.8 5.75-5.47 6.06a2.97 2.97 0 0 1 .84 2.31v3.43c0 .34.22.73.83.6A12.16 12.16 0 0 0 24 12.64 12 12 0 0 0 12 .5Z"/></svg>GitHub</a>
-        </div>
-      </div>
-    </section>
-    <div id="docs-content" class="markdown-body max-w-3xl mx-auto px-6 sm:px-8 py-8"></div>
+  <main class="flex-1 min-w-0">
+    <div id="hero" class="text-center px-6 py-16 sm:py-24 border-b"></div>
+    <div id="docs-content" class="px-6 sm:px-8 py-12 space-y-12"></div>
   </main>
 </div>
 
-<!-- Mobile left sidebar -->
-<div id="overlay" class="fixed inset-0 z-40 bg-black/30 transition-opacity opacity-0 pointer-events-none"></div>
-<aside id="sidebarMobile" class="fixed inset-y-0 left-0 z-50 w-[min(85vw,var(--sbw))] max-w-[85vw] bg-white border-r border-gray-200 shadow-xl transform transition-transform duration-200 ease-out -translate-x-full">
-  <div class="p-3 border-b flex items-center gap-2"><span class="h-7 w-7 rounded-full bg-gray-900 text-white inline-flex items-center justify-center">✺</span><span class="font-medium truncate">Hi</span></div>
-  <nav id="sideNavMobile" class="p-2 text-sm overflow-y-auto no-scrollbar"></nav>
-</aside>
+<div id="sidebarOverlay" class="fixed inset-0 z-40 bg-black/20 hidden lg:hidden"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
-
-<!-- Author docs in Markdown; use ~~~ fences -->
-<script id=md type="text/markdown">
-Meet Hi — a corely symbolic language inspired by JavaScript.
-It keeps the core mostly symbols and uses keywords only where they’re truly practical.
-
-- Minimal surface: prefer symbols over words.
-- Blocks are both objects and functions.
-- Privacy with `#private` members.
-- Boolean is truthiness by value (see below).
-
+<script id="md" type="text/markdown">
+# Hi — A Corely Symbolic Language
+Inspired by JavaScript, for the whole world. By prioritizing symbols over keywords, Hi's core logic becomes more universal and intuitive to read across human languages.
 > Print helper: `_()` writes to the console.
 
+---
 ## Hello, world
-
+As is tradition, let's start with the basics.
 ~~~js
 // Hello World in Hi
 _("Hi world")
 ~~~
 
+---
 ## Declarations and Assignment
-
-- `:` declares a name.
-- `=` assigns or mutates a value.
-
+Hi uses `:` to declare a name and `=` to assign or mutate its value. This clear separation avoids ambiguity.
 ~~~js
 greeting: "Hi"
 name: "Orion"
@@ -97,24 +75,21 @@ greeting = greeting + ", " + name
 _(greeting) // "Hi, Orion"
 ~~~
 
-## Blocks (object + function in one)
-
-In Hi, `{}` is a Block. It can hold properties and executable code.
-A Block is both an “object” and a “function” at the same time.
+---
+## Blocks: The Core Concept
+The `{}` syntax creates a **Block**, Hi's fundamental building unit. A Block is a container that can hold both properties and executable code. It’s an object and a function, simultaneously.
 
 ### Function Block
-
+When a Block is followed by `()`, its code is executed.
 ~~~js
 sayHi: {
   _("Hi")
 }
-sayHi() // invokes the block
+sayHi() // invokes the block, prints "Hi"
 ~~~
 
 ### Object Block
-
-Public vs private fields; `#` marks private members.
-
+A Block can hold data. Use `#` to mark members as private.
 ~~~js
 player: {
   name: "Orion"  // public
@@ -125,16 +100,13 @@ _(player.name)     // "Orion"
 ~~~
 
 ### Hybrid Block
-
-Blocks can expose methods and hold private state.
-
+Combine state and methods in one Block. Privacy is respected within the Block's scope.
 ~~~js
 counter: {
   #value: 0
   inc: {
     #value = #value + 1
     _("The count is now: " + #value)
-    #value           // last expression returns
   }
 }
 
@@ -142,58 +114,51 @@ counter.inc() // "The count is now: 1"
 counter.inc() // "The count is now: 2"
 ~~~
 
-### Parameters and returns
-
-- Parameters use `(name, ...)` before the Block.
-- Like Rust, the last expression is returned (no `return` keyword).
-
+---
+## Parameters and Returns
+Pass data into Blocks using `(name, ...)` before the `{`. Like Rust, the last expression is implicitly returned. No `return` keyword needed.
 ~~~js
-withParams: (str) {
-  _(str)
-  str // returned
-}
-
 add: (a, b) { a + b }
 _( add(2, 3) ) // 5
+
+greet: (name) {
+  "Hi, " + name // this string is returned
+}
+_( greet("Ada") ) // "Hi, Ada"
 ~~~
 
+---
 ## Truthiness and Equality
-
-Truthiness is value-based:
-
+Truthiness is based on a value's "emptiness". The `==` operator is a strict equality check, like JavaScript's `===`.
 ~~~js
-0    // falsy (the official false)
-!0   // truthy (the official true)
-4    // truthy
-""   // falsy (truthy if non-empty)
-{}   // falsy (truthy if it has content)
-[]   // falsy (truthy if it has content)
--0   // falsy / null / undefined (represents “empty”)
+// Falsy Values
+0    // the official false
+""   // empty string
+{}   // empty block
+[]   // empty array
+-0   // represents null or undefined
+
+// Truthy Values
+!0   // the official true
+4    // any non-zero number
+"hi" // any non-empty string
 ~~~
 
-Equality:
-
-~~~js
-==  // equivalent to JS ===
-~~~
-
-## Conditionals (ternary-style Blocks)
-
-A conditional is an expression that selects a Block.
-
+---
+## Conditionals
+Hi uses ternary-style expressions that select which Block to execute.
 ~~~js
 // if
-(cond) ? { /* then */ }
+(condition) ? { /* then */ }
 
 // if / else
-(cond) ? { /* then */ } : { /* else */ }
+(condition) ? { /* then */ } : { /* else */ }
 
-// expression result is the last Block’s last expression
-tern: (cond) ? { "A" } : { "B" }
+// The result is the last expression of the chosen block
+message: (isMorning) ? { "Good morning" } : { "Hello" }
 ~~~
 
-Multi-branch:
-
+Multi-branch conditionals chain naturally.
 ~~~js
 score: 85
 grade: (score > 90) ? { "A" }
@@ -203,121 +168,112 @@ grade: (score > 90) ? { "A" }
 _(grade) // "B"
 ~~~
 
+---
 ## Arrays
-
+Arrays are ordered lists, created with `[]`. Access and mutation use standard bracket notation.
 ~~~js
 primes: [2, 3, 5, 7]
-
-// Access
-firstPrime: primes[0]
-
-// Mutation
-primes[0] = 1
-_(primes) // [1, 3, 5, 7]
+firstPrime: primes[0] // Access: 2
+primes[0] = 1          // Mutation
+_(primes)              // [1, 3, 5, 7]
 ~~~
 
+---
 ## Loops
-
-`* { ... }` after a loop header runs the Block each iteration.
-
+A loop header followed by `* { ... }` runs the Block for each iteration. Loop controls are symbolic: `>>` for continue, `^` for break.
 ~~~js
 // for (init; test; step)
-(i: 0; i < 5; i = i + 1) * {
-  _(i)
+(i: 0; i < 3; i = i + 1) * {
+  _(i) // prints 0, 1, 2
 }
 
 // while
-(!0) * {
-  // do something forever...
+(true) * {
+  // ...
   ^ // break when done
 }
-
-// Controls
->>  // continue
-^   // break
 ~~~
 
-## Bridging examples
-
-Closures over private state:
-
+---
+## Advanced Example: Closures
+Blocks can create closures, capturing their parent's private state to build powerful patterns like counters.
 ~~~js
 makeCounter: {
   #v: 0
-  {
+  { // this inner block is returned
     inc: { #v = #v + 1; #v }
     value: { #v }
   }
 }
-
 c: makeCounter()
-c.inc()   // 1
-c.inc()   // 2
-c.value() // 2
+c.inc()   // returns 1
+c.inc()   // returns 2
+_(c.value()) // prints 2
 ~~~
-
-Tiny program with input and branching:
-
-~~~js
-welcome: (name) {
-  msg: (name && name != "") ? { "Hi, " + name + "!" } : { "Hi!" }
-  _(msg)
-  msg
-}
-
-welcome("Ada") // "Hi, Ada!"
-welcome("")    // "Hi!"
-~~~
-
-## Notes
-
-- Comments use `//`.
-- Strings are `"..."`.
-- Blocks return their last expression.
-- Private members (`#x`) are visible only inside their Block (and nested Blocks that resolve to it).
 
 ---
-
-Hi is still in active development. This page will grow with specs, a reference, and a playground. Contributions and feedback are welcome!
+## Notes
+- Comments use `//`.
+- Private members (`#x`) are visible only inside their defining Block and any nested Blocks.
+- Hi is in active development. This page will grow with specs, a reference, and a playground. Contributions and feedback are welcome!
 </script>
 
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
   const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-  const md=window.markdownit({html:true,linkify:true,typographer:true,breaks:false});
+  const md=window.markdownit({html:true,linkify:true,typographer:true,breaks:true});
   const slug=s=>s.toLowerCase().trim().replace(/[^\w\- ]+/g,'').replace(/\s+/g,'-');
-  const root=$('#docs-content');root.innerHTML=md.render($('#md')?.textContent||'');
+  
+  const rawMd=$('#md')?.textContent||'';
+  const sections=rawMd.split(/\n---\n/);
+  
+  $('#hero').innerHTML=md.render(sections.shift()||'');
+  
+  const docsContent=$('#docs-content');
+  sections.forEach(s=>{
+    const sectionEl=document.createElement('section');
+    sectionEl.className='p-6 sm:p-8 bg-white/50 backdrop-blur-lg border border-gray-200/80 rounded-2xl shadow-sm';
+    sectionEl.innerHTML=md.render(s);
+    docsContent.appendChild(sectionEl);
+  });
+  
   const heads=$$('#docs-content h2, #docs-content h3');
   heads.forEach(h=>{
     const titleText=(h.childNodes[0]?.nodeValue||'').trim();
     h.id=slug(titleText);h.classList.add('anchor');
     const a=document.createElement('a');a.href='#'+h.id;a.className='anchor-link';a.innerHTML='#';h.appendChild(a);
   });
+  
   $$('#docs-content pre>code').forEach(code=>{
-    window.hljs&&hljs.highlightElement(code);
-    const pre=code.parentElement,t=code.textContent||'',box=document.createElement('div'),btn=document.createElement('button'),meta=document.createElement('span');
-    btn.className='copy-btn';btn.textContent='Copy';
-    btn.onclick=async()=>{try{await navigator.clipboard.writeText(code.innerText);btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1100)}catch{}};
-    meta.className='char-c';meta.textContent=(t.length>=1e3?`${(t.length/1e3).toFixed(1)}K`:t.length)+' chars';
-    box.className='code-actions';box.append(meta,btn);pre.appendChild(box);
+    window.hljs?.highlightElement(code);
+    const pre=code.parentElement,btn=document.createElement('button'),box=document.createElement('div');
+    btn.className='copy-btn btn';btn.textContent='Copy';
+    btn.onclick=async()=>{try{await navigator.clipboard.writeText(code.innerText);btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1200)}catch(e){}};
+    box.className='code-actions';box.append(btn);pre.appendChild(box);
   });
-  const buildNav=sel=>{
-    const nav=$(sel);if(!nav)return;nav.innerHTML='';
-    const frag=document.createDocumentFragment();
-    heads.forEach(h=>{
-      const a=document.createElement('a'),title=(h.childNodes[0]?.nodeValue||'').replace(/\s*#\s*$/,'').trim();
-      a.href='#'+h.id;a.className=(h.tagName==='H3'?'pl-6 ':'')+'block px-2 py-1 rounded-lg hover:bg-gray-100 text-gray-700';a.textContent=title;frag.appendChild(a);
-    });
-    nav.appendChild(frag);
-    const links=[...nav.querySelectorAll('a')];
-    const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(L=>L.classList.toggle('bg-gray-100 font-medium',L.getAttribute('href')===id))}})},{rootMargin:'-50% 0px -40% 0px'});
-    heads.forEach(h=>io.observe(h));
-    links.forEach(L=>L.addEventListener('click',()=>{if(window.innerWidth<1024)setLeft(false)}));
+  
+  const nav=$('#sideNav'),frag=document.createDocumentFragment();
+  heads.forEach(h=>{
+    if(h.tagName!=='H2')return;
+    const a=document.createElement('a'),title=(h.childNodes[0]?.nodeValue||'').trim();
+    a.href='#'+h.id;a.className='block px-3 py-1.5 rounded-lg hover:bg-gray-100 text-gray-700 font-medium';a.textContent=title;frag.appendChild(a);
+  });
+  nav.appendChild(frag);
+
+  const links=$$('#sideNav a');
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(L=>L.classList.toggle('bg-gray-200/80',L.getAttribute('href')===id))}})},{rootMargin:'-80px 0px -60% 0px'});
+  heads.forEach(h=>io.observe(h));
+  
+  const overlay=$('#sidebarOverlay'),sidebar=$('#sidebar'),toggleSidebar=v=>{
+    const isOpen=v??!overlay.classList.contains('hidden');
+    overlay.classList.toggle('hidden',!isOpen);
+    sidebar.classList.toggle('-translate-x-full',!isOpen);
   };
-  buildNav('#sideNav');buildNav('#sideNavMobile');
-  const overlay=$('#overlay'),side=$('#sidebarMobile'),menuBtn=$('#menuBtn'),setLeft=v=>{overlay.classList.toggle('opacity-100',v);overlay.classList.toggle('pointer-events-none',!v);side.classList.toggle('-translate-x-full',!v)};
-  menuBtn?.addEventListener('click',()=>setLeft(true));overlay?.addEventListener('click',()=>setLeft(false));document.addEventListener('keydown',e=>{if(e.key==='Escape')setLeft(false)});
-})
+  $('#menuBtn')?.addEventListener('click',()=>toggleSidebar(true));
+  overlay?.addEventListener('click',()=>toggleSidebar(false));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleSidebar(false)});
+  links.forEach(l=>l.addEventListener('click',()=>window.innerWidth<1024&&toggleSidebar(false)));
+});
 </script>
 </body>
 </html>
