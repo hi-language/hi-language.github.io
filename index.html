@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" class="dark">
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,56 +12,72 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- Highlight.js for Code Highlighting -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-
-    <!-- Markdown-it and GitHub Markdown CSS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/14.0.0/markdown-it.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown-dark.min.css">
+    
+    <!-- Markdown & Highlighting Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css"/>
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- Markdown-it and Highlight.js -->
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #111827; /* bg-gray-900 */
-            color: #d1d5db; /* text-gray-300 */
+            background-color: #f9fafb; /* bg-gray-50 */
         }
         .markdown-body {
-            background-color: transparent;
-            font-size: 0.8rem; /* Slightly smaller than default for a dense feel */
+            font-size: 14px;
             line-height: 1.7;
+            background-color: transparent;
         }
         .markdown-body h1, .markdown-body h2, .markdown-body h3 {
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
-            border-bottom-color: #374151; /* gray-700 */
+            border-bottom-color: #e5e7eb; /* border-gray-200 */
+        }
+        /* Style for code blocks */
+        .markdown-body pre {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb; /* border-gray-200 */
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 1rem;
+            overflow-x: auto;
         }
         .markdown-body code {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
+            font-size: 13px;
         }
-        .markdown-body pre code {
-            font-size: 0.8rem;
+        /* Style for inline code snippets, inspired by your example */
+        :not(pre) > code {
+            font-size: 85%;
+            padding: .2em .4em;
+            margin: 0;
+            border-radius: 6px;
+            background-color: rgba(175, 184, 193, 0.2);
         }
         .hi-button {
             font-family: 'JetBrains Mono', monospace;
         }
     </style>
 </head>
-<body class="w-full min-h-screen flex flex-col items-center p-4 sm:p-8">
+<body class="text-gray-800 selection:bg-cyan-400/20">
 
-    <div class="fixed top-0 left-0 right-0 h-16 bg-gray-900/50 backdrop-blur-sm flex items-center justify-center z-10 border-b border-gray-800">
-        <button class="hi-button text-2xl font-bold text-cyan-400 px-6 py-2 rounded-lg cursor-default transition-all duration-300 hover:shadow-cyan-400/20 hover:shadow-lg">
-            Hi
-        </button>
-    </div>
+    <header class="sticky top-0 z-20 bg-white/80 backdrop-blur-sm border-b border-gray-200">
+        <div class="mx-auto w-full max-w-4xl px-4 py-3 flex items-center justify-center">
+            <button class="hi-button text-2xl font-bold text-cyan-600 px-6 py-2 rounded-lg cursor-default transition-all duration-300 hover:bg-cyan-50">
+                Hi
+            </button>
+        </div>
+    </header>
 
-    <main id="content" class="markdown-body w-full max-w-4xl mt-24">
-        <!-- Markdown content will be rendered here -->
+    <main class="w-full min-h-screen flex flex-col items-center p-4 sm:p-8">
+        <div id="content" class="markdown-body w-full max-w-4xl">
+            <!-- Markdown content will be rendered here -->
+        </div>
     </main>
     
     <script>
@@ -151,7 +167,7 @@ counter.inc() // Prints "Count is now: 2"
 _(counter.get()) // Prints 2
 \`\`\`
 
-This feels... right. In JavaScript, to achieve this encapsulation, you'd need a Class or a closure pattern (like an IIFE). The state (\`value\`) would either be part of a public \`this\` or live outside the object itself. It always felt like a workaround. In Hi, the state and the methods that operate on it live together in a single, elegant, self-contained unit. It's modularity perfected.
+This feels... right. In JavaScript, to achieve this encapsulation, you'd need a Class or a closure pattern. The state (\`value\`) would either be part of a public \`this\` or live outside the object itself, feeling like a workaround. In Hi, the state and the methods that operate on it live together in a single, elegant, self-contained unit. It's modularity perfected.
 
 ### Blocks with Parameters
 Naturally, Blocks can accept parameters, just like functions.
@@ -166,16 +182,14 @@ greet("Orion") // Prints "Hi, Orion"
 
 ## Truth, Lies, and Flow
 
-Hi simplifies logic to its bare essentials. There are no \`true\`, \`false\`, or \`null\` keywords. There are only values and their inherent "truthiness".
+Hi simplifies logic to its bare essentials. There are no \`true\`, \`false\`, or \`null\` keywords. There are only values and their inherent "truthiness". This design is clean and a gift to code golfers.
 
 - \`0\` is the official **falsy** value. It's the one and only \`false\`.
 - \`!0\` is the official **truthy** value. It's the one and only \`true\`.
-- \`-0\` represents **nothingness**. It's our \`null\` and \`undefined\`.
+- \`-0\` represents **nothingness**. It's our version of \`null\` and \`undefined\`.
 - Any non-zero number is truthy.
 - An empty string \`""\`, empty block \`{}\`, or empty array \`[]\` is falsy. If they contain anything, they become truthy.
 - \`==\` is a strict equality check, equivalent to JavaScript's \`===\`.
-
-This design is clean and a gift to code golfers. Why type `true` when `!0` will do?
 
 ### Unified Conditionals: The Ternary \`? :\`
 
@@ -253,9 +267,9 @@ count: 3
 
 ## The Journey Ahead
 
-<div class="flex items-center gap-4 p-4 border border-gray-700 rounded-lg bg-gray-800/50">
-  <i data-lucide="file-code-2" class="text-cyan-400"></i>
-  <p>Hi is currently in active development. The concepts here form our foundation, but the language is still growing and evolving. We're excited about building a language that's not just powerful, but beautiful to write and a joy to think in. Join us on the journey.</p>
+<div class="flex items-center gap-4 p-4 my-6 border border-gray-200 rounded-xl bg-white">
+  <i data-lucide="file-code-2" class="text-cyan-600"></i>
+  <p class="text-gray-600">Hi is currently in active development. The concepts here form our foundation, but the language is still growing and evolving. We're excited about building a language that's not just powerful, but beautiful to write and a joy to think in. Join us on the journey.</p>
 </div>
 
 `;
@@ -263,19 +277,16 @@ count: 3
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize Markdown-it
             const md = window.markdownit({
-                html: true, // Allow HTML tags in markdown
+                html: true,
                 linkify: true,
                 typographer: true,
-                highlight: function (str, lang) {
+                highlight: (str, lang) => {
                     if (lang && hljs.getLanguage(lang)) {
                         try {
-                            return '<pre class="hljs"><code>' +
-                                   hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
-                                   '</code></pre>';
+                            return `<pre class="hljs"><code>${hljs.highlight(str, { language: lang, ignoreIllegals: true }).value}</code></pre>`;
                         } catch (__) {}
                     }
-                    // Use escapeHtml for plain text
-                    return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+                    return `<pre class="hljs"><code>${md.utils.escapeHtml(str)}</code></pre>`;
                 }
             });
 
