@@ -1,380 +1,83 @@
-<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Hi — a symbolic programming language</title>
-<link rel=preconnect href=https://cdn.jsdelivr.net>
-<script src=https://cdn.tailwindcss.com></script>
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Hi — a tiny symbolic language</title>
+<link rel=preconnect href=https://fonts.googleapis.com>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel=stylesheet>
 <link rel=stylesheet href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">
 <link rel=stylesheet href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css">
 <style>
-:root{--fg:#0f172a;--muted:#64748b;--ring:rgba(15,23,42,.06)}
+:root{--fg:#0b1020;--mut:#6b7280;--bg:#fafafc;--fx:#111827;--link:#0ea5e9;--card:#ffffff;--ring:#e5e7eb}
 *{box-sizing:border-box}
 html,body{height:100%}
-body{color:var(--fg);background:#fff}
-.markdown-body{font-size:15px;line-height:1.7}
-.markdown-body pre{overflow:auto}
-code{font-size:.875em}
-.header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.85);backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid #e5e7eb}
-.btn{height:36px;width:36px;border-radius:12px;background:#f3f4f6;display:inline-flex;align-items:center;justify-content:center}
-.btn:hover{background:#e5e7eb}
-.brand{height:36px;width:36px;border-radius:999px;background:#111;color:#fff;font-weight:600}
-.brand[aria-disabled=true]{pointer-events:none}
-.wrap{display:flex;flex-direction:column;min-height:100%}
-main{flex:1}
-.bubble{position:relative;width:100%;border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;background:#f8fafc}
-.bubble>.in{max-width:1000px;margin:0 auto;padding:48px 16px}
-.kicker{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.h1{font-size:clamp(36px,6vw,64px);line-height:1.05;font-weight:800;letter-spacing:-.02em}
-.h2{font-size:clamp(20px,3.5vw,32px);font-weight:800}
-.lede{color:#0f172a;opacity:.9}
-.hero{position:relative;overflow:hidden;background:radial-gradient(1200px 500px at 50% -120px,#e0e7ff,transparent),radial-gradient(900px 380px at 10% -80px,#d1fae5,transparent),radial-gradient(800px 360px at 90% -80px,#fde68a,transparent)}
-.hero:after{content:"";position:absolute;inset:0;background:radial-gradient(1200px 300px at 50% -80px,rgba(255,255,255,.6),transparent)}
-.hero .in{padding-top:72px;padding-bottom:24px}
-.deck{display:grid;gap:16px;grid-template-columns:repeat(2,minmax(0,1fr))}
-@media(max-width:720px){.deck{grid-template-columns:1fr}}
-.badge{display:inline-flex;align-items:center;gap:.5rem;border:1px solid #e5e7eb;border-radius:999px;padding:.4rem .7rem;background:#fff;box-shadow:0 10px 20px rgba(0,0,0,.04)}
-.bridge{position:relative;height:140px;overflow:hidden;border-bottom:1px solid #e5e7eb}
-.blob{position:absolute;filter:blur(28px);opacity:.7;mix-blend:multiply;border-radius:999px}
-.blob.a{background:linear-gradient(135deg,#a78bfa,#fca5a5)}
-.blob.b{background:linear-gradient(135deg,#34d399,#93c5fd)}
-.blob.c{background:linear-gradient(135deg,#fbbf24,#60a5fa)}
-.blob.d{background:linear-gradient(135deg,#22d3ee,#f472b6)}
-.blob.e{background:linear-gradient(135deg,#86efac,#f0abfc)}
-blockquote{border-left:3px solid #e5e7eb;padding-left:1rem;color:#334155}
-pre{border:1px solid #e5e7eb;background:#fff;border-radius:12px}
-pre code{display:block;padding:12px 14px}
-.code-actions{position:absolute;top:8px;right:8px;display:flex;gap:8px}
-.copy{background:#111;color:#fff;border-radius:8px;padding:.25rem .5rem;font-size:.7rem;opacity:.9}
-.kv{display:grid;grid-template-columns:max-content 1fr;gap:.4rem .8rem}
-.kv dt{color:#334155}
-.kv dd code{background:rgba(15,23,42,.05);padding:.1rem .35rem;border-radius:6px}
-.table{width:100%;border-collapse:collapse;font-size:.95em}
-.table th,.table td{border-bottom:1px solid #e5e7eb;padding:.5rem .4rem;text-align:left}
-.footer{border-top:1px solid #e5e7eb;background:#fff}
-.footer .in{max-width:1000px;margin:0 auto;padding:20px 16px;color:#475569}
-svg.symbol{height:56px;width:auto}
+body{margin:0;background:radial-gradient(1200px 800px at 10% -10%,#eef4ff 0,#fff0 50%),radial-gradient(800px 480px at 120% 10%,#fff1f2 0,#fff0 40%),var(--bg);color:var(--fg);font:400 12.5px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+header{position:sticky;top:0;z-index:10;background:#ffffffb3;backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--ring)}
+nav{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:10px 12px}
+.brand{justify-self:center}
+.brand button{pointer-events:none;user-select:none;border:0;border-radius:999px;padding:6px 14px;background:#111827;color:#fff;font-weight:800;letter-spacing:.02em;font-size:14px}
+.brand button:disabled{opacity:.95}
+main{max-width:960px;margin:0 auto;padding:12px}
+.card{background:var(--card);border:1px solid var(--ring);border-radius:14px;box-shadow:0 10px 24px rgba(10,20,40,.04)}
+.markdown-body{padding:18px 18px 24px;border-radius:12px;color:var(--fg)}
+.markdown-body h1,.markdown-body h2{letter-spacing:.01em}
+.markdown-body h1{font-size:22px}
+.markdown-body h2{font-size:16px}
+.markdown-body p,.markdown-body li,.markdown-body blockquote{font-size:12.5px}
+.markdown-body code{font-family:"JetBrains Mono",ui-monospace,Menlo,Monaco,Consolas,monospace;font-size:11.5px}
+.markdown-body pre>code{font-size:11.5px}
+.kicker{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.16em}
+.hero{display:flex;gap:16px;align-items:center;margin-bottom:8px}
+.hero .emoji{font-size:18px}
+pre{position:relative;border:1px solid var(--ring)!important;border-radius:10px!important}
+.copy{position:absolute;top:8px;right:8px;border:1px solid var(--ring);background:#fff;border-radius:8px;padding:2px 8px;font:600 10px/18px Inter;color:#111827;opacity:.75}
+.copy:hover{opacity:1}
+aside.tip{border:1px dashed var(--ring);border-radius:10px;padding:10px 12px;background:#fafbff}
+hr{border:0;border-top:1px solid var(--ring);margin:14px 0}
+footer{max-width:960px;margin:0 auto;padding:12px 12px 40px;color:#0008;font-size:9.5px;opacity:.35}
+.icon{display:inline-flex;vertical-align:text-bottom}
+ul.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;padding-left:18px}
+blockquote{border-left:2px solid #e5e7eb;padding-left:10px;color:#374151}
+kbd{border:1px solid var(--ring);border-radius:6px;padding:0 6px;background:#fff;font:600 10px/18px Inter}
+.small{font-size:11.5px}
 </style>
-</head><body>
-<div class=wrap>
-<header class="header">
-  <div class="mx-auto max-w-[1000px] px-4 py-3 grid grid-cols-3 items-center">
-    <div></div>
-    <button class="brand" aria-disabled=true>Hi</button>
-    <div class="justify-self-end flex items-center gap-2">
-      <a class=btn href=https://github.com/hi-language/hi-language.github.io aria-label="GitHub"><i data-lucide=github class="h-5 w-5"></i></a>
-    </div>
-  </div>
-</header>
-
-<main id=app>
-
-  <section class="hero bubble">
-    <div class=in>
-      <div class=kicker>Say more with less</div>
-      <h1 class=h1>Hi — a symbolic language for everyone</h1>
-      <p class="lede mt-3 max-w-[65ch]">
-        Hi is a tiny language inspired by JavaScript, but “corely” symbolic: it prefers
-        symbols over keywords so the core feels universal, readable, and language-agnostic.
-        Fewer words. Clearer intent. Same power.
-      </p>
-      <div class="mt-5 flex flex-wrap items-center gap-3">
-        <span class=badge><i data-lucide=sparkles class="h-4 w-4"></i><b>Familiar</b> like JS</span>
-        <span class=badge><i data-lucide=globe class="h-4 w-4"></i><b>Global</b> by design</span>
-        <span class=badge><i data-lucide=key class="h-4 w-4"></i><b>Symbolic</b> core</span>
-      </div>
-
-      <div class="mt-8 grid gap-4">
-        <div class="rounded-2xl border border-gray-200 bg-white p-4 flex items-center gap-4">
-          <svg class=symbol viewBox="0 0 640 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden=true>
-            <rect x="8" y="8" width="624" height="144" rx="24" fill="url(#g0)" opacity=".25"/>
-            <g stroke="#0f172a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M120 110V50M90 80h60"/>
-              <circle cx="200" cy="80" r="24"/>
-              <path d="M290 50v60M260 80h60M370 110V50M340 80h60"/>
-              <rect x="430" y="50" width="60" height="60" rx="8"/>
-              <path d="M522 50h60M552 50v60"/>
-            </g>
-            <defs><linearGradient id="g0" x1="8" y1="8" x2="632" y2="152" gradientUnits="userSpaceOnUse"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#34d399"/></linearGradient></defs>
-          </svg>
-          <div>
-            <div class=kicker>Core idea</div>
-            <div class="text-lg">Symbols first. Words when needed.</div>
-            <div class="text-sm text-slate-600">You already read punctuation. Hi leans into that.</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <div class="bridge">
-    <span class="blob a" style="left:-60px;top:-40px;width:240px;height:240px"></span>
-    <span class="blob b" style="left:40%;top:-30px;width:320px;height:220px"></span>
-    <span class="blob c" style="right:-60px;top:-10px;width:200px;height:200px"></span>
-  </div>
-
-  <section class="bubble">
-    <div class="in">
-      <article class="markdown-body" id="md-hello"></article>
-    </div>
-  </section>
-
-  <div class="bridge">
-    <span class="blob d" style="left:-40px;top:-20px;width:200px;height:200px"></span>
-    <span class="blob e" style="left:30%;top:-40px;width:280px;height:220px"></span>
-    <span class="blob a" style="right:-40px;top:-10px;width:220px;height:220px"></span>
-  </div>
-
-  <section class="bubble">
-    <div class="in">
-      <article class="markdown-body" id="md-blocks"></article>
-    </div>
-  </section>
-
-  <div class="bridge">
-    <span class="blob b" style="left:-60px;top:-30px;width:260px;height:240px"></span>
-    <span class="blob c" style="left:40%;top:-20px;width:340px;height:240px"></span>
-    <span class="blob d" style="right:-80px;top:-10px;width:260px;height:220px"></span>
-  </div>
-
-  <section class="bubble">
-    <div class="in">
-      <article class="markdown-body" id="md-flow"></article>
-    </div>
-  </section>
-
-  <div class="bridge">
-    <span class="blob e" style="left:-60px;top:-40px;width:260px;height:220px"></span>
-    <span class="blob a" style="left:48%;top:-20px;width:300px;height:240px"></span>
-    <span class="blob b" style="right:-60px;top:-10px;width:220px;height:220px"></span>
-  </div>
-
-  <section class="bubble">
-    <div class="in">
-      <article class="markdown-body" id="md-collections"></article>
-    </div>
-  </section>
-
-  <div class="bridge">
-    <span class="blob c" style="left:-70px;top:-40px;width:280px;height:240px"></span>
-    <span class="blob d" style="left:42%;top:-30px;width:320px;height:240px"></span>
-    <span class="blob e" style="right:-60px;top:-10px;width:220px;height:220px"></span>
-  </div>
-
-  <section class="bubble">
-    <div class="in">
-      <article class="markdown-body" id="md-end"></article>
-    </div>
-  </section>
-
+</head>
+<body>
+<header><nav>
+  <div></div>
+  <div class=brand><button disabled aria-label="Hi brand">Hi</button></div>
+  <div style=text-align:right><a href="https://github.com/hi-language" target=_blank rel=noopener aria-label="GitHub home"><svg class=icon width=16 height=16 stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19c-5 1-5-2-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7a5.44 5.44 0 0 0-1.5-3.77 5.07 5.07 0 0 0-.09-3.77S18.73 2.65 16 4a13.38 13.38 0 0 0-7 0C6.27 2.65 3.09 1.98 3.09 1.98a5.07 5.07 0 0 0-.09 3.77A5.44 5.44 0 0 0 1.5 8.52c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 7 19.13V23"></path></svg></a></div>
+</nav></header>
+<main>
+  <article id=doc class="markdown-body card"></article>
 </main>
+<footer>website built by gemini</footer>
 
-<footer class="footer">
-  <div class="in flex flex-wrap items-center justify-between gap-3">
-    <div class="text-sm">Made with <i data-lucide="heart" class="inline h-4 w-4 text-pink-500"></i> for developers everywhere.</div>
-    <div class="text-sm">Hi is in active development — expect rapid changes and more docs soon.</div>
+<script id=md type=text/markdown>
+<span class="kicker">Symbol-first • AI-native • Golf-friendly</span>
+
+<div class="hero">
+  <span class="emoji">✨</span>
+  <div>
+    <h1>The “Hi” programming language</h1>
+    <p>Inspired by JavaScript, but corely symbolic: fewer keywords, more symbols. A small surface built to be read and written by humans everywhere — and by AI.</p>
   </div>
-</footer>
 </div>
 
-<script src="https://unpkg.com/lucide@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded',()=>{
-  const $=s=>document.querySelector(s),A=(h,id)=>{$(id).innerHTML=md.render(h);enhance($(id));icons()}
-  const md=window.markdownit({html:true,linkify:true,breaks:true,highlight:(str,lang)=>{try{return hljs.highlight(str,{language:'javascript'}).value}catch{return md.utils.escapeHtml(str)}}})
-  const icons=()=>window.lucide&&lucide.createIcons()
+> Why symbols? Fewer words means less translation, lower typing cost, and cleaner mental models across languages and cultures.
 
-  const hello=`
-# Hello, world
-Hi keeps the ceremony low and the intent high.
+## Principles <i data-lucide="sparkles" class="icon"></i>
+- Symbols over keywords (`: = ? * >> ^`).
+- One construct — the <em>Block</em> — acts as both object and function.
+- Last value wins: blocks return their final expression.
+- AI-native: we prioritize how models read/write code, and we encourage code-golfable patterns.
+- JavaScript-adjacent semantics where it helps, simplicity where it matters.
 
-\`\`\`js
-// Print text
+---
+
+## Hello, world
+```js
+// The underscore is print/output
 _("Hi world")
-\`\`\`
-
-- \`_\` is the standard output primitive (think \`console.log\`).
-- If you can read punctuation, you can read Hi.
-- JS-inspired values and operators where it helps, symbols where it clarifies.
-
-## Core symbols at a glance
-- \`:\` declaration (bind a name)
-- \`=\` assignment (update a value)
-- \`{}\` Block: a container that is both an object and a function
-- \`()\` call / parameters
-- \`[]\` list / indexing
-- \`#\` private property prefix
-- \`==\` is equivalent to JS \`===\`
-  `
-
-  const blocks=`
-# Blocks: object and function, simultaneously
-A Block holds properties and executable code — it is always both.
-
-### Function Block
-\`\`\`js
-sayHi: {
-  _("Hi")
-}
-sayHi() // → Hi
-\`\`\`
-
-### Object Block
-\`\`\`js
-player: {
-  name: "Orion"   // public
-  #hp: 100        // private
-}
-_(player.name)    // → Orion
-\`\`\`
-
-### Hybrid Block (state + methods)
-\`\`\`js
-counter: {
-  #value: 0
-  inc: {
-    value = value + 1
-    _("The count is now: " + value)
-  }
-}
-counter.inc() // → The count is now: 1
-counter.inc() // → The count is now: 2
-\`\`\`
-
-### Parameters
-The last expression in a Block is returned (like Rust).
-\`\`\`js
-withParams: (str) { _(str) }
-withParams("Hello") // → Hello
-\`\`\`
-> Inside a Block, private names (\`#value\`) are accessible without the \`#\` prefix.
-  `
-
-  const flow=`
-# Truthiness and flow
-Hi favors clear, minimal rules for conditionals and loops.
-
-### Truthiness
-\`\`\`js
-0   // falsy (the official false)
-!0  // truthy (the official true)
-4   // truthy
-""  // falsy (truthy if full)
-{}  // falsy (truthy if full)
-[]  // falsy (truthy if full)
--0  // falsy / null / undefined
-// == is equivalent to JS ===
-\`\`\`
-
-### Conditionals
-Ternary-style Blocks return their last expression.
-\`\`\`js
-(cond) ? { /* if */ }
-// if / else
-(cond) ? { /* if */ } : { /* else */ }
-// last value wins
-tern: (cond) ? {"A"} : {"B"}
-\`\`\`
-
-Example:
-\`\`\`js
-score: 85
-grade: (score > 90) ? { "A" }
-     : (score > 80) ? { "B" }
-     : { "C" }
-_(grade) // → "B"
-\`\`\`
-
-### Loops
-\`\`\`js
-// for loop
-(i: 0; i < 4; i = i + 1) * { _("i = " + i) }
-
-// while loop
-i: 0
-(i < 3) * {
-  _("loop " + i)
-  i = i + 1
-}
-
-// control flow
-(i: 0; i < 5; i = i + 1) * {
-  (i == 2) ? { >> } // continue
-  (i == 4) ? { ^ }  // break
-  _("i → " + i)
-}
-\`\`\`
-  `
-
-  const collections=`
-# Collections
-Arrays, indexing, and mutation are familiar if you know JS.
-
-\`\`\`js
-primes: [2, 3, 5, 7]
-
-// Access
-first: primes[0]     // 2
-
-// Mutation
-primes[0] = 1
-_(primes)            // [1, 3, 5, 7]
-\`\`\`
-
-### Strings
-\`\`\`js
-msg: "Hi" + " " + "there"
-_(msg) // "Hi there"
-\`\`\`
-
-### Pattern to grow state safely
-Use private \`#\` fields and expose minimal public surface.
-\`\`\`js
-bank: {
-  #bal: 0
-  deposit: (n) { bal = bal + n; bal }
-  read: { bal }
-}
-bank.deposit(10) // 10
-bank.read()      // 10
-\`\`\`
-  `
-
-  const ending=`
-# What we’re optimizing for
-- Fewer keywords, more meaning — symbols carry weight across languages and cultures.
-- Readable by sight: punctuation is shared knowledge.
-- Practical where needed: when a symbol would confuse, we use a word.
-
-> Trust, but verify. Hi aims to feel familiar on day one and powerful on day ten.
-
-## Where we’re headed
-- Tooling: formatter, linter, language server
-- Interop: seamless bridges to JS runtimes
-- Standard library: batteries for data, IO, and testing
-
-If this resonates, star the repo and say Hi!
-
-- GitHub: <https://github.com/hi-language/hi-language.github.io>
-
-Note: Hi is in active development; details may change and more docs will be added regularly.
-  `
-
-  A(hello,'#md-hello');A(blocks,'#md-blocks');A(flow,'#md-flow');A(collections,'#md-collections');A(ending,'#md-end')
-
-  function enhance(root){
-    if(!root)return
-    root.querySelectorAll('pre>code').forEach(code=>{
-      const pre=code.parentElement
-      pre.style.position='relative'
-      const btn=document.createElement('button')
-      btn.className='copy'
-      btn.textContent='Copy'
-      const bar=document.createElement('div');bar.className='code-actions';bar.appendChild(btn);pre.appendChild(bar)
-      btn.onclick=async()=>{try{await navigator.clipboard.writeText(code.innerText);btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1200)}catch{}}
-      if(window.hljs)try{hljs.highlightElement(code)}catch{}
-    })
-  }
-  icons()
-})
-</script>
-</body></html>
