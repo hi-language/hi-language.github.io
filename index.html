@@ -82,7 +82,7 @@
         const markdownContent = `
 # A corely symbolic language
 
-**Hi** is a programming language inspired by JavaScript, designed with a symbolic core to be more universal, AI-friendly, and conducive to code golfing, for the whole world. We prioritize symbols over keywords.
+**Hi** is a programming language inspired by JavaScript, designed with a symbolic core to be more universal, AI-friendly, and conducive to code golfing. The syntax prioritizes symbols over keywords.
 
 The underscore \`_\` is the global output function.
 
@@ -111,7 +111,7 @@ A Block with only executable code is a function.
 
 \`\`\`javascript
 sayHi: {
-  _("Hiiii")
+  _("Hi")
 }
 sayHi() // Invokes the block
 \`\`\`
@@ -153,7 +153,7 @@ _(counter.get()) // Prints 1
 greet: (name) {
   _("Hi, " + name)
 }
-greet("World")
+greet("Orion")
 \`\`\`
 
 ## Booleans and Equality
@@ -164,7 +164,7 @@ Hi dispenses with boolean keywords in favor of canonical numeric values.
 - \`!0\` is **true**.
 - \`-0\` represents null/undefined values.
 - All other numbers, and any non-empty string, block, or array are "truthy".
-- \`==\` performs a strict equality comparison, similar to JavaScript's \`===\` operator.
+- \`==\` performs strict equality comparison (equivalent to JS \`===\`).
 
 ## Conditional Expressions
 
@@ -203,7 +203,7 @@ _(primes)              // [1, 3, 5, 7]
 Loops are initiated with the \`*\` operator following a standard three-part condition or a simple boolean expression.
 
 - \`>>\` is used for **continue**.
-- \`^\` is used for **break** (to exit a loop) or **return** (to exit a block).
+- \`^\` is used for **return/break**.
 
 \`\`\`javascript
 // for-style loop
