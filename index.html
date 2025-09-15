@@ -52,7 +52,7 @@ pre{position:relative;border:1px solid #e5e7eb;border-radius:.75rem}
         </div>
       </div>
     </section>
-    <section id="suneHtml" class="px-6 sm:px-8 py-8"></section>
+    <div id="docs-content" class="markdown-body max-w-3xl mx-auto px-6 sm:px-8 py-8"></div>
   </main>
 </div>
 
@@ -283,40 +283,40 @@ Hi is still in active development. This page will grow with specs, a reference, 
 
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
-  const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)]
-  const md=window.markdownit({html:true,linkify:true,typographer:true,breaks:false})
-  const slug=s=>s.toLowerCase().trim().replace(/[^\w\- ]+/g,'').replace(/\s+/g,'-')
-  const root=$('#suneHtml');root.className='markdown-body max-w-3xl mx-auto';root.innerHTML=md.render($('#md')?.textContent||'')
-  const heads=$$('#suneHtml h2, #suneHtml h3')
+  const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+  const md=window.markdownit({html:true,linkify:true,typographer:true,breaks:false});
+  const slug=s=>s.toLowerCase().trim().replace(/[^\w\- ]+/g,'').replace(/\s+/g,'-');
+  const root=$('#docs-content');root.innerHTML=md.render($('#md')?.textContent||'');
+  const heads=$$('#docs-content h2, #docs-content h3');
   heads.forEach(h=>{
-    const titleText=(h.childNodes[0]?.nodeValue||h.textContent||'').trim()
-    h.id=slug(titleText);h.classList.add('anchor')
-    const a=document.createElement('a');a.href='#'+h.id;a.className='anchor-link';a.innerHTML='#';h.appendChild(a)
-  })
-  $$('#suneHtml pre>code').forEach(code=>{
-    window.hljs&&hljs.highlightElement(code)
-    const pre=code.parentElement,t=code.textContent||'',box=document.createElement('div'),btn=document.createElement('button'),meta=document.createElement('span')
-    btn.className='copy-btn';btn.textContent='Copy'
-    btn.onclick=async()=>{try{await navigator.clipboard.writeText(code.innerText);btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1100)}catch{}}
-    meta.className='char-c';meta.textContent=(t.length>=1e3?`${(t.length/1e3).toFixed(1)}K`:t.length)+' chars'
-    box.className='code-actions';box.append(meta,btn);pre.appendChild(box)
-  })
+    const titleText=(h.childNodes[0]?.nodeValue||'').trim();
+    h.id=slug(titleText);h.classList.add('anchor');
+    const a=document.createElement('a');a.href='#'+h.id;a.className='anchor-link';a.innerHTML='#';h.appendChild(a);
+  });
+  $$('#docs-content pre>code').forEach(code=>{
+    window.hljs&&hljs.highlightElement(code);
+    const pre=code.parentElement,t=code.textContent||'',box=document.createElement('div'),btn=document.createElement('button'),meta=document.createElement('span');
+    btn.className='copy-btn';btn.textContent='Copy';
+    btn.onclick=async()=>{try{await navigator.clipboard.writeText(code.innerText);btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1100)}catch{}};
+    meta.className='char-c';meta.textContent=(t.length>=1e3?`${(t.length/1e3).toFixed(1)}K`:t.length)+' chars';
+    box.className='code-actions';box.append(meta,btn);pre.appendChild(box);
+  });
   const buildNav=sel=>{
-    const nav=$(sel);if(!nav)return;nav.innerHTML=''
-    const frag=document.createDocumentFragment()
+    const nav=$(sel);if(!nav)return;nav.innerHTML='';
+    const frag=document.createDocumentFragment();
     heads.forEach(h=>{
-      const a=document.createElement('a'),title=(h.childNodes[0]?.nodeValue||h.textContent||'').replace(/\s*#\s*$/,'').trim()
-      a.href='#'+h.id;a.className=(h.tagName==='H3'?'pl-6 ':'')+'block px-2 py-1 rounded-lg hover:bg-gray-100 text-gray-700';a.textContent=title;frag.appendChild(a)
-    })
-    nav.appendChild(frag)
-    const links=[...nav.querySelectorAll('a')]
-    const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(L=>L.classList.toggle('bg-gray-100 font-medium',L.getAttribute('href')===id))}})},{rootMargin:'-50% 0px -40% 0px'})
-    heads.forEach(h=>io.observe(h))
-    links.forEach(L=>L.addEventListener('click',()=>{if(window.innerWidth<1024)setLeft(false)}))
-  }
-  buildNav('#sideNav');buildNav('#sideNavMobile')
-  const overlay=$('#overlay'),side=$('#sidebarMobile'),menuBtn=$('#menuBtn'),setLeft=v=>{overlay.classList.toggle('opacity-100',v);overlay.classList.toggle('pointer-events-none',!v);side.classList.toggle('-translate-x-full',!v)}
-  menuBtn?.addEventListener('click',()=>setLeft(true));overlay?.addEventListener('click',()=>setLeft(false));document.addEventListener('keydown',e=>{if(e.key==='Escape')setLeft(false)})
+      const a=document.createElement('a'),title=(h.childNodes[0]?.nodeValue||'').replace(/\s*#\s*$/,'').trim();
+      a.href='#'+h.id;a.className=(h.tagName==='H3'?'pl-6 ':'')+'block px-2 py-1 rounded-lg hover:bg-gray-100 text-gray-700';a.textContent=title;frag.appendChild(a);
+    });
+    nav.appendChild(frag);
+    const links=[...nav.querySelectorAll('a')];
+    const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id='#'+e.target.id;links.forEach(L=>L.classList.toggle('bg-gray-100 font-medium',L.getAttribute('href')===id))}})},{rootMargin:'-50% 0px -40% 0px'});
+    heads.forEach(h=>io.observe(h));
+    links.forEach(L=>L.addEventListener('click',()=>{if(window.innerWidth<1024)setLeft(false)}));
+  };
+  buildNav('#sideNav');buildNav('#sideNavMobile');
+  const overlay=$('#overlay'),side=$('#sidebarMobile'),menuBtn=$('#menuBtn'),setLeft=v=>{overlay.classList.toggle('opacity-100',v);overlay.classList.toggle('pointer-events-none',!v);side.classList.toggle('-translate-x-full',!v)};
+  menuBtn?.addEventListener('click',()=>setLeft(true));overlay?.addEventListener('click',()=>setLeft(false));document.addEventListener('keydown',e=>{if(e.key==='Escape')setLeft(false)});
 })
 </script>
 </body>
