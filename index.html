@@ -139,7 +139,7 @@ counter: {
   }
   
   get: {
-    value // The last expression is returned
+    ^ value // The last expression is returned, use ^ to be explicit
   }
 }
 
@@ -158,13 +158,13 @@ greet("Orion")
 
 ## Booleans and Equality
 
-Hi dispenses with boolean keywords in favor of canonical numeric values.
+Hi dispenses with boolean keywords in favor of canonical numeric values for truthiness.
 
-- \`0\` is **false**.
-- \`!0\` is **true**.
+- \`0\` is **falsy** (the canonical false).
+- \`!0\` is **truthy** (the canonical true, representing a logical NOT 0).
 - \`-0\` represents null/undefined values.
 - All other numbers, and any non-empty string, block, or array are "truthy".
-- \`==\` performs strict equality comparison (equivalent to JS \`===\`).
+- The \`==\` operator performs strict equality comparison (equivalent to JavaScript's \`===\`).
 
 ## Conditional Expressions
 
@@ -174,16 +174,17 @@ All conditional logic is handled by a single ternary expression structure, which
 // if
 (1 < 2) ? { _("True") }
 
-// if-else
+// if / else
 result: (1 > 2) ? { "A" } : { "B" } // result is "B"
 
-// if-else-if chain
-score: 85
-grade: (score > 90) ? { "A" }
-     : (score > 80) ? { "B" }
-     : { "C" }
+// if / else if / else
+score: 75
+grade: (score >= 90) ? { "A" }
+     : (score >= 80) ? { "B" }
+     : (score >= 70) ? { "C" }
+     : { "D" } // The final else case
 
-_(grade) // Prints "B"
+_(grade) // Prints "C"
 \`\`\`
 
 ## Data Structures
@@ -224,6 +225,35 @@ active: !0
   _("i is " + i)
 }
 // Prints i is 0 through 4
+\`\`\`
+
+## Imports
+
+Modules are imported using the \`+\` and \`->\` operators. This allows for destructuring and aliasing of imported members.
+
+\`\`\`javascript
+// Import 'sum' and 'multiply' (as 'mul') from a remote module
++ "npm://hi-lang@0.1/math/utils.hi" -> { sum, multiply: mul }
+
+sum(5, mul(2, 3)) // 11
+\`\`\`
+
+## Method Chaining
+
+By default, a method call on a Block returns the Block itself (\`this\`), enabling fluent, chainable interfaces. To return a different value and break the chain, use the return symbol \`^\`.
+
+\`\`\`javascript
+calculator: {
+  #total: 0
+  add: (n) { total = total + n }
+  sub: (n) { total = total - n }
+  get: { ^ total }
+}
+
+// .add() and .sub() return the calculator, allowing the chain
+result: calculator.add(10).sub(4).get()
+
+_(result) // Prints 6
 \`\`\`
 
 ---
