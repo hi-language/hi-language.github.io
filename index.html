@@ -135,11 +135,11 @@ counter: {
   #value: 0
 
   inc: {
-    #value = #value + 1 // Mutates parent's private state
+    value = value + 1 // Mutates parent's private state
   },
   
   get: {
-    #value // The last expression is returned
+    value // The last expression is returned
   }
 }
 
