@@ -39,11 +39,10 @@
             font-weight: 600;
             border-bottom-color: #e5e7eb; /* border-gray-200 */
         }
-        /* Style for code blocks */
         .markdown-body pre {
             background-color: #ffffff;
-            border: 1px solid #e5e7eb; /* border-gray-200 */
-            border-radius: 0.75rem; /* rounded-xl */
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
             padding: 1rem;
             overflow-x: auto;
         }
@@ -51,7 +50,6 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 13px;
         }
-        /* Style for inline code snippets, inspired by your example */
         :not(pre) > code {
             font-size: 85%;
             padding: .2em .4em;
@@ -64,11 +62,11 @@
         }
     </style>
 </head>
-<body class="text-gray-800 selection:bg-cyan-400/20">
+<body class="text-gray-900 selection:bg-cyan-400/20">
 
     <header class="sticky top-0 z-20 bg-white/80 backdrop-blur-sm border-b border-gray-200">
         <div class="mx-auto w-full max-w-4xl px-4 py-3 flex items-center justify-center">
-            <button class="hi-button text-2xl font-bold text-cyan-600 px-6 py-2 rounded-lg cursor-default transition-all duration-300 hover:bg-cyan-50">
+            <button class="hi-button text-2xl font-bold text-gray-900 px-6 py-2 rounded-lg cursor-default transition-all duration-300 hover:bg-gray-100">
                 Hi
             </button>
         </div>
@@ -81,133 +79,105 @@
     </main>
     
     <script>
-        // The entire documentation for the "Hi" language, written in Markdown.
         const markdownContent = `
-# Say Hi to Hi 👋
+# "Hi", a corely symbolic language
 
-Welcome to **Hi**. A new programming language born from a simple idea: what if code was less about words and more about intent? Inspired by the elegance of JavaScript but redesigned from the ground up, Hi uses symbols as its core.
+**Hi** is a programming language inspired by JavaScript, designed with a symbolic core to be more universal, AI-friendly, and conducive to code golfing. The syntax prioritizes symbols over keywords.
 
-This isn't just a stylistic choice. It's a philosophy. By removing keyword barriers, we create a language that feels more universal. It's for the code golfer who loves conciseness, for the AI that needs to parse and generate logic without linguistic bias, and for the developer who dreams of a more fluid, expressive tool.
-
-Writing in Hi feels less like typing and more like composing. Let's begin.
-
-The first thing you'll ever do is, of course, say "Hi". The underscore \`_\` is our universal "output" function.
+The underscore \`_\` is the global output function.
 
 \`\`\`javascript
-// This is hello world in Hi
 _("Hi world")
 \`\`\`
 
-## Variables: Giving Things a Name
+## Declaration and Assignment
 
-Hi separates the act of *creating* a name from *changing* what it points to. This clarity is fundamental.
+Variable lifecycle is split into two distinct symbolic operations.
 
-- \`:\` is for **Declaration**. It brings a variable into existence.
-- \`=\` is for **Assignment**. It changes the value of an existing variable.
+- \`:\` **Declaration**: Binds a name in the current scope.
+- \`=\` **Assignment**: Reassigns the value of an existing name.
 
 \`\`\`javascript
-// Declare a 'user' variable and initialize it
-user: "Alex"
-
-// Assign a new value to 'user'
-user = "Alex Prime"
-
-_(user) // Prints "Alex Prime"
+version: 1.0 // Declaration and initialization
+version = 1.1 // Assignment
 \`\`\`
 
-## The Heart of Hi: The Block \`{}\`
+## The Block: A Unified Structure
 
-This is where everything changes. In most languages, \`{}\` might define an object, a scope, or a function body. In Hi, it does all of that, all at once. It creates a **Block**.
+The \`{}\` syntax creates a **Block**, the foundational structure in Hi. A Block is a container for both properties (state) and executable code (behavior), functioning simultaneously as a callable object and a stateful function.
 
-A Block is a container for both state (properties) and behavior (executable code). It is simultaneously an object and a function. This unification is incredibly powerful.
-
-### The Block as a Function
-A Block with no named properties inside is treated as a simple function.
+### Function Block
+A Block with only executable code is a function.
 
 \`\`\`javascript
 sayHi: {
-  _("Hi from inside a Block!")
+  _("Hi")
 }
-
-sayHi() // Executes the code inside
+sayHi() // Invokes the block
 \`\`\`
 
-### The Block as an Object
-When you add named properties, it behaves like an object. Properties are public by default. Use \`#\` to make them private.
+### Object Block
+A Block with named properties is an object. A \`#\` prefix denotes a private property, inaccessible from outside the block's scope.
 
 \`\`\`javascript
 player: {
-  name: "Orion", // public property
-  #hp: 100        // private property, inaccessible from outside
+  name: "Orion", // Public property
+  #hp: 100       // Private property
 }
-
-_(player.name) // Prints "Orion"
-// _(player.#hp) // This would cause an error
+_(player.name) // "Orion"
 \`\`\`
 
-### The Hybrid: Where the Magic Happens
-Here is the true power of the Block. It can hold both executable code and state, including private state.
+### Hybrid Block
+Blocks can contain both state and methods. Inner blocks lexically inherit the scope of their parent, allowing them to access and mutate the parent's private state. This provides true encapsulation without classes.
 
 \`\`\`javascript
 counter: {
-  #value: 0 // A private, encapsulated state
+  #value: 0
 
   inc: {
-    #value = #value + 1
-    _("Count is now: " + #value)
+    #value = #value + 1 // Mutates parent's private state
   },
-
+  
   get: {
-    #value // last expression is returned
+    #value // The last expression is returned
   }
 }
 
-counter.inc() // Prints "Count is now: 1"
-counter.inc() // Prints "Count is now: 2"
-_(counter.get()) // Prints 2
+counter.inc()
+_(counter.get()) // Prints 1
 \`\`\`
 
-This feels... right. In JavaScript, to achieve this encapsulation, you'd need a Class or a closure pattern. The state (\`value\`) would either be part of a public \`this\` or live outside the object itself, feeling like a workaround. In Hi, the state and the methods that operate on it live together in a single, elegant, self-contained unit. It's modularity perfected.
-
 ### Blocks with Parameters
-Naturally, Blocks can accept parameters, just like functions.
 
 \`\`\`javascript
 greet: (name) {
   _("Hi, " + name)
 }
-
-greet("Orion") // Prints "Hi, Orion"
+greet("Master")
 \`\`\`
 
-## Truth, Lies, and Flow
+## Booleans and Equality
 
-Hi simplifies logic to its bare essentials. There are no \`true\`, \`false\`, or \`null\` keywords. There are only values and their inherent "truthiness". This design is clean and a gift to code golfers.
+Hi dispenses with boolean keywords in favor of canonical numeric values.
 
-- \`0\` is the official **falsy** value. It's the one and only \`false\`.
-- \`!0\` is the official **truthy** value. It's the one and only \`true\`.
-- \`-0\` represents **nothingness**. It's our version of \`null\` and \`undefined\`.
-- Any non-zero number is truthy.
-- An empty string \`""\`, empty block \`{}\`, or empty array \`[]\` is falsy. If they contain anything, they become truthy.
-- \`==\` is a strict equality check, equivalent to JavaScript's \`===\`.
+- \`0\` is **false**.
+- \`!0\` is **true**.
+- \`-0\` represents null/undefined values.
+- All other numbers, and any non-empty string, block, or array are "truthy".
+- \`==\` performs strict equality comparison (equivalent to JS \`===\`).
 
-### Unified Conditionals: The Ternary \`? :\`
+## Conditional Expressions
 
-There is no \`if\`, \`else if\`, or \`switch\`. There is only one, unified structure for conditional logic, modeled after the ternary operator. Its result can be assigned to a variable, as the last expression in a chosen block is always returned.
+All conditional logic is handled by a single ternary expression structure, which always returns a value.
 
 \`\`\`javascript
-// A simple "if"
-(1 < 2) ? {
-  _("One is less than two.")
-}
+// if
+(1 < 2) ? { _("True") }
 
-// An "if-else"
-isRaining: !0
-action: (isRaining) ? { "Take umbrella" } : { "Enjoy the sun" }
+// if-else
+result: (1 > 2) ? { "A" } : { "B" } // result is "B"
 
-_(action) // Prints "Take umbrella"
-
-// Chained like an "if / else if / else"
+// if-else-if chain
 score: 85
 grade: (score > 90) ? { "A" }
      : (score > 80) ? { "B" }
@@ -215,67 +185,53 @@ grade: (score > 90) ? { "A" }
 
 _(grade) // Prints "B"
 \`\`\`
-This is elegance. One pattern for all conditional logic. It's predictable, expressive, and reduces the surface area of the language.
 
-## Collections and Repetition
+## Data Structures
 
-The fundamentals are here, but with Hi's symbolic twist.
-
-### Arrays \`[]\`
-Arrays are simple lists of values, just as you'd expect.
+### Arrays
+Arrays are 0-indexed lists of values.
 
 \`\`\`javascript
 primes: [2, 3, 5, 7]
-
-// Access by index
-firstPrime: primes[0]
-_(firstPrime) // Prints 2
-
-// Mutate an element
-primes[0] = 1
-_(primes) // Prints [1, 3, 5, 7]
+firstPrime: primes[0] // Access
+primes[0] = 1        // Mutation
+_(primes)              // [1, 3, 5, 7]
 \`\`\`
 
-### Loops with \`*\`
-The \`*\` symbol is our loop operator. It takes a condition and a Block to execute.
+## Repetition
+
+Loops are initiated with the \`*\` operator following a standard three-part condition or a simple boolean expression.
+
+- \`>>\` is used for **continue**.
+- \`^\` is used for **break**.
 
 \`\`\`javascript
-// A "for" loop
+// for-style loop
 (i: 0; i < 3; i = i + 1) * {
-  _("Looping: " + i)
+  _("Iteration: " + i)
 }
-// Prints "Looping: 0", "Looping: 1", "Looping: 2"
 
-// A "while" loop
-count: 3
-(count > 0) * {
-  _("Countdown: " + count)
-  count = count - 1
+// while-style loop
+active: !0
+(active) * {
+  _("Looping...")
+  active = 0 // Condition becomes false
 }
-// Prints "Countdown: 3", "Countdown: 2", "Countdown: 1"
 
 // Loop Control
-// >> is 'continue'
-// ^ is 'break'
 (i: 0; i < 10; i = i + 1) * {
-  (i == 2) ? { >> } // Skip the rest of this iteration
-  (i == 5) ? { ^ }  // Break out of the loop entirely
+  (i == 5) ? { ^ } // Break at 5
   _("i is " + i)
 }
-// Prints: i is 0, i is 1, i is 3, i is 4
+// Prints i is 0 through 4
 \`\`\`
 
-## The Journey Ahead
+---
 
-<div class="flex items-center gap-4 p-4 my-6 border border-gray-200 rounded-xl bg-white">
-  <i data-lucide="file-code-2" class="text-cyan-600"></i>
-  <p class="text-gray-600">Hi is currently in active development. The concepts here form our foundation, but the language is still growing and evolving. We're excited about building a language that's not just powerful, but beautiful to write and a joy to think in. Join us on the journey.</p>
-</div>
-
+<p class="text-sm text-gray-600">Hi is in early development. The syntax and features are subject to change.</p>
 `;
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize Markdown-it
             const md = window.markdownit({
                 html: true,
                 linkify: true,
@@ -290,11 +246,7 @@ count: 3
                 }
             });
 
-            // Render Markdown
-            const contentDiv = document.getElementById('content');
-            contentDiv.innerHTML = md.render(markdownContent);
-
-            // Activate Lucide Icons
+            document.getElementById('content').innerHTML = md.render(markdownContent);
             lucide.createIcons();
         });
     </script>
