@@ -93,13 +93,14 @@ _("Hi world")
 
 ## Declaration and Assignment
 
-Variable lifecycle is split into two distinct symbolic operations. A semicolon \`;\` can be used to separate expressions on a single line.
+Variable lifecycle is split into two distinct symbolic operations.
 
 - \`:\` **Declaration**: Binds a name in the current scope.
 - \`=\` **Assignment**: Reassigns the value of an existing name.
 
 \`\`\`javascript
-version: 1.0; version = 1.1
+version: 1.0 // Declaration and initialization
+version = 1.1 // Assignment
 \`\`\`
 
 ## The Block: A Unified Structure
@@ -118,7 +119,6 @@ sayHi() // Invokes the block
 A Block with named properties is an object. A \`#\` prefix denotes a private property, inaccessible from outside the block's scope.
 
 \`\`\`javascript
-// A Block can be defined on one line using ';'
 player: { name: "Orion"; #hp: 100 }
 _(player.name) // "Orion"
 \`\`\`
@@ -129,8 +129,8 @@ Blocks can contain both state and methods. Inner blocks lexically inherit the sc
 \`\`\`javascript
 counter: {
   #value: 0
-  inc: { value = value + 1 } // Concise one-liner methods
-  get: { value }             // Last expression is implicitly returned
+  inc: { value = value + 1 }
+  get: { value }
 }
 
 counter.inc()
