@@ -2,82 +2,118 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Hi — a tiny symbolic language</title>
+<title>Hi — a tiny, symbolic, AI-first programming language</title>
 <link rel=preconnect href=https://fonts.googleapis.com>
 <link rel=preconnect href=https://fonts.gstatic.com crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel=stylesheet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code:wght@400;600&display=swap" rel=stylesheet>
+<script src="https://cdn.tailwindcss.com"></script>
 <link rel=stylesheet href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">
 <link rel=stylesheet href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css">
 <style>
-:root{--fg:#0b1020;--mut:#6b7280;--bg:#fafafc;--fx:#111827;--link:#0ea5e9;--card:#ffffff;--ring:#e5e7eb}
+:root{color-scheme:light}
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;background:radial-gradient(1200px 800px at 10% -10%,#eef4ff 0,#fff0 50%),radial-gradient(800px 480px at 120% 10%,#fff1f2 0,#fff0 40%),var(--bg);color:var(--fg);font:400 12.5px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif}
-a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
-header{position:sticky;top:0;z-index:10;background:#ffffffb3;backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--ring)}
-nav{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:10px 12px}
-.brand{justify-self:center}
-.brand button{pointer-events:none;user-select:none;border:0;border-radius:999px;padding:6px 14px;background:#111827;color:#fff;font-weight:800;letter-spacing:.02em;font-size:14px}
-.brand button:disabled{opacity:.95}
-main{max-width:960px;margin:0 auto;padding:12px}
-.card{background:var(--card);border:1px solid var(--ring);border-radius:14px;box-shadow:0 10px 24px rgba(10,20,40,.04)}
-.markdown-body{padding:18px 18px 24px;border-radius:12px;color:var(--fg)}
-.markdown-body h1,.markdown-body h2{letter-spacing:.01em}
-.markdown-body h1{font-size:22px}
-.markdown-body h2{font-size:16px}
-.markdown-body p,.markdown-body li,.markdown-body blockquote{font-size:12.5px}
-.markdown-body code{font-family:"JetBrains Mono",ui-monospace,Menlo,Monaco,Consolas,monospace;font-size:11.5px}
-.markdown-body pre>code{font-size:11.5px}
-.kicker{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.16em}
-.hero{display:flex;gap:16px;align-items:center;margin-bottom:8px}
-.hero .emoji{font-size:18px}
-pre{position:relative;border:1px solid var(--ring)!important;border-radius:10px!important}
-.copy{position:absolute;top:8px;right:8px;border:1px solid var(--ring);background:#fff;border-radius:8px;padding:2px 8px;font:600 10px/18px Inter;color:#111827;opacity:.75}
-.copy:hover{opacity:1}
-aside.tip{border:1px dashed var(--ring);border-radius:10px;padding:10px 12px;background:#fafbff}
-hr{border:0;border-top:1px solid var(--ring);margin:14px 0}
-footer{max-width:960px;margin:0 auto;padding:12px 12px 40px;color:#0008;font-size:9.5px;opacity:.35}
-.icon{display:inline-flex;vertical-align:text-bottom}
-ul.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;padding-left:18px}
-blockquote{border-left:2px solid #e5e7eb;padding-left:10px;color:#374151}
-kbd{border:1px solid var(--ring);border-radius:6px;padding:0 6px;background:#fff;font:600 10px/18px Inter}
-.small{font-size:11.5px}
+body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Apple Color Emoji,Noto Color Emoji,Arial,Helvetica,sans-serif}
+code,pre,.font-mono{font-family:"Fira Code",ui-monospace,Menlo,Consolas,monospace}
+.markdown-body{font-size:12px;line-height:1.6}
+.markdown-body pre{overflow:auto}
+.copy-btn{position:absolute;top:.4rem;right:.4rem;font-size:10px;padding:.125rem .375rem;border-radius:.375rem;background:rgba(17,17,17,.9);color:#fff}
+pre{border:1px solid #e5e7eb;border-radius:.5rem;position:relative}
+.hero-grad{--g:radial-gradient(60% 60% at 50% 40%,rgba(120,119,198,.15),rgba(255,255,255,0) 60%);background:
+    var(--g),conic-gradient(from 180deg at 50% 50%,#f0f5ff,#fff,#f0f5ff)}
+.badge{border:1px solid #e5e7eb;background:#fff;border-radius:.5rem;padding:.125rem .375rem;font-size:10px}
+kbd{border:1px solid #e5e7eb;border-bottom-width:2px;border-radius:.375rem;background:#fff;padding:.05rem .3rem;font-size:10px}
+a.anchor{color:#111827;text-decoration:none;border-bottom:1px dashed #d1d5db}
 </style>
+<script>
+tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','ui-sans-serif','system-ui'],mono:['Fira Code','ui-monospace']}}}}
+</script>
 </head>
-<body>
-<header><nav>
-  <div></div>
-  <div class=brand><button disabled aria-label="Hi brand">Hi</button></div>
-  <div style=text-align:right><a href="https://github.com/hi-language" target=_blank rel=noopener aria-label="GitHub home"><svg class=icon width=16 height=16 stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19c-5 1-5-2-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7a5.44 5.44 0 0 0-1.5-3.77 5.07 5.07 0 0 0-.09-3.77S18.73 2.65 16 4a13.38 13.38 0 0 0-7 0C6.27 2.65 3.09 1.98 3.09 1.98a5.07 5.07 0 0 0-.09 3.77A5.44 5.44 0 0 0 1.5 8.52c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 7 19.13V23"></path></svg></a></div>
-</nav></header>
-<main>
-  <article id=doc class="markdown-body card"></article>
-</main>
-<footer>website built by gemini</footer>
-
-<script id=md type=text/markdown>
-<span class="kicker">Symbol-first • AI-native • Golf-friendly</span>
-
-<div class="hero">
-  <span class="emoji">✨</span>
-  <div>
-    <h1>The “Hi” programming language</h1>
-    <p>Inspired by JavaScript, but corely symbolic: fewer keywords, more symbols. A small surface built to be read and written by humans everywhere — and by AI.</p>
+<body class="min-h-dvh bg-white text-gray-900 selection:bg-black/10 text-xs">
+<header class="sticky top-0 z-20 bg-white/80 backdrop-blur border-b border-gray-200">
+  <div class="mx-auto max-w-3xl px-3 py-2 grid grid-cols-3 items-center">
+    <nav class="flex gap-2 items-center">
+      <a href="#overview" class="badge">Overview</a>
+      <a href="#syntax" class="badge">Syntax</a>
+      <a href="#blocks" class="badge">Blocks</a>
+    </nav>
+    <div class="flex items-center justify-center">
+      <button aria-label="Hi" disabled class="pointer-events-none select-none h-8 px-4 rounded-full bg-gray-200 text-gray-900 font-semibold">Hi</button>
+    </div>
+    <div class="flex justify-end items-center gap-1">
+      <a class="badge hidden sm:inline" href="https://github.com/hi-language" target="_blank" rel="noreferrer">GitHub</a>
+      <button id="copyAll" class="badge" title="Copy all examples">Copy all</button>
+    </div>
   </div>
-</div>
+</header>
 
-> Why symbols? Fewer words means less translation, lower typing cost, and cleaner mental models across languages and cultures.
+<main class="mx-auto max-w-3xl px-3">
+  <section class="hero-grad rounded-2xl border border-gray-200 mt-4 p-4 sm:p-6">
+    <div class="flex items-center gap-2 text-[11px] text-gray-600 mb-2">
+      <span class="badge">Symbolic</span>
+      <span class="badge">JS-inspired</span>
+      <span class="badge">AI-first</span>
+      <span class="badge">Code-golf friendly</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="h-12 w-12 rounded-xl bg-gradient-to-br from-black to-gray-600 text-white grid place-items-center font-extrabold">Hi</div>
+      <div>
+        <h1 class="text-base sm:text-lg font-extrabold leading-tight">Hi — a tiny, symbolic, AI-first programming language</h1>
+        <p class="text-[11px] sm:text-xs text-gray-600">Keep the core mostly symbols so everyone can read/write it. Let humans and AIs meet at the shortest path.</p>
+      </div>
+    </div>
 
-## Principles <i data-lucide="sparkles" class="icon"></i>
-- Symbols over keywords (`: = ? * >> ^`).
-- One construct — the <em>Block</em> — acts as both object and function.
-- Last value wins: blocks return their final expression.
-- AI-native: we prioritize how models read/write code, and we encourage code-golfable patterns.
-- JavaScript-adjacent semantics where it helps, simplicity where it matters.
+    <div class="mt-4 grid sm:grid-cols-[1fr,220px] gap-4">
+      <article id="mdOut" class="markdown-body"></article>
+      <aside class="rounded-xl border border-gray-200 bg-white/70 p-3">
+        <div class="text-[11px] text-gray-500 mb-2">Shape of a program</div>
+        <svg viewBox="0 0 220 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0%" stop-color="#111827"/>
+              <stop offset="100%" stop-color="#4b5563"/>
+            </linearGradient>
+          </defs>
+          <rect x="1" y="1" width="218" height="178" rx="12" fill="#fff" stroke="#e5e7eb"/>
+          <g font-family="Inter" font-size="10" fill="#111827">
+            <rect x="18" y="18" width="70" height="32" rx="7" fill="#f3f4f6" stroke="#e5e7eb"/>
+            <text x="53" y="38" text-anchor="middle">Source.hi</text>
+            <rect x="132" y="18" width="70" height="32" rx="7" fill="#f3f4f6" stroke="#e5e7eb"/>
+            <text x="167" y="38" text-anchor="middle">Blocks</text>
 
----
+            <path d="M88 34h36" stroke="url(#g1)" stroke-width="1.2"/>
+            <polygon points="125,34 119,31 119,37" fill="#4b5563"/>
 
-## Hello, world
+            <rect x="18" y="74" width="184" height="36" rx="7" fill="#f9fafb" stroke="#e5e7eb"/>
+            <text x="110" y="96" text-anchor="middle">Symbols: <tspan fill="#374151">:  =  { }  ( )  [ ]  #  ?  *</tspan></text>
+
+            <rect x="18" y="128" width="184" height="32" rx="7" fill="#eef2ff" stroke="#e5e7eb"/>
+            <text x="110" y="147" text-anchor="middle">Object ∧ Function = Block</text>
+          </g>
+        </svg>
+        <div class="mt-2 text-[11px] text-gray-600">
+          In Hi, a Block is both an object and a function. The last expression returns. Private fields start with <code>#</code>.
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <footer class="py-8 text-center text-[11px] text-gray-500">
+    <div class="mb-2">Made with markdown-it, highlight.js (JS mode), and lucide icons.</div>
+    <div>Hi is early and evolving. Syntax and semantics may change.</div>
+  </footer>
+</main>
+
+<script id="md" type="text/markdown">
+<a id="overview"></a>
+
+### Why Hi?
+- Corely symbolic: fewer keywords, more universal glyphs. Symbols travel better across languages and scripts.
+- JS-inspired pragmatism, but not JS. If you know JS, you’ll grok Hi fast.
+- AI-first: short, rigid tokens make parsing/generation simpler for LLMs. Great for code-golf, great for machines.
+
+> Printing uses `_()` — think “say”. Comments are `//`.
+
 ```js
-// The underscore is print/output
+// Hello, world
 _("Hi world")
