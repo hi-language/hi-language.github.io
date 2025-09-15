@@ -1,272 +1,302 @@
-<!doctype html>
-<html lang="en">
+<!doctype html><html lang=en>
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Hi Language</title>
+<meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Hi — a corely symbolic language</title>
+<meta name=description content="Hi is a corely symbolic language inspired by JavaScript. Fewer keywords, more global legibility.">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css">
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/github.min.css"/>
 <style>
-.markdown-body{font-size:16px;line-height:1.7;padding:2rem 1.5rem;max-width:800px;margin:auto}.markdown-body pre{overflow:auto;background-color:#f6f8fa!important}.markdown-body h1{padding-bottom:.5em;border-bottom:1px solid #d0d7de;font-size:2.5em}.markdown-body h3{font-size:1.5em;padding-bottom:.3em;border-bottom:1px solid #d0d7de;margin-top:2.5rem}.markdown-body hr{margin:2.5rem 0}
-body{background-color:#fcfcfc}
-.blob-container{position:relative;height:8rem;width:100%;overflow:hidden;margin:-4rem 0}.blob{position:absolute;border-radius:9999px;filter:blur(60px);opacity:0.25;z-index:-1}.blob1{width:400px;height:300px;background:radial-gradient(circle at center, #a855f7, #3b82f6);top:-50px;left:calc(50% - 200px)}.blob2{width:500px;height:250px;background:radial-gradient(circle at center, #ec4899, #f97316);top:0;left:10%}.blob3{width:350px;height:350px;background:radial-gradient(circle at center, #14b8a6, #22c55e);top:-80px;right:5%}.blob4{width:450px;height:300px;background:radial-gradient(circle at center, #ef4444, #eab308);top:-40px;left:25%}
-@media(min-width:768px){.markdown-body{font-size:17px;padding:3rem 2rem}}
+:root{--bg:255 255 255;--fg:17 24 39;--muted:107 114 128;--ring:0 0 0/0}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:rgb(var(--bg));color:rgb(var(--fg));-webkit-tap-highlight-color:transparent}
+.container{max-width:960px;margin:0 auto}
+.topbar{backdrop-filter:saturate(1.2) blur(8px)}
+.badge{border-radius:9999px}
+.bubble{border:1px solid #e5e7eb;background:#fff;border-radius:24px;padding:20px}
+.bubble-shadow{box-shadow:0 10px 30px rgba(0,0,0,.06)}
+.bridge{height:90px;position:relative;display:flex;align-items:center;justify-content:center}
+.blobs{position:absolute;inset:-40% -20% -40% -20%;filter:blur(40px);opacity:.75}
+.blob{position:absolute;border-radius:9999px}
+.blob.a{left:10%;top:10%;width:220px;height:220px;background:radial-gradient(closest-side,#a78bfa,#a78bfa00)}
+.blob.b{right:15%;bottom:10%;width:260px;height:260px;background:radial-gradient(closest-side,#60a5fa,#60a5fa00)}
+.blob.c{left:40%;top:35%;width:280px;height:280px;background:radial-gradient(closest-side,#34d399,#34d39900)}
+.bridge .note{position:relative;font-size:14px;color:#374151;background:#fff;border:1px solid #e5e7eb;border-radius:9999px;padding:.4rem .75rem;box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.markdown-body{font-size:15px;line-height:1.7}
+.markdown-body pre{overflow:auto}
+pre>code{font-size:13px}
+code,pre code{border-radius:8px}
+.code-ops{position:absolute;top:10px;right:10px;display:flex;gap:6px;align-items:center}
+.copy-btn{background:#111827;color:#fff;font-size:12px;border-radius:8px;padding:.25rem .5rem;opacity:.9}
+.char-count{font-size:12px;color:#6b7280}
+.hero{background:radial-gradient(90% 70% at 50% 10%,#eef2ff,transparent 60%),radial-gradient(90% 70% at 10% 20%,#eff6ff,transparent 55%),radial-gradient(90% 70% at 90% 20%,#ecfeff,transparent 55%)}
+footer a{color:#111827}
+@media (prefers-color-scheme:dark){
+  :root{--bg:9 10 12;--fg:229 231 235;--muted:156 163 175}
+  body{background:rgb(var(--bg));color:rgb(var(--fg))}
+  .bubble{background:#0f1115;border-color:#1f2937}
+  .bridge .note{background:#0f1115;border-color:#1f2937;color:#d1d5db}
+  .markdown-body{--color-canvas-default:#0f1115;--color-fg-default:#e5e7eb;--color-border-default:#1f2937}
+  .copy-btn{background:#111827}
+}
 </style>
 </head>
-<body class="text-gray-900 selection:bg-purple-500/10">
-<div class="flex flex-col h-dvh max-h-dvh overflow-hidden">
-<header id="topbar" class="sticky top-0 z-20 bg-white/80 backdrop-blur border-b border-gray-200">
-  <div class="mx-auto w-full max-w-none px-4 py-3 grid grid-cols-3 items-center">
-    <button id="sidebarBtnLeft" class="h-8 w-8 rounded-xl bg-gray-100 hover:bg-gray-200 active:scale-[.99] transition flex items-center justify-center" title="Menu"><i data-lucide="panel-left" class="h-5 w-5"></i></button>
-    <div class="justify-self-center text-lg font-bold tracking-wider">Hi</div>
-    <div class="justify-self-end"></div>
-  </div>
-</header>
-<div class="flex flex-1 overflow-hidden">
-  <div id="sidebarOverlay" class="fixed inset-0 z-40 bg-black/20 hidden md:hidden"></div>
-  <aside id="sidebarLeft" class="fixed md:relative inset-y-0 left-0 z-50 w-64 max-w-[85vw] bg-white border-r border-gray-200 transform -translate-x-full transition-transform duration-200 ease-out flex flex-col md:translate-x-0 md:shadow-none">
-    <div class="p-3 border-b text-sm font-semibold">Hi Language</div>
-    <div class="flex-1 overflow-y-auto">
-      <div class="p-2"><button class="w-full text-left px-3 py-2 rounded-md bg-gray-100 font-medium text-sm">Introduction</button></div>
+<body class="min-h-screen flex flex-col">
+  <header class="topbar sticky top-0 z-40 w-full border-b border-gray-200/80 bg-white/80 dark:bg-black/30">
+    <div class="container px-4 py-3 grid grid-cols-3 items-center">
+      <div class="justify-self-start">
+        <a href="https://github.com/hi-language" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">
+          <i data-lucide="github" class="w-5 h-5"></i><span class="hidden sm:inline">GitHub</span>
+        </a>
+      </div>
+      <div class="justify-self-center">
+        <button class="pointer-events-none select-none h-9 px-4 badge bg-gray-900 text-white text-sm tracking-wide">Hi</button>
+      </div>
+      <div class="justify-self-end">
+        <span class="text-xs text-gray-500 dark:text-gray-400">alpha</span>
+      </div>
     </div>
-  </aside>
-  <main id="chat" class="flex-1 overflow-y-auto">
-    <div id="content" class="markdown-body"></div>
+  </header>
+
+  <main id="app" class="flex-1">
+    <section class="hero">
+      <div class="container px-4 py-10 sm:py-16">
+        <div class="bubble bubble-shadow">
+          <article class="markdown-body">
+            <h1 align="center">Hi — a corely symbolic language</h1>
+            <p align="center"><em>Inspired by JavaScript. Designed to read the same in every culture.</em></p>
+            <p>
+              Hi keeps the core of the language mostly <strong>symbols</strong> and uses words only when words are truly clearer. Fewer keywords, fewer fences to learning, more global legibility.
+            </p>
+            <ul>
+              <li><strong>Declaration:</strong> <code>:</code></li>
+              <li><strong>Assignment:</strong> <code>=</code></li>
+              <li><strong>Private:</strong> <code>#</code> prefix</li>
+              <li><strong>Blocks:</strong> <code>{}</code> is always both an object <em>and</em> a callable block</li>
+              <li><strong>Print:</strong> <code>_()</code></li>
+            </ul>
+            <p class="text-sm text-gray-500">Below, code uses JavaScript highlighting while Hi’s highlighter is being finalized.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="bridge">
+      <div class="blobs"><div class="blob a"></div><div class="blob b"></div><div class="blob c"></div></div>
+      <div class="note"><i data-lucide="sparkles" class="w-4 h-4 inline -mt-0.5"></i> A quick taste</div>
+    </div>
+
+    <section class="container px-4 py-6">
+      <div class="bubble bubble-shadow">
+        <div data-md="#intro" class="markdown-body"></div>
+      </div>
+    </section>
+
+    <div class="bridge">
+      <div class="blobs"><div class="blob a"></div><div class="blob b"></div><div class="blob c"></div></div>
+      <div class="note">Blocks that think and hold state</div>
+    </div>
+
+    <section class="container px-4 py-6">
+      <div class="bubble bubble-shadow">
+        <div data-md="#blocks" class="markdown-body"></div>
+      </div>
+    </section>
+
+    <div class="bridge">
+      <div class="blobs"><div class="blob a"></div><div class="blob b"></div><div class="blob c"></div></div>
+      <div class="note">Conditions, truthiness, and clarity</div>
+    </div>
+
+    <section class="container px-4 py-6">
+      <div class="bubble bubble-shadow">
+        <div data-md="#flow" class="markdown-body"></div>
+      </div>
+    </section>
+
+    <div class="bridge">
+      <div class="blobs"><div class="blob a"></div><div class="blob b"></div><div class="blob c"></div></div>
+      <div class="note">Arrays and iteration</div>
+    </div>
+
+    <section class="container px-4 py-6">
+      <div class="bubble bubble-shadow">
+        <div data-md="#arrays" class="markdown-body"></div>
+      </div>
+    </section>
+
+    <div class="bridge">
+      <div class="blobs"><div class="blob a"></div><div class="blob b"></div><div class="blob c"></div></div>
+      <div class="note">Design notes</div>
+    </div>
+
+    <section class="container px-4 py-6">
+      <div class="bubble bubble-shadow">
+        <div data-md="#design" class="markdown-body"></div>
+      </div>
+    </section>
+
+    <section class="container px-4 py-10">
+      <div class="bubble bubble-shadow">
+        <div data-md="#footer" class="markdown-body"></div>
+      </div>
+    </section>
   </main>
-</div>
-</div>
-<script src="https://unpkg.com/lucide@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded',()=>{
-const qs=s=>document.querySelector(s),esc=s=>s.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]||''));
-const contentEl=qs('#content'),sidebar=qs('#sidebarLeft'),overlay=qs('#sidebarOverlay'),sidebarBtn=qs('#sidebarBtnLeft');
-const mdContent=`# Welcome to Hi.
 
-A programming language designed from the ground up for a global community. Inspired by the simplicity and dynamism of JavaScript, but with a core philosophy that prioritizes symbols over keywords.
+  <footer class="border-t border-gray-200/80 py-6">
+    <div class="container px-4 text-sm flex flex-wrap items-center justify-between gap-3">
+      <div class="text-gray-500">Made with <span title="care">♥</span> for a wider world</div>
+      <div class="flex items-center gap-4">
+        <a href="https://github.com/hi-language" target="_blank" rel="noopener" class="inline-flex items-center gap-1"><i data-lucide="github" class="w-4 h-4"></i> Source</a>
+        <a href="https://github.com/hi-language/hi-language.github.io/issues/new" target="_blank" rel="noopener" class="inline-flex items-center gap-1"><i data-lucide="message-square" class="w-4 h-4"></i> Feedback</a>
+      </div>
+    </div>
+  </footer>
 
----
-
-<div class="blob-container"><div class="blob blob1"></div></div>
-
-### A Personal Note
-
-When I started sketching out *Hi*, I wasn't just thinking about syntax. I was thinking about communication. Programming is a form of communication—between a developer and a computer, yes, but also between developers themselves. English is the de facto language of code, but what if we could lower that barrier, even slightly? By relying on a more universal set of symbols, *Hi* aims to be a little more approachable, a little more intuitive, no matter what your native language is. It's an experiment in clarity and minimalism.
-
-### The Basics: Hello World
-
-Let's start with the traditional greeting. The underscore \`_\` is our primary function for output, similar to \`console.log\`.
-
-\`\`\`js
-// This is hello world in Hi
+<script id="intro" type="text/markdown">
+~~~js
+// Hello, world — in Hi
 _("Hi world")
-\`\`\`
 
-### Variables: Declaration & Assignment
+// A few building blocks:
+name: "Orion"          // declare & set
+age:  7 + 1            // expressions are JS-like
+_(name + " is " + age) // Orion is 8
 
-*Hi* simplifies variable management with two core symbols:
+// Declaration vs Assignment
+greeting: "Hi"
+greeting = greeting + " there!"
+_(greeting)            // "Hi there!"
+~~~
+</script>
 
--   \`:\` for declaration.
--   \`=\` for assignment.
+<script id="blocks" type="text/markdown">
+~~~js
+// In Hi, {} creates a Block.
+// A Block is both an object (with properties) and a function (callable).
 
-\`\`\`js
-// Declare a variable 'message'
-message: "Hello from Hi!"
-
-// Assign a new value to it
-message = "The value has changed."
-
-_(message)
-\`\`\`
-
----
-
-<div class="blob-container"><div class="blob blob2"></div></div>
-
-### The Core Concept: The Block \`{}\`
-
-This is where *Hi* truly diverges. The \`{}\` syntax doesn't create a simple "object" or "function". It creates a **Block**. A Block is a versatile container that can hold both properties and executable code. Think of it as a living entity that is always both an object and a function, simultaneously.
-
-#### Function Blocks
-
-If a Block's primary purpose is to be executed, it acts like a function.
-
-\`\`\`js
+// 1) Function Block
 sayHi: {
   _("Hi")
 }
+sayHi()                // invokes the block
 
-// Call it just like a function
-sayHi()
-\`\`\`
-
-#### Object Blocks
-
-If it's primarily for storing data, it acts like an object. Properties are public by default. Use \`#\` to make them private.
-
-\`\`\`js
+// 2) Object Block
 player: {
-  name: "Orion" // public property
-  #hp: 100     // private property
+  name: "Orion"        // public
+  #hp: 100             // private (internal to the block)
 }
+_(player.name)         // "Orion"
 
-_(player.name) // "Orion"
-// _(player.hp) -> This would be an error
-\`\`\`
-
-#### Hybrid Blocks
-
-The true power of Blocks is their ability to be both. Here's a stateful counter that exposes a method to modify its internal, private state.
-
-\`\`\`js
+// 3) Hybrid Block (state + methods)
 counter: {
   #value: 0
-
   inc: {
-    // #value is accessible from within the parent block
-    #value = #value + 1
-    _("The count is now: " + #value)
+    value = value + 1
+    _("The count is now: " + value)
   }
 }
+counter.inc()          // The count is now: 1
+counter.inc()          // The count is now: 2
 
-counter.inc() // The count is now: 1
-counter.inc() // The count is now: 2
-\`\`\`
-
-#### Blocks with Parameters
-
-Parameters are defined in parentheses, just like in JavaScript.
-
-\`\`\`js
+// Parameters
 withParams: (str) {
   _(str)
 }
+withParams("Hello!")   // "Hello!"
+~~~
+</script>
 
-withParams("This string gets printed.")
-\`\`\`
+<script id="flow" type="text/markdown">
+~~~js
+// Truthiness
+0   // falsy (official false)
+!0  // truthy (official true)
+4   // truthy
+""  // falsy (truthy if full)
+{}  // falsy (truthy if full)
+[]  // falsy (truthy if full)
+-0  // falsy / null-ish / undefined-ish
 
----
+// Equality: '==' in Hi is JS's '===' by default
+(2 == 2)    // true
+("2" == 2)  // false
 
-<div class="blob-container"><div class="blob blob3"></div></div>
-
-### Logic & Control Flow
-
-#### Truthiness & Falsiness
-
-*Hi* has a simple but powerful set of rules for what is considered "true" or "false".
-
--   \`0\` is the official \`false\` value.
--   \`!0\` (not zero) is the official \`true\` value.
--   Numbers other than \`0\` are truthy.
--   Empty strings \`""\`, Blocks \`{}\`, and arrays \`[]\` are falsy. They become truthy once they contain something.
--   \`-0\` is a special value representing \`null\` or \`undefined\`.
--   \`==\` provides strict equality, equivalent to JavaScript's \`===\`.
-
-#### Conditionals
-
-Conditional logic uses a syntax inspired by the ternary operator, making \`if\` statements expressions that return values.
-
-\`\`\`js
-// Simple if
-(1 == 1) ? { _("It's true!") }
-
-// If / else
-// The last evaluated expression in a Block is its return value.
-result: (5 > 10) ? { "Five is greater" } : { "Five is not greater" }
-
-_(result) // "Five is not greater"
-\`\`\`
-
-The structure is naturally suited for \`else if\` chains.
-
-\`\`\`js
+// If / Else — expressions that return a value
 score: 85
-
-grade: (score >= 90) ? { "A" }
-     : (score >= 80) ? { "B" }
+grade: (score > 90) ? { "A" }
+     : (score > 80) ? { "B" }
      : { "C" }
+_(grade)                // "B"
 
-_(grade) // "B"
-\`\`\`
+// Ternary as a function
+tern: (cond) ? {"A"} : {"B"}
+_( tern(0) )            // "B"
+_( tern(!0) )           // "A"
+~~~
+</script>
 
----
-
-### Data Structures: Arrays
-
-Arrays are ordered lists of values, declared with \`[]\`.
-
-\`\`\`js
+<script id="arrays" type="text/markdown">
+~~~js
+// Arrays
 primes: [2, 3, 5, 7]
 
-// Access elements with zero-based indexing
+// Access
 firstPrime: primes[0]
-_(firstPrime) // 2
 
-// Mutate elements
+// Mutation
 primes[0] = 1
-_(primes) // [1, 3, 5, 7]
-\`\`\`
+_(primes)               // [1, 3, 5, 7]
 
----
-
-<div class="blob-container"><div class="blob blob4"></div></div>
-
-### Loops
-
-The \`*\` symbol signifies repetition, creating a loop.
-
-#### For Loops
-
-The syntax is a classic three-part C-style declaration followed by \`*\` and a Block.
-
-\`\`\`js
+// Loops
+// for: (init; condition; step) * { ... }
 (i: 0; i < 3; i = i + 1) * {
-  _("Loop iteration: " + i)
+  _("i = " + i)
 }
-// Prints 0, 1, 2
-\`\`\`
-
-#### While Loops
-
-For a \`while\` loop, simply provide a condition.
-
-\`\`\`js
-count: 0
-(count < 3) * {
-  _("While loop: " + count)
-  count = count + 1
+// while: (cond) * { ... }
+(n: 3; n > 0) * {
+  _("n = " + n)
+  n = n - 1
 }
-\`\`\`
 
-#### Loop Control
+// Control flow inside loops
+>>  // continue
+^   // break
+~~~
+</script>
 
-*Hi* provides symbols to control loop flow:
+<script id="design" type="text/markdown">
+Hi’s bet is simple: if the core remains mostly symbolic, the language becomes easier to <em>share</em>. Symbols travel. They compress meaning, avoid translation drift, and are friendly to learners who think first in patterns, then in words.
 
--   \`>>\` to \`continue\` to the next iteration.
--   \`^\` to \`break\` out of the loop.
+- The colon <code>:</code> declares. It feels like naming, because it is.
+- The equals <code>=</code> assigns. What’s on the right flows into the left.
+- Blocks <code>{}</code> unify two worlds (object + function) so composition feels natural.
+- Privacy with <code>#</code> is local, honest, and easy to scan.
 
-\`\`\`js
-(i: 0; i < 10; i = i + 1) * {
-  (i == 2) ? { >> } // Skip iteration 2
-  (i == 5) ? { ^ }  // Stop when i is 5
-  _("i is " + i)
-}
-// Prints: 0, 1, 3, 4
-\`\`\`
----
+This minimal surface area opens doors: fewer new words to memorize, less syntax to juggle, and more attention for the idea you’re expressing.
 
-### The Road Ahead
+As a language nerd: I’m excited by how Hi’s “both/and” Blocks make small programs read like living notebooks. You can store state, compute, and export behavior without switching mental modes. It’s a gentle on‑ramp to real power.
+</script>
 
-*Hi* is in its early stages of development. The core concepts are taking shape, but there is much more to build and refine. This page will be updated as the language evolves. Thank you for taking a look.
-`;
-const md=window.markdownit({html:!0,highlight:(s,l)=>{if(l&&hljs.getLanguage(l))try{return hljs.highlight(s,{language:l,ignoreIllegals:!0}).value}catch(e){}return esc(s)}});
-contentEl.innerHTML=md.render(mdContent);
-lucide.createIcons();
-const toggle=()=>{sidebar.classList.toggle('-translate-x-full');overlay.classList.toggle('hidden')};
-sidebarBtn.onclick=toggle;overlay.onclick=toggle;
-})
+<script id="footer" type="text/markdown">
+> Hi is in active development. The spec, tooling, and a proper syntax highlighter are on the way. This page updates as we ship. If you have ideas or critiques, we’d love to hear from you.
+</script>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
+<script>
+(()=>{const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],md=window.markdownit({html:false,linkify:true,typographer:true,breaks:true})
+const icons=()=>window.lucide&&lucide.createIcons()
+function enhance(root){root.querySelectorAll('pre>code').forEach((c,i)=>{const p=c.parentElement;p.classList.add('relative');if(p.querySelector('.code-ops'))return;const n=c.textContent.length,t=n>=1e3?(n/1e3).toFixed(1)+'K':n+'',ops=document.createElement('div');ops.className='code-ops'
+const cnt=document.createElement('span');cnt.className='char-count';cnt.textContent=t+' chars'
+const btn=document.createElement('button');btn.className='copy-btn';btn.textContent='Copy';btn.onclick=async e=>{e.stopPropagation();try{await navigator.clipboard.writeText(c.innerText);btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1200)}catch{}}
+ops.append(cnt,btn);p.append(ops)})}
+$$('[data-md]').forEach(d=>{const src=d.getAttribute('data-md'),tpl=$(src);if(!tpl)return;d.innerHTML=md.render(tpl.textContent||'');d.querySelectorAll('pre code').forEach(el=>{try{hljs.highlightElement(el)}catch{}});enhance(d)})
+icons()
+})();
 </script>
 </body>
 </html>
