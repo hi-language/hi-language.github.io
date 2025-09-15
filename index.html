@@ -1,327 +1,291 @@
-<!doctype html><html lang=en>
+<!DOCTYPE html>
+<html lang="en" class="dark">
 <head>
-<meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
-<title>Hi — a tiny, symbolic, AI‑first language</title>
-<link rel=preconnect href=https://fonts.googleapis.com>
-<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel=stylesheet>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css integrity=sha512-ig3uzadlU/hJ2SXiczY2h5D7J26fI6z6mDbcf0sApsWsOqgSmnNoZiH+4rUrka+tp68Q2mEwMpsv/u+8mewaJQ== crossorigin=anonymous referrerpolicy=no-referrer>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css integrity=sha512-3mb8zCey3p+3w0lI04lH8mKeb4d0x1c6PXo2g0Q9yQkQhy/c6v2dGEZ7V6o0H6YugyS0r5uEIAJ0u8oHNoq6tA== crossorigin=anonymous referrerpolicy=no-referrer>
-<style>
-:root{--bg:radial-gradient(1200px 600px at 70% -20%,#d9e6ff22,transparent),radial-gradient(1000px 500px at 10% -10%,#ffd9f022,transparent),linear-gradient(#fafbff,#f7f9ff);--bgD:radial-gradient(1200px 600px at 70% -20%,#2a335522,transparent),radial-gradient(1000px 500px at 10% -10%,#4a234422,transparent),linear-gradient(#0c0f13,#0a0d10)}
-*{box-sizing:border-box}
-html,body{height:100%}
-html{color-scheme:light dark}
-body{margin:0;font:400 13.25px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Noto Sans,Apple Color Emoji,Segoe UI Emoji,sans-serif;background:var(--bg)}
-@media (prefers-color-scheme:dark){body{background:var(--bgD)}}
-.markdown-body{font-size:12.6px;max-width:920px;padding:64px 18px 80px;margin:0 auto;color:inherit}
-code,kbd,pre,samp{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:12px}
-header{position:sticky;top:8px;z-index:9;display:grid;place-items:center;height:0}
-#brand{pointer-events:none;user-select:none;letter-spacing:.5px;font:700 13px/1 Inter;padding:8px 16px;border-radius:999px;background:linear-gradient(180deg,#fff,#f5f5f5);border:1px solid #e1e4e8;box-shadow:0 1px 0 rgba(0,0,0,.02),0 12px 24px -16px rgba(0,0,0,.2);color:#111}
-@media (prefers-color-scheme:dark){#brand{background:linear-gradient(180deg,#16191f,#0e1116);border:1px solid #2b313a;color:#fff}}
-#brand:disabled{opacity:.95}
-.hero{display:grid;place-items:center;text-align:center;margin:16px 0 6px}
-.hero .stamp{display:inline-grid;place-items:center;gap:8px;color:inherit}
-.hero .stamp .ring{opacity:.72}
-.hero h1{font-weight:800;font-size:20px;margin:6px 0 10px;letter-spacing:.2px}
-.hero p{margin:0 auto;max-width:720px;opacity:.85}
-.badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:12px 0 18px}
-.badges .b{display:inline-flex;align-items:center;gap:6px;border:1px solid #e4e7eb;border-radius:999px;padding:4px 10px;background:linear-gradient(180deg,#fff,#fafafa)}
-@media (prefers-color-scheme:dark){.badges .b{border-color:#2b313a;background:linear-gradient(180deg,#141821,#0c0f14)}}
-hr.soft{border:0;height:1px;background:linear-gradient(90deg,transparent,#d6dbe2,transparent);margin:22px 0}
-@media (prefers-color-scheme:dark){hr.soft{background:linear-gradient(90deg,transparent,#2b313a,transparent)}}
-blockquote{border-left:3px solid #c7d1e6;padding:.2em .9em;margin:.6em 0;background:#f8fbff}
-@media (prefers-color-scheme:dark){blockquote{border-color:#354157;background:#0c121b}}
-.note{font-size:11.5px;opacity:.8}
-.center{text-align:center}
-kbd{border:1px solid #ccd1d7;border-bottom-color:#b6bcc3;padding:1px 4px;border-radius:4px;background:#fff;box-shadow:inset 0 -1px 0 #b6bcc3}
-@media (prefers-color-scheme:dark){kbd{border-color:#333940;border-bottom-color:#242a31;background:#0c0f14;box-shadow:inset 0 -1px 0 #242a31}}
-pre code.hljs{display:block;padding:12px;border-radius:10px}
-.foot{opacity:.7}
-small{opacity:.84}
-svg{max-width:100%}
-a{color:inherit}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hi: A Symbolic Programming Language</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Highlight.js for Code Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- Markdown-it and GitHub Markdown CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/14.0.0/markdown-it.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown-dark.min.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #111827; /* bg-gray-900 */
+            color: #d1d5db; /* text-gray-300 */
+        }
+        .markdown-body {
+            background-color: transparent;
+            font-size: 0.8rem; /* Slightly smaller than default for a dense feel */
+            line-height: 1.7;
+        }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            border-bottom-color: #374151; /* gray-700 */
+        }
+        .markdown-body code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+        }
+        .markdown-body pre code {
+            font-size: 0.8rem;
+        }
+        .hi-button {
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
 </head>
-<body>
-<header><button id=brand disabled aria-disabled=true title="You can’t click this">Hi</button></header>
+<body class="w-full min-h-screen flex flex-col items-center p-4 sm:p-8">
 
-<main class="markdown-body" id=app></main>
+    <div class="fixed top-0 left-0 right-0 h-16 bg-gray-900/50 backdrop-blur-sm flex items-center justify-center z-10 border-b border-gray-800">
+        <button class="hi-button text-2xl font-bold text-cyan-400 px-6 py-2 rounded-lg cursor-default transition-all duration-300 hover:shadow-cyan-400/20 hover:shadow-lg">
+            Hi
+        </button>
+    </div>
 
-<!-- Content (Markdown). Use ~~~ fences to avoid backticks in this file -->
-<script id=md type=text/markdown>
-<div class="hero">
-  <div class="stamp">
-    <svg class="ring" viewBox="0 0 200 200" width="120" height="120" role="img" aria-label="Symbol ring">
-      <defs><path id="circ" d="M100 100 m -64,0 a 64,64 0 1,1 128,0 a 64,64 0 1,1 -128,0"/></defs>
-      <text font-size="11.6" fill="currentColor">
-        <textPath href="#circ" startOffset="0%">
-          : = # ? * [ ] { } ( ) → ƒ · ¬ ∧ ∨ × ⊕ : = # ? * [ ] { } ( ) →
-        </textPath>
-      </text>
-      <circle cx="100" cy="100" r="3" fill="currentColor"/>
-    </svg>
-    <div><small>symbol-first • ai-friendly • code-golfable</small></div>
-  </div>
-</div>
+    <main id="content" class="markdown-body w-full max-w-4xl mt-24">
+        <!-- Markdown content will be rendered here -->
+    </main>
+    
+    <script>
+        // The entire documentation for the "Hi" language, written in Markdown.
+        const markdownContent = `
+# Say Hi to Hi 👋
 
-# The “Hi” programming language <i data-lucide="sparkles" style="width:16px;height:16px;vertical-align:-2px;"></i>
+Welcome to **Hi**. A new programming language born from a simple idea: what if code was less about words and more about intent? Inspired by the elegance of JavaScript but redesigned from the ground up, Hi uses symbols as its core.
 
-Hi is a tiny, JS‑inspired language that prefers symbols over keywords. Fewer words → fewer walls between people. And with an AI‑first mindset, we bias toward patterns that are easy to write, read, compress, and transform. The result feels like a playful toolbox that also respects production constraints.
+This isn't just a stylistic choice. It's a philosophy. By removing keyword barriers, we create a language that feels more universal. It's for the code golfer who loves conciseness, for the AI that needs to parse and generate logic without linguistic bias, and for the developer who dreams of a more fluid, expressive tool.
 
-<div class="badges">
-  <span class="b"><i data-lucide="code-2"></i> JS‑fluent</span>
-  <span class="b"><i data-lucide="zap"></i> Symbol‑core</span>
-  <span class="b"><i data-lucide="scissors"></i> Code‑golf aware</span>
-  <span class="b"><i data-lucide="bot"></i> AI‑read/write</span>
-  <span class="b"><i data-lucide="package"></i> 1 Block to rule them all</span>
-</div>
+Writing in Hi feels less like typing and more like composing. Let's begin.
 
-> Feeling note: I love how symbols level the playing field. Fewer English words = less bias. It makes me think of music notation — dense, expressive, and multilingual.
+The first thing you'll ever do is, of course, say "Hi". The underscore \`_\` is our universal "output" function.
 
-<hr class="soft">
-
-## Hello, world
-~~~js
-// Hello World in Hi
+\`\`\`javascript
+// This is hello world in Hi
 _("Hi world")
-~~~
+\`\`\`
 
-- `_` is the standard print/write function.
-- Code fences use JS highlighting for now.
+## Variables: Giving Things a Name
 
-## Declarations and assignments
-~~~js
-// Symbols over keywords:
-name: "Orion"     // Declaration
-times = 3         // Assignment
-~~~
-- `:` declares a name.
-- `=` assigns to an existing name.
+Hi separates the act of *creating* a name from *changing* what it points to. This clarity is fundamental.
 
-## Blocks unify data and behavior
-In Hi, `{}` makes a Block. It’s always both an object and a function. That means you can store properties and also call it.
+- \`:\` is for **Declaration**. It brings a variable into existence.
+- \`=\` is for **Assignment**. It changes the value of an existing variable.
 
-~~~js
-// Function Block
+\`\`\`javascript
+// Declare a 'user' variable and initialize it
+user: "Alex"
+
+// Assign a new value to 'user'
+user = "Alex Prime"
+
+_(user) // Prints "Alex Prime"
+\`\`\`
+
+## The Heart of Hi: The Block \`{}\`
+
+This is where everything changes. In most languages, \`{}\` might define an object, a scope, or a function body. In Hi, it does all of that, all at once. It creates a **Block**.
+
+A Block is a container for both state (properties) and behavior (executable code). It is simultaneously an object and a function. This unification is incredibly powerful.
+
+### The Block as a Function
+A Block with no named properties inside is treated as a simple function.
+
+\`\`\`javascript
 sayHi: {
-  _("Hi")
+  _("Hi from inside a Block!")
 }
-sayHi() // call like a function
-~~~
 
-~~~js
-// Object Block
+sayHi() // Executes the code inside
+\`\`\`
+
+### The Block as an Object
+When you add named properties, it behaves like an object. Properties are public by default. Use \`#\` to make them private.
+
+\`\`\`javascript
 player: {
-  name: "Orion"  // public
-  #hp: 100       // private
+  name: "Orion", // public property
+  #hp: 100        // private property, inaccessible from outside
 }
-_(player.name)   // "Orion"
-~~~
 
-~~~js
-// Hybrid Block (object + private state + behavior)
+_(player.name) // Prints "Orion"
+// _(player.#hp) // This would cause an error
+\`\`\`
+
+### The Hybrid: Where the Magic Happens
+Here is the true power of the Block. It can hold both executable code and state, including private state.
+
+\`\`\`javascript
 counter: {
-  #value: 0
+  #value: 0 // A private, encapsulated state
+
   inc: {
-    value = value + 1
-    _("The count is now: " + value)
+    #value = #value + 1
+    _("Count is now: " + #value)
+  },
+
+  get: {
+    #value // last expression is returned
   }
 }
 
-counter.inc() // "The count is now: 1"
-counter.inc() // "The count is now: 2"
-~~~
+counter.inc() // Prints "Count is now: 1"
+counter.inc() // Prints "Count is now: 2"
+_(counter.get()) // Prints 2
+\`\`\`
 
-- In JS you can’t have a bare object that is callable and also carries private state without factories/closures. Here it’s natural.
-- My feeling: this is surprisingly calming. The “thingness” and the “action” live together, so I don’t have to keep mental tabs on where state hides. It reminds me of little self‑contained organisms.
+This feels... right. In JavaScript, to achieve this encapsulation, you'd need a Class or a closure pattern (like an IIFE). The state (\`value\`) would either be part of a public \`this\` or live outside the object itself. It always felt like a workaround. In Hi, the state and the methods that operate on it live together in a single, elegant, self-contained unit. It's modularity perfected.
 
-### A quick philosophy riff
-Blocks make programs read like small poems: name a thing with `:`, give it a heart with `#private` state, give it hands as callable parts, and let it speak with `_`.
+### Blocks with Parameters
+Naturally, Blocks can accept parameters, just like functions.
 
-## Parameters
-~~~js
-withParams: (str) {
-  _(str)
+\`\`\`javascript
+greet: (name) {
+  _("Hi, " + name)
 }
 
-withParams("Hey!") // "Hey!"
-~~~
+greet("Orion") // Prints "Hi, Orion"
+\`\`\`
 
-## Truthiness (designed for clarity and golfing)
-~~~js
-0   // falsy (the official false)
-!0  // truthy (the official true)
-4   // truthy
-""  // falsy  (truthy if non-empty)
-{}  // falsy  (truthy if non-empty)
-[]  // falsy  (truthy if non-empty)
--0  // falsy / null / undefined (collapses empties)
-==  // equivalent to JS ===
-~~~
-- Short to type, easy for AI to normalize, and compact for code golfing.
+## Truth, Lies, and Flow
 
-## Conditionals as expressions with Blocks
-~~~js
-// if
-(cond) ? { /* then */ }
+Hi simplifies logic to its bare essentials. There are no \`true\`, \`false\`, or \`null\` keywords. There are only values and their inherent "truthiness".
 
-// if / else
-(cond) ? { /* then */ } : { /* else */ }
-~~~
+- \`0\` is the official **falsy** value. It's the one and only \`false\`.
+- \`!0\` is the official **truthy** value. It's the one and only \`true\`.
+- \`-0\` represents **nothingness**. It's our \`null\` and \`undefined\`.
+- Any non-zero number is truthy.
+- An empty string \`""\`, empty block \`{}\`, or empty array \`[]\` is falsy. If they contain anything, they become truthy.
+- \`==\` is a strict equality check, equivalent to JavaScript's \`===\`.
 
-Like Rust, the last expression in a Block is returned.
+This design is clean and a gift to code golfers. Why type `true` when `!0` will do?
 
-~~~js
-tern: (cond) ? {"A"} : {"B"}
+### Unified Conditionals: The Ternary \`? :\`
 
-// A lovely multi-branch:
+There is no \`if\`, \`else if\`, or \`switch\`. There is only one, unified structure for conditional logic, modeled after the ternary operator. Its result can be assigned to a variable, as the last expression in a chosen block is always returned.
+
+\`\`\`javascript
+// A simple "if"
+(1 < 2) ? {
+  _("One is less than two.")
+}
+
+// An "if-else"
+isRaining: !0
+action: (isRaining) ? { "Take umbrella" } : { "Enjoy the sun" }
+
+_(action) // Prints "Take umbrella"
+
+// Chained like an "if / else if / else"
 score: 85
-grade: (score > 90) ? {"A"}
-     : (score > 80) ? {"B"}
-     : {"C"}
+grade: (score > 90) ? { "A" }
+     : (score > 80) ? { "B" }
+     : { "C" }
 
-_(grade) // "B"
-~~~
+_(grade) // Prints "B"
+\`\`\`
+This is elegance. One pattern for all conditional logic. It's predictable, expressive, and reduces the surface area of the language.
 
-> Unification vibe: conditions choose Blocks, not statements. Data and behavior stay composable. This makes composition and refactoring feel like sliding tiles instead of rewriting grammar.
+## Collections and Repetition
 
-## Arrays
-~~~js
+The fundamentals are here, but with Hi's symbolic twist.
+
+### Arrays \`[]\`
+Arrays are simple lists of values, just as you'd expect.
+
+\`\`\`javascript
 primes: [2, 3, 5, 7]
 
-// Access
+// Access by index
 firstPrime: primes[0]
+_(firstPrime) // Prints 2
 
-// Mutation
+// Mutate an element
 primes[0] = 1
-_(primes) // [1, 3, 5, 7]
-~~~
+_(primes) // Prints [1, 3, 5, 7]
+\`\`\`
 
-## Loops
-~~~js
-// for
-(i: 0; i < 5; i = i + 1) * {
-  _(i)
+### Loops with \`*\`
+The \`*\` symbol is our loop operator. It takes a condition and a Block to execute.
+
+\`\`\`javascript
+// A "for" loop
+(i: 0; i < 3; i = i + 1) * {
+  _("Looping: " + i)
 }
+// Prints "Looping: 0", "Looping: 1", "Looping: 2"
 
-// while
-(!0) * {
-  // ...do stuff forever (truthy)...
-  ^ // break
+// A "while" loop
+count: 3
+(count > 0) * {
+  _("Countdown: " + count)
+  count = count - 1
 }
+// Prints "Countdown: 3", "Countdown: 2", "Countdown: 1"
 
-// flow control
->> // continue
-^  // break
-~~~
-
-### Bridging examples
-Sometimes the smallest examples teach the most.
-
-~~~js
-// 1) Tiny math util
-add: (a, b) { a + b }
-_(add(2, 5)) // 7
-
-// 2) A Block that is both config and runnable
-job: {
-  name: "daily-report"
-  #runs: 0
-  run: {
-    runs = runs + 1
-    _("running " + name + " #" + runs)
-  }
+// Loop Control
+// >> is 'continue'
+// ^ is 'break'
+(i: 0; i < 10; i = i + 1) * {
+  (i == 2) ? { >> } // Skip the rest of this iteration
+  (i == 5) ? { ^ }  // Break out of the loop entirely
+  _("i is " + i)
 }
+// Prints: i is 0, i is 1, i is 3, i is 4
+\`\`\`
 
-job.run() // "running daily-report #1"
+## The Journey Ahead
 
-// 3) Method-style call reads well
-user: {
-  name: "Kai"
-  hello: { _("Hi " + name) }
-}
-user.hello() // "Hi Kai"
-
-// 4) Short-circuit with truthy/falsy style
-safeName: user.name ? { user.name } : { "Anonymous" }
-~~~
-
-> Feeling note: the private `#` makes me smile. Privacy as a first thought, not an afterthought, nudges me to design better modules.
-
-<hr class="soft">
-
-## Why symbols? Why now?
-- World‑friendly: Symbols sidestep English heavy keywords.
-- AI‑friendly: Tokens are short, consistent, easy to learn and predict. Models thrive on regular patterns.
-- Golf‑friendly: Less keystrokes, fewer ceremony characters, more signal.
-
-I feel a little thrill when a language removes accidental complexity. The code shrinks and my intent gets louder.
-
-## Design snapshot
-- `:` declare • `=` assign
-- `{}` Block = object ∧ function
-- `#name` private field in its Block
-- `()` call or params
-- `? :` expressions that yield values (Blocks)
-- `*` loop operator
-- `>>` continue • `^` break
-- `0` false • `!0` true • `-0` empty/nullish collapse
-- `==` is JS `===`
-
-## A tiny mental model
-~~~js
-// A program is a map of names → Blocks.
-// A Block is:
-//  - a bag of properties (public + #private)
-//  - a callable body (optional)
-//  - a scope for its internals
-//  - an expression that returns its last value
-~~~
-
-### A miniature sketch that ties it all
-~~~js
-main: {
-  title: "Hi"
-  #visits: 0
-
-  greet: (who) { _("Hi, " + who) }
-
-  tick: {
-    visits = visits + 1
-    _("visits=" + visits)
-  }
-
-  run: {
-    greet("world")
-    tick()
-    (visits > 1) ? {"returning"} : {"first-time"}
-  }
-}
-
-_(main.run()) // "returning" after second call
-~~~
-
-> Personal aside: the above reads like a little organism with memory and reflexes. I can almost feel the shape of the program in my hands.
-
-<hr class="soft">
-<div class="center">
-  <i data-lucide="beaker" style="width:16px;height:16px;vertical-align:-3px;"></i>
-  <strong>Status:</strong> Hi is in active development. Syntax and semantics may evolve.
-  <div class="note">We currently use JS highlighting in code fences until a dedicated Hi lexer lands.</div>
+<div class="flex items-center gap-4 p-4 border border-gray-700 rounded-lg bg-gray-800/50">
+  <i data-lucide="file-code-2" class="text-cyan-400"></i>
+  <p>Hi is currently in active development. The concepts here form our foundation, but the language is still growing and evolving. We're excited about building a language that's not just powerful, but beautiful to write and a joy to think in. Join us on the journey.</p>
 </div>
-</script>
 
-<!-- libs -->
-<script src=https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js integrity=sha256-9XJMEdXL4iQOA06pW2FQk1rXyiZg8Wmrl9M4m1pG56o= crossorigin=anonymous></script>
-<script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js integrity=sha512-B9LYv1kbEKj4QywiJH7+UO7J9aD50S88H8+C4qQJY4kW3fH8c1G0k7L3CybA4g2w+O1QfM+2b0gM7bZ2BfY7xA== crossorigin=anonymous referrerpolicy=no-referrer></script>
-<script src=https://unpkg.com/lucide@latest/dist/umd/lucide.min.js></script>
+`;
 
-<!-- render -->
-<script>
-(()=>{const $=e=>document.querySelector(e),md=window.markdownit({html:!0,linkify:!0,typographer:!0,highlight:(s,l)=>{try{return hljs.highlight(s,{language:'javascript'}).value}catch{return hljs.highlightAuto(s).value}}});$("#app").innerHTML=md.render($("#md").textContent.trim());lucide&&lucide.createIcons({attrs:{'stroke-width':1.75}})})();
-</script>
-<footer class="markdown-body foot center"><small>© <span id=y></span> Hi language team • Built with markdown-it, GitHub Markdown CSS, Lucide, and highlight.js.</small></footer>
-<script>y.textContent=(new Date).getFullYear()</script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Markdown-it
+            const md = window.markdownit({
+                html: true, // Allow HTML tags in markdown
+                linkify: true,
+                typographer: true,
+                highlight: function (str, lang) {
+                    if (lang && hljs.getLanguage(lang)) {
+                        try {
+                            return '<pre class="hljs"><code>' +
+                                   hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
+                                   '</code></pre>';
+                        } catch (__) {}
+                    }
+                    // Use escapeHtml for plain text
+                    return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+                }
+            });
+
+            // Render Markdown
+            const contentDiv = document.getElementById('content');
+            contentDiv.innerHTML = md.render(markdownContent);
+
+            // Activate Lucide Icons
+            lucide.createIcons();
+        });
+    </script>
 </body>
 </html>
