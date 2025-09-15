@@ -252,10 +252,11 @@ active: !0
 Modules are imported using the \`+\` and \`->\` operators. This allows for destructuring and aliasing of imported members.
 
 \`\`\`javascript
-// Import 'sum' and 'multiply' (as 'mul') from a remote module
-+ "npm://hi-lang@0.1/math/utils.hi" -> { sum, multiply: mul }
+// Import 'block1' and 'block2' (as 'alias2') from a module
++ "hi-lang@0.1/path/file.hi" -> { block1, block2: alias2 }
 
-sum(5, mul(2, 3)) // 11
+block1()
+alias2("some value")
 \`\`\`
 
 ## Method Chaining
