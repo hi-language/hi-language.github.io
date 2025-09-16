@@ -291,6 +291,63 @@ result: calculator.add(10).sub(4).get()
 _(result) // Prints 6
 \`\`\`
 
+## Core Language Blueprint
+
+To create the initial Hi-to-JS transpiler, the following primitives and built-in functionalities must be defined. This serves as the blueprint for the core standard library.
+
+### Built-in Definitions Table
+
+| Type | Name / Symbol | Description | Example |
+| :--- | :--- | :--- | :--- |
+| **Global** | \`_\` | The global output function. Transpiles to \`console.log\`. | \`_("hello")\` |
+| **Global** | \`Math\` | A global block containing mathematical constants and functions. | \`_(Math.PI)\` |
+| | | | |
+| **Number** | \`.str()\` | Converts the number to its string representation. | \`age: 21; _(age.str())\` |
+| **Number** | \`.fix(d)\` | Formats a number using fixed-point notation. | \`n: 3.14159; _(n.fix(2)) // "3.14"\` |
+| | | | |
+| **String** | \`.len\` | **Property**: Returns the number of characters in the string. | \`"hi".len // 2\` |
+| **String** | \`.num()\` | Parses the string, returning a number. | \`"42".num() // 42\` |
+| **String** | \`.upper()\` | Returns the string converted to uppercase. | \`"hi".upper() // "HI"\` |
+| **String** | \`.lower()\` | Returns the string converted to lowercase. | \`"HI".lower() // "hi"\` |
+| **String** | \`.trim()\` | Removes whitespace from both ends of a string. | \`" hi ".trim() // "hi"\` |
+| **String** | \`.split(d)\` | Divides a string into an ordered list of substrings. | \`"a-b-c".split("-") // ["a","b","c"]\` |
+| **String** | \`.slice(s,e)\`| Extracts a section of a string and returns it as a new string. | \`"hello".slice(1,3) // "el"\` |
+| **String** | \`.has(sub)\`| Determines whether a string contains a given substring. | \`"hi".has("i") // !0 (true)\` |
+| **String** | \`.replace(f,r)\` | Replaces the first occurrence of a substring. | \`"hi hi".replace("i","o") // "ho hi"\` |
+| **String** | \`.replaceAll(f,r)\` | Replaces all occurrences of a substring. | \`"hi hi".replaceAll("i","o") // "ho ho"\` |
+| | | | |
+| **Array** | \`.len\` | **Property**: Returns the number of elements in the array. | \`[1,2].len // 2\` |
+| **Array** | \`.add(v)\` | Adds one or more elements to the end of an array. | \`a:[1]; a.add(2) // a is now [1,2]\` |
+| **Array** | \`.pop()\` | Removes the last element from an array and returns it. | \`a:[1,2]; a.pop() // returns 2\` |
+| **Array** | \`.pre(v)\` | Adds one or more elements to the beginning of an array. | \`a:[2]; a.pre(1) // a is now [1,2]\` |
+| **Array** | \`.shift()\` | Removes the first element from an array and returns it. | \`a:[1,2]; a.shift() // returns 1\` |
+| **Array** | \`.each(fn)\` | Executes a provided function once for each array element. | \`[1,2].each((n)=>{_(n)})\` |
+| **Array** | \`.map(fn)\` | Creates a new array with the results of calling a function on every element. | \`[1,2].map((n)=>n*2) // [2,4]\` |
+| **Array** | \`.filter(fn)\` | Creates a new array with all elements that pass the test implemented by the provided function. | \`[1,2,3].filter((n)=>n>1) // [2,3]\` |
+| **Array** | \`.reduce(fn,iv)\`| Executes a reducer function on each element, resulting in a single output value. | \`[1,2,3].reduce((a,c)=>a+c, 0) // 6\` |
+| **Array** | \`.find(fn)\` | Returns the first element in the array that satisfies the provided testing function. | \`[1,2].find((n)=>n>1) // 2\` |
+| **Array** | \`.has(v)\` | Determines whether an array includes a certain value. | \`[1,2].has(2) // !0 (true)\` |
+| **Array** | \`.join(d)\` | Joins all elements of an array into a string. | \`["a","b"].join("-") // "a-b"\` |
+| **Array** | \`.slice(s,e)\`| Returns a shallow copy of a portion of an array into a new array object. | \`[1,2,3].slice(1) // [2,3]\` |
+| **Array** | \`.reverse()\`| Reverses an array in place. | \`a:[1,2]; a.reverse() // a is [2,1]\` |
+| **Array** | \`.sort(fn)\` | Sorts the elements of an array in place. | \`[3,1,2].sort() // [1,2,3]\` |
+| | | | |
+| **Block** | \`.keys()\` | Returns an array of a given block's own property names. | \`{a:1}.keys() // ["a"]\` |
+| **Block** | \`.values()\` | Returns an array of a given block's own property values. | \`{a:1}.values() // [1]\` |
+| **Block** | \`.has(key)\` | Checks if a block has a specified property as its own. | \`{a:1}.has("a") // !0 (true)\` |
+| | | | |
+| **Math** | \`.PI\` | **Property**: Ratio of a circle's circumference to its diameter. | \`Math.PI // 3.14159...\` |
+| **Math** | \`.abs(n)\` | Returns the absolute value of a number. | \`Math.abs(-5) // 5\` |
+| **Math** | \`.floor(n)\` | Returns the largest integer less than or equal to a number. | \`Math.floor(5.9) // 5\` |
+| **Math** | \`.ceil(n)\` | Returns the smallest integer greater than or equal to a number. | \`Math.ceil(5.1) // 6\` |
+| **Math** | \`.round(n)\` | Returns the value of a number rounded to the nearest integer. | \`Math.round(5.5) // 6\` |
+| **Math** | \`.max(a,b,..)\`| Returns the largest of the given numbers. | \`Math.max(1,5,2) // 5\` |
+| **Math** | \`.min(a,b,..)\`| Returns the smallest of the given numbers. | \`Math.min(1,5,2) // 1\` |
+| **Math** | \`.pow(b,e)\` | Returns base to the exponent power. | \`Math.pow(2,3) // 8\` |
+| **Math** | \`.sqrt(n)\` | Returns the square root of a number. | \`Math.sqrt(9) // 3\` |
+| **Math** | \`.rand()\` | Returns a pseudo-random number between 0 and 1. | \`Math.rand() // e.g., 0.123...\` |
+
+
 ---
 
 <p class="text-sm text-gray-600">Hi is in early development. The syntax and features are subject to change.</p>
