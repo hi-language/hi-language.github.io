@@ -105,7 +105,7 @@ version = 1.1 // Assignment
 
 ## The Block: A Unified Structure
 
-The \`{}\` syntax creates a **Block**, the foundational structure in Hi. A Block can be used as a function, an object, or an object with methods.
+The \`{}\` syntax creates a **Block**, the foundational structure in Hi. A Block can be used as a function or an object.
 
 ### Function Block
 A Block with executable code is a function. Parameters are defined with \`()\`.
@@ -119,14 +119,17 @@ greet("Orion")
 \`\`\`
 
 ### Object Block
-A Block with named properties is an object. A \`#\` prefix denotes a private property.
+A Block with named properties is an object. A \`#\` prefix denotes a private property. Commas are optional between properties on separate lines.
 
 \`\`\`javascript
+// Properties on separate lines (commas optional)
 player: {
-  name: "Orion" // Public property
-  #hp: 100       // Private property
+  name: "Orion"
+  #hp: 100
 }
-_(player.name) // "Orion"
+
+// Properties on the same line (commas required)
+player: { name: "Orion", #hp: 100 }
 \`\`\`
 
 An object's properties can be functions (other blocks). Inner blocks inherit the parent's scope, allowing them to access private state. This provides encapsulation without classes.
@@ -222,7 +225,7 @@ Destructuring provides an expressive way to extract data from Blocks and Arrays.
 
 \`\`\`javascript
 // Setup
-user: { name: "Zeta"; role: "Admin"; id: 101 }
+user: { name: "Zeta", role: "Admin", id: 101 }
 coords: [10, -5, 8]
 
 // Extract 'name' and 'role' from the user block
