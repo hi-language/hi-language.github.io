@@ -303,16 +303,35 @@ block1()
 alias2("some value")
 \`\`\`
 
+## Context Reference: @
+
+The \`@\` symbol provides a reference to the current execution context, similar to \`this\` in JavaScript. This allows a Block to refer to the object it was called on, making methods portable and reusable.
+
+\`\`\`javascript
+// This block is a portable method.
+// It relies on '@' to get the context.
+loggable: {
+  logId: { _("ID is: " + @.id) }
+}
+
+user: { id: 101, log: loggable.logId }
+item: { id: "abc-789", log: loggable.logId }
+
+user.log() // Prints "ID is: 101" (@ is 'user')
+item.log() // Prints "ID is: abc-789" (@ is 'item')
+\`\`\`
+
+
 ## Method Chaining
 
-A Block's return behavior is designed for fluency. It implicitly returns the value of its last expression. If the last expression does not yield a value (such as an assignment), the Block returns itself (\`this\`) by default, enabling method chaining. The \`^\` symbol is used for an explicit or early return from any point in the Block.
+A Block's return behavior is designed for fluency. It implicitly returns the value of its last expression. If the last expression does not yield a value (such as an assignment), the Block returns its context (\`@\`) by default, enabling method chaining. The \`^\` symbol is used for an explicit or early return from any point in the Block.
 
 \`\`\`javascript
 calculator: {
   #total: 0
-  add: (n) { total = total + n } // Implicitly returns 'this'
-  sub: (n) { total = total - n } // Implicitly returns 'this'
-  get: { ^ total }               // Explicitly returns the total
+  add: (n) { #total = #total + n } // Implicitly returns '@'
+  sub: (n) { #total = #total - n } // Implicitly returns '@'
+  get: { ^ #total }               // Explicitly returns the total
 }
 
 // .add() and .sub() return the calculator, allowing the chain
