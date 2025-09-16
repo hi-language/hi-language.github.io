@@ -10,7 +10,7 @@
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Markdown & Highlighting Styles -->
@@ -105,18 +105,21 @@ version = 1.1 // Assignment
 
 ## The Block: A Unified Structure
 
-The \`{}\` syntax creates a **Block**, the foundational structure in Hi. A Block is a container for both properties (state) and executable code (behavior), functioning simultaneously as a callable object and a stateful function.
+The \`{}\` syntax creates a **Block**, the foundational structure in Hi. A Block can be used as a function, an object, or an object with methods.
 
 ### Function Block
-A Block with only executable code is a function.
+A Block with executable code is a function. Parameters are defined with \`()\`.
 
 \`\`\`javascript
 sayHi: { _("Hi") }
 sayHi() // Invokes the block
+
+greet: (name) { _("Hi, " + name) }
+greet("Orion")
 \`\`\`
 
 ### Object Block
-A Block with named properties is an object. A \`#\` prefix denotes a private property, inaccessible from outside the block's scope.
+A Block with named properties is an object. A \`#\` prefix denotes a private property.
 
 \`\`\`javascript
 player: {
@@ -126,8 +129,7 @@ player: {
 _(player.name) // "Orion"
 \`\`\`
 
-### Hybrid Block
-Blocks can contain both state and methods. Inner blocks lexically inherit the scope of their parent, allowing them to access and mutate the parent's private state. This provides true encapsulation without classes.
+An object's properties can be functions (other blocks). Inner blocks inherit the parent's scope, allowing them to access private state. This provides encapsulation without classes.
 
 \`\`\`javascript
 counter: {
@@ -138,13 +140,6 @@ counter: {
 
 counter.inc()
 _(counter.get()) // Prints 1
-\`\`\`
-
-### Blocks with Parameters
-
-\`\`\`javascript
-greet: (name) { _("Hi, " + name) }
-greet("Orion")
 \`\`\`
 
 ## Arrow Expressions
@@ -406,4 +401,3 @@ To create the initial Hi-to-JS transpiler, the following primitives and built-in
     </script>
 </body>
 </html>
-
