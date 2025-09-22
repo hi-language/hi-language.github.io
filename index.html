@@ -286,14 +286,14 @@ The \`..\` operator creates an iterable numeric range for concise, traditional l
 
 ### Loop Control
 Control flow within loops is managed by distinct symbols:
-- \`.\`: **Break**. Immediately terminates the loop.
+- \`><\`: **Break**. Immediately terminates the loop.
 - \`>>\`: **Continue**. Skips to the next iteration.
 - \`^\`: **Return**. Exits the parent block, not just the loop.
 
 \`\`\`javascript
 (0..10 -> i) * {
-  (i == 2) ? { >> } // Skip 2
-  (i == 5) ? { . }  // Break at 5
+  (i == 2) ? { >> }   // Skip 2
+  (i == 5) ? { >< }  // Break at 5
   _("i is " + i)
 }
 // Prints: i is 0, i is 1, i is 3, i is 4
@@ -319,7 +319,7 @@ The \`@\` symbol provides a reference to the current execution context, similar 
 // This block is a portable method.
 // It relies on '@' to get the context.
 loggable: {
-  logId: { _("ID is: " + @.id) }
+  logId: { _("ID is: " + @id) }
 }
 
 user: { id: 101, log: loggable.logId }
