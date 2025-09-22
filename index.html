@@ -339,17 +339,41 @@ user.log() // Prints "ID is: 101" (@ is 'user')
 item.log() // Prints "ID is: abc-789" (@ is 'item')
 \`\`\`
 
+## Expression Blocks and Fluent Chaining
 
-## Method Chaining
+Hi adopts an expression-oriented design, similar to Rust. Every **Block** is an expression that yields a value.
 
-A Block's return behavior is designed for fluency. It implicitly returns the value of its last expression. If the last expression does not yield a value (such as an assignment), the Block returns its context (\`@\`) by default, enabling method chaining. The \`^\` symbol is used for an explicit or early return from any point in the Block.
+- The value of the *last expression* in a Block is implicitly returned.
+- To return early or explicitly, use the return symbol \`^\`.
+
+This makes code more concise by eliminating the need for explicit \`return\` keywords in most cases.
+
+\`\`\`javascript
+// The last expression, \`a + b\`, is returned.
+add: (a, b) {
+  _("adding...") // Side-effect
+  a + b         // Return value
+}
+
+result: add(2, 3) // result is 5
+
+// An early, explicit return
+check: (n) {
+  (n < 0) ? { ^ "Negative" }
+  "Positive"
+}
+\`\`\`
+
+### Fluent Chaining
+
+To enable fluent method chaining, Hi adds one special rule: if the last expression in a block produces no value (e.g., an assignment), the block returns its own context (\`@\`) by default. This allows subsequent method calls on the same object.
 
 \`\`\`javascript
 calculator: {
   #total: 0
-  add: (n) { total = total + n } // Implicitly returns '@'
-  sub: (n) { total = total - n } // Implicitly returns '@'
-  get: { ^ total }               // Explicitly returns the total
+  add: (n) { total = total + n } // Assignment has no value, returns '@'
+  sub: (n) { total = total - n } // Also returns '@'
+  get: { ^ total }               // Explicitly returns the final value
 }
 
 // .add() and .sub() return the calculator, allowing the chain
@@ -441,4 +465,3 @@ To create the initial Hi-to-JS transpiler, the following primitives and built-in
     </script>
 </body>
 </html>
-
