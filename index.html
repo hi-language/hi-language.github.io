@@ -208,9 +208,10 @@ grade: (score >= 90) ? { "A" }
      : { "D" } 
 _(grade) // Prints "C"
 
-// Use for side-effects, like a traditional 'if'.
-// The return value is discarded.
-(grade == "C") ? { _("Passable") }
+// Use as a standalone 'if' for side-effects.
+// The block executes if the condition is true; the return value is discarded.
+isReady: !0
+(isReady) ? { _("System is ready.") }
 \`\`\`
 
 ## Data Structures
