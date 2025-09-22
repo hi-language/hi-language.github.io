@@ -105,10 +105,28 @@ version = 1.1 // Assignment
 
 ## The Block: A Unified Structure
 
-The \`{}\` syntax creates a **Block**, the foundational structure in Hi. A Block can be used as a function or an object.
+The \`{}\` syntax creates a **Block**, the single most foundational structure in Hi. A Block is a sequence of expressions that can represent data structures (like objects), executable code (like functions), or both simultaneously.
 
-### Function Block
-A Block with executable code is a function. Parameters are defined with \`()\`.
+### As a Data Structure
+When a Block contains named declarations (\`key: value\`), it behaves like an object. A \`#\` prefix denotes a private property. To support code golfing, expression separators are flexible:
+
+- **Newlines** act as separators. Commas or semicolons are optional.
+- **Commas (\`,\`) or semicolons (\`;\`)** must be used to separate expressions on the same line.
+
+\`\`\`javascript
+// Multi-line: separators are optional
+player: {
+  name: "Orion"
+  #hp: 100
+}
+
+// Single-line: separators are required
+player: { name: "Orion", #hp: 100 }
+point: { x: 10; y: 20 }
+\`\`\`
+
+### As Executable Code
+A Block containing executable statements can be invoked like a function. Parameters are defined using \`()\` before the block.
 
 \`\`\`javascript
 sayHi: { _("Hi") }
@@ -118,27 +136,14 @@ greet: (name) { _("Hi, " + name) }
 greet("Orion")
 \`\`\`
 
-### Object Block
-A Block with named properties is an object. A \`#\` prefix denotes a private property. Commas are optional between properties on separate lines.
-
-\`\`\`javascript
-// Properties on separate lines (commas optional)
-player: {
-  name: "Orion"
-  #hp: 100
-}
-
-// Properties on the same line (commas required)
-player: { name: "Orion", #hp: 100 }
-\`\`\`
-
-An object's properties can be functions (other blocks). Inner blocks inherit the parent's scope, allowing them to access private state. This provides encapsulation without classes.
+### Unification: Data and Behavior
+Since a Block is just a sequence of expressions, data and behavior can be combined seamlessly. This provides natural encapsulation without classes. Inner blocks inherit the parent's scope, allowing access to its state.
 
 \`\`\`javascript
 counter: {
-  #value: 0
-  inc: { value = value + 1 }
-  get: { value }
+  #value: 0                      // Data declaration
+  inc: { #value = #value + 1 }   // Behavior
+  get: { #value }                // Behavior
 }
 
 counter.inc()
@@ -423,4 +428,3 @@ To create the initial Hi-to-JS transpiler, the following primitives and built-in
     </script>
 </body>
 </html>
-
