@@ -108,10 +108,10 @@ version = 1.1 // Assignment
 
 ## The Block: Unifying Objects and Functions
 
-In Hi, the distinction between objects and functions is eliminated. Both concepts are unified into a single, foundational structure: the **Block** (\`{}\`). A Block is a sequence of expressions that can hold data, executable code, or both, making it a powerful tool for building complex structures.
+The **Block** (\`{}\`) is Hi's foundational structure, unifying data objects and executable functions. It is a sequence of expressions that can be invoked with \`()\`.
 
 ### As a Data Structure (Object)
-When a Block contains primarily named declarations (\`key: value\`), it behaves like a traditional object or dictionary. A \`#\` prefix denotes a private property, making it inaccessible from outside the block.
+A block can hold \`key: value\` pairs. A \`#\` prefix denotes a private property.
 
 \`\`\`javascript
 player: {
@@ -124,58 +124,45 @@ _(player.hp)   // -0 (null) because #hp is private
 \`\`\`
 
 ### As Executable Code (Function)
-When a Block is invoked via \`()\`, its sequence of expressions is executed.
+Invoking a block with \`()\` executes its expressions. The value of the last expression is implicitly returned.
 
 \`\`\`javascript
+// Simple invocation
 sayHi: { _("Hi") }
-sayHi() // Invokes the block, prints "Hi"
+sayHi() // Prints "Hi"
 
-greet: (name) { _("Hi, " + name) }
-greet("Orion") // Prints "Hi, Orion"
+// With parameters and return value
+add: (a, b) { a + b }
+_(add(2, 3)) // Prints 5
 \`\`\`
 
-### The Hybrid Block: Data and Logic Combined
-The true power of Hi's design emerges when a Block contains both data declarations and executable statements. This creates a hybrid structure that can act as a stateful object, a function, or a factory for creating other objects.
-
-When a Block is invoked (\`()\`), its expressions are executed in sequence. Any data declarations inside are re-initialized with each call, making Blocks natural factories. The value of the Block's *last expression* is implicitly returned.
+### As a Hybrid (Factory/Class)
+A block can contain both data and logic. When invoked, its internal declarations are re-initialized, making it a natural factory. The context symbol \`@\` can be used to return the newly created instance.
 
 \`\`\`javascript
-// This block is a factory for creating player objects.
 createPlayer: (name) {
-  // 1. Data declarations are initialized on each call
   name: name,
   hp: 100
-
-  // 2. An action is performed
-  _("Created " + name)
-
-  // 3. The last expression returns the context (@),
-  //    which is the newly configured block.
-  @
+  @ // Return the new block instance
 }
 
-// Invoking the block executes its logic
 player1: createPlayer("Orion")
-
-// Accessing the data from the returned block
 _(player1.name) // "Orion"
 _(player1.hp)   // 100
 \`\`\`
-In this example, \`createPlayer\` is a Block that, when called, configures and returns a new Block. Each call to \`createPlayer\` produces a distinct player object with its own initial state.
 
 ### Expression Separators
-To support code golfing, expression separators within a Block are flexible. Newlines act as implicit separators, while commas (\`,\`) or semicolons (\`;\`) are required to separate expressions on the same line.
+Newlines act as implicit separators. Commas (\`,\`) or semicolons (\`;\`) are required for single-line blocks.
 
 \`\`\`javascript
-// Multi-line style (separators optional)
+// Multi-line
 point: {
   x: 10
   y: 20
 }
 
-// Single-line style (separators required)
+// Single-line
 point: { x: 10, y: 20 }
-point: { x: 10; y: 20 }
 \`\`\`
 
 ## Arrow Expressions
@@ -498,4 +485,3 @@ To create the initial Hi-to-JS transpiler, the following primitives and built-in
     </script>
 </body>
 </html>
-
