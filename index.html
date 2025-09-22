@@ -194,7 +194,7 @@ Hi dispenses with boolean keywords in favor of canonical numeric values for trut
 
 ## Conditional Expressions
 
-All conditional logic is handled by a single ternary expression structure, which *always* returns a value.
+Hi uses a single ternary-like expression for all conditional logic. The simplest form acts like a standard \`if\` statement.
 
 \`\`\`javascript
 // A simple 'if' to execute code conditionally.
@@ -202,12 +202,18 @@ status: "active"
 (status == "active") ? { _("User is active.") }
 \`\`\`
 
-If a condition is false and no \`else\` branch exists, or if the executed block doesn't produce a value (e.g., its last statement is an assignment), the expression evaluates to \`-0\` (null).
+You can provide an \`else\` branch using the colon (\`:\`) symbol. This structure is an expression that *always* returns a value.
 
 \`\`\`javascript
 // if / else
 result: (1 > 2) ? { "A" } : { "B" } // result is "B"
+\`\`\`
 
+If a condition is false and no \`else\` branch is provided, the expression evaluates to \`-0\` (null).
+
+Expressions can be chained to create \`if / else if / else\` logic.
+
+\`\`\`javascript
 // if / else if / else
 score: 75
 grade: (score >= 90) ? { "A" }
