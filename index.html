@@ -337,9 +337,9 @@ A Block's return behavior is designed for fluency. It implicitly returns the val
 \`\`\`javascript
 calculator: {
   #total: 0
-  add: (n) { #total = #total + n } // Implicitly returns '@'
-  sub: (n) { #total = #total - n } // Implicitly returns '@'
-  get: { ^ #total }               // Explicitly returns the total
+  add: (n) { total = total + n } // Implicitly returns '@'
+  sub: (n) { total = total - n } // Implicitly returns '@'
+  get: { ^ total }               // Explicitly returns the total
 }
 
 // .add() and .sub() return the calculator, allowing the chain
