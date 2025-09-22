@@ -106,7 +106,7 @@ version: 1.0 // Declaration and initialization
 version = 1.1 // Assignment
 \`\`\`
 
-## The Block: A Unified Structure for Objects and Functions
+## The Block: Unifying Objects and Functions
 
 In Hi, the distinction between objects and functions is eliminated. Both concepts are unified into a single, foundational structure: the **Block** (\`{}\`). A Block is a sequence of expressions that can hold data, executable code, or both, making it a powerful tool for building complex structures.
 
@@ -124,29 +124,44 @@ _(player.hp)   // -0 (null) because #hp is private
 \`\`\`
 
 ### As Executable Code (Function)
-When a Block is defined with parameters (\`()\`) or invoked, it behaves like a function. It executes its sequence of expressions.
+When a Block is invoked via \`()\`, its sequence of expressions is executed.
 
 \`\`\`javascript
 sayHi: { _("Hi") }
-sayHi() // Invokes the block
+sayHi() // Invokes the block, prints "Hi"
 
 greet: (name) { _("Hi, " + name) }
-greet("Orion")
+greet("Orion") // Prints "Hi, Orion"
 \`\`\`
 
-### Unification: Data and Behavior
-Because data declarations and executable statements can coexist in the same Block, Hi achieves a seamless fusion of state and behavior. This provides natural encapsulation without the need for traditional classes. Any "method" within a block can access its sibling "properties" directly.
+### The Hybrid Block: Data and Logic Combined
+The true power of Hi's design emerges when a Block contains both data declarations and executable statements. This creates a hybrid structure that can act as a stateful object, a function, or a factory for creating other objects.
+
+When a Block is invoked (\`()\`), its expressions are executed in sequence. Any data declarations inside are re-initialized with each call, making Blocks natural factories. The value of the Block's *last expression* is implicitly returned.
 
 \`\`\`javascript
-counter: {
-  #value: 0                      // Data declaration
-  inc: { value = value + 1 }   // Behavior
-  get: { value }                // Behavior
+// This block is a factory for creating player objects.
+createPlayer: (name) {
+  // 1. Data declarations are initialized on each call
+  name: name,
+  hp: 100
+
+  // 2. An action is performed
+  _("Created " + name)
+
+  // 3. The last expression returns the context (@),
+  //    which is the newly configured block.
+  @
 }
 
-counter.inc()
-_(counter.get()) // Prints 1
+// Invoking the block executes its logic
+player1: createPlayer("Orion")
+
+// Accessing the data from the returned block
+_(player1.name) // "Orion"
+_(player1.hp)   // 100
 \`\`\`
+In this example, \`createPlayer\` is a Block that, when called, configures and returns a new Block. Each call to \`createPlayer\` produces a distinct player object with its own initial state.
 
 ### Expression Separators
 To support code golfing, expression separators within a Block are flexible. Newlines act as implicit separators, while commas (\`,\`) or semicolons (\`;\`) are required to separate expressions on the same line.
