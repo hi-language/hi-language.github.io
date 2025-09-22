@@ -176,14 +176,14 @@ Hi dispenses with boolean keywords in favor of canonical numeric values for trut
 
 ## Conditional Expressions
 
-All conditional logic is handled by a single ternary expression structure, which always returns a value.
+All conditional logic is handled by a single ternary expression structure, which *always* returns a value. If a condition is false and no \`else\` branch exists, or if the executed block doesn't produce a value (e.g., its last statement is an assignment), the expression evaluates to \`-0\` (null).
 
 \`\`\`javascript
-// if
-(1 < 2) ? { _("True") }
-
 // if / else
 result: (1 > 2) ? { "A" } : { "B" } // result is "B"
+
+// A missing 'else' on a false condition results in -0
+value: (1 > 2) ? { "A" } // value is -0
 
 // if / else if / else
 score: 75
@@ -423,4 +423,3 @@ To create the initial Hi-to-JS transpiler, the following primitives and built-in
     </script>
 </body>
 </html>
-
