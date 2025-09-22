@@ -194,7 +194,15 @@ Hi dispenses with boolean keywords in favor of canonical numeric values for trut
 
 ## Conditional Expressions
 
-All conditional logic is handled by a single ternary expression structure, which *always* returns a value. If a condition is false and no \`else\` branch exists, or if the executed block doesn't produce a value (e.g., its last statement is an assignment), the expression evaluates to \`-0\` (null).
+All conditional logic is handled by a single ternary expression structure, which *always* returns a value.
+
+\`\`\`javascript
+// A simple 'if' to execute code conditionally.
+status: "active"
+(status == "active") ? { _("User is active.") }
+\`\`\`
+
+If a condition is false and no \`else\` branch exists, or if the executed block doesn't produce a value (e.g., its last statement is an assignment), the expression evaluates to \`-0\` (null).
 
 \`\`\`javascript
 // if / else
@@ -207,10 +215,6 @@ grade: (score >= 90) ? { "A" }
      : (score >= 70) ? { "C" }
      : { "D" } 
 _(grade) // Prints "C"
-
-// Use for side-effects, like a traditional 'if'.
-// The return value is discarded.
-(grade == "C") ? { _("Passable") }
 \`\`\`
 
 ## Data Structures
