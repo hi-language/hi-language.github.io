@@ -217,7 +217,7 @@ This structure is powerful because it's an *expression* that always evaluates to
 result: (1 > 2) ? { "A" } : { "B" } // result is "B"
 \`\`\`
 
-If a condition is false and no \`else\` branch is provided, the expression evaluates to \`-0\` (null). Expressions can be chained to create \`if / else if / else\` logic.
+Expressions can be chained to create \`if / else if / else\` logic.
 
 \`\`\`javascript
 // if / else if / else
@@ -228,6 +228,8 @@ grade: (score >= 90) ? { "A" }
      : { "D" } 
 _(grade) // Prints "C"
 \`\`\`
+
+If a condition is false and no \`else\` branch is provided, the expression evaluates to \`-0\` (null). 
 
 ## Data Structures
 
