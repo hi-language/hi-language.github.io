@@ -103,12 +103,12 @@ version: 1.0 // Declaration and initialization
 version = 1.1 // Assignment
 \`\`\`
 
-## The Block: A Unified Structure
+## The Block: A Unified Structure for Objects and Functions
 
-The \`{}\` syntax creates a **Block**, the single most foundational structure in Hi. A Block is a sequence of expressions that can represent data structures (like objects), executable code (like functions), or both simultaneously.
+In Hi, the distinction between objects and functions is eliminated. Both concepts are unified into a single, foundational structure: the **Block** (\`{}\`). A Block is a sequence of expressions that can hold data, executable code, or both, making it a powerful tool for building complex structures.
 
-### As a Data Structure
-When a Block contains named declarations (\`key: value\`), it behaves like an object. A \`#\` prefix denotes a private property. To support code golfing, expression separators are flexible:
+### As a Data Structure (Object)
+When a Block contains primarily named declarations (\`key: value\`), it behaves like a traditional object or dictionary. A \`#\` prefix denotes a private property. To support code golfing, expression separators are flexible:
 
 - **Newlines** act as separators. Commas or semicolons are optional.
 - **Commas (\`,\`) or semicolons (\`;\`)** must be used to separate expressions on the same line.
@@ -125,8 +125,8 @@ player: { name: "Orion", #hp: 100 }
 point: { x: 10; y: 20 }
 \`\`\`
 
-### As Executable Code
-A Block containing executable statements can be invoked like a function. Parameters are defined using \`()\` before the block.
+### As Executable Code (Function)
+When a Block is defined with parameters (\`()\`) or invoked, it behaves like a function. It executes its sequence of expressions.
 
 \`\`\`javascript
 sayHi: { _("Hi") }
@@ -137,7 +137,7 @@ greet("Orion")
 \`\`\`
 
 ### Unification: Data and Behavior
-Since a Block is just a sequence of expressions, data and behavior can be combined seamlessly. This provides natural encapsulation without classes. Inner blocks inherit the parent's scope, allowing access to its state.
+Because data declarations and executable statements can coexist in the same Block, Hi achieves a seamless fusion of state and behavior. This provides natural encapsulation without the need for traditional classes. Any "method" within a block can access its sibling "properties" directly.
 
 \`\`\`javascript
 counter: {
@@ -187,17 +187,17 @@ All conditional logic is handled by a single ternary expression structure, which
 // if / else
 result: (1 > 2) ? { "A" } : { "B" } // result is "B"
 
-// A missing 'else' on a false condition results in -0
-value: (1 > 2) ? { "A" } // value is -0
-
 // if / else if / else
 score: 75
 grade: (score >= 90) ? { "A" }
      : (score >= 80) ? { "B" }
      : (score >= 70) ? { "C" }
-     : { "D" } // The final else case
-
+     : { "D" } 
 _(grade) // Prints "C"
+
+// Use for side-effects, like a traditional 'if'.
+// The return value is discarded.
+(grade == "C") ? { _("Passable") }
 \`\`\`
 
 ## Data Structures
