@@ -176,34 +176,23 @@ Hi dispenses with boolean keywords in favor of canonical numeric values for trut
 
 ## Conditional Expressions
 
-All conditional logic is a single ternary expression that always returns a value. Its branches are blocks, and the expression's result is the value returned by the executed block.
-
-- If a condition is false and there is no `else` (\`:\`) branch, the expression evaluates to `-0` (null).
-- If an executed block's last statement produces no value (e.g., an assignment or a call to \`_\`), the block returns `-0`.
+All conditional logic is handled by a single ternary expression structure, which always returns a value.
 
 \`\`\`javascript
-// Simple if
-// The expression evaluates to -0 and is discarded.
+// if
 (1 < 2) ? { _("True") }
 
 // if / else
-// The expression evaluates to the last value in the chosen block.
 result: (1 > 2) ? { "A" } : { "B" } // result is "B"
 
-// Chained if / else if / else
+// if / else if / else
 score: 75
 grade: (score >= 90) ? { "A" }
      : (score >= 80) ? { "B" }
      : (score >= 70) ? { "C" }
-     : { "D" }
+     : { "D" } // The final else case
 
 _(grade) // Prints "C"
-
-// Example of a branch returning -0
-value: (1 < 2) ? { x: 5; x = 10 } : { 100 }
-// The condition is true. The block's last statement is an
-// assignment, which yields no value. Thus, 'value' becomes -0.
-_(value) // Prints -0
 \`\`\`
 
 ## Data Structures
@@ -335,9 +324,7 @@ item.log() // Prints "ID is: abc-789" (@ is 'item')
 
 ## Method Chaining
 
-A Block's return behavior is designed for fluency. By default, it returns the value of its last expression. An explicit return can be forced with `^`.
-
-To enable method chaining, a special rule applies **when a Block is called as a method** (e.g., `object.method()`): if its last expression does not yield a value (like an assignment), the Block implicitly returns its context (`@`). In all other execution contexts (e.g., as a conditional branch), it returns `-0`.
+A Block's return behavior is designed for fluency. It implicitly returns the value of its last expression. If the last expression does not yield a value (such as an assignment), the Block returns its context (\`@\`) by default, enabling method chaining. The \`^\` symbol is used for an explicit or early return from any point in the Block.
 
 \`\`\`javascript
 calculator: {
@@ -436,3 +423,4 @@ To create the initial Hi-to-JS transpiler, the following primitives and built-in
     </script>
 </body>
 </html>
+
