@@ -111,10 +111,7 @@ version = 1.1 // Assignment
 In Hi, the distinction between objects and functions is eliminated. Both concepts are unified into a single, foundational structure: the **Block** (\`{}\`). A Block is a sequence of expressions that can hold data, executable code, or both, making it a powerful tool for building complex structures.
 
 ### As a Data Structure (Object)
-When a Block contains primarily named declarations (\`key: value\`), it behaves like a traditional object or dictionary. A \`#\` prefix denotes a private property. To support code golfing, expression separators are flexible:
-
-- **Newlines** act as separators. Commas or semicolons are optional.
-- **Commas (\`,\`) or semicolons (\`;\`)** must be used to separate expressions on the same line.
+When a Block contains primarily named declarations (\`key: value\`), it behaves like a traditional object or dictionary. A \`#\` prefix denotes a private property.
 
 \`\`\`javascript
 // Multi-line: separators are optional
@@ -127,6 +124,11 @@ player: {
 player: { name: "Orion", #hp: 100 }
 point: { x: 10; y: 20 }
 \`\`\`
+
+To support code golfing, expression separators are flexible:
+
+- **Newlines** act as separators. Commas or semicolons are optional.
+- **Commas (\`,\`) or semicolons (\`;\`)** must be used to separate expressions on the same line.
 
 ### As Executable Code (Function)
 When a Block is defined with parameters (\`()\`) or invoked, it behaves like a function. It executes its sequence of expressions.
