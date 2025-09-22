@@ -142,8 +142,8 @@ Since a Block is just a sequence of expressions, data and behavior can be combin
 \`\`\`javascript
 counter: {
   #value: 0                      // Data declaration
-  inc: { #value = #value + 1 }   // Behavior
-  get: { #value }                // Behavior
+  inc: { value = value + 1 }   // Behavior
+  get: { value }                // Behavior
 }
 
 counter.inc()
