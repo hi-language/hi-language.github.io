@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hi: A Symbolic Programming Language</title>
+    <title>Hi: A Symbolic Syntax for JavaScript</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -84,11 +84,11 @@
     
     <script>
         const markdownContent = `
-# A corely symbolic language
+# A Symbolic Syntax for JavaScript
 
-**Hi** is a programming language inspired by JavaScript, designed with a symbolic core to be more universal, AI-friendly, and conducive to code golfing. The syntax prioritizes symbols over keywords.
+**Hi** is a symbolic frontend for JavaScript, designed for code golfing and improved AI interaction. It transpiles to standard JS, providing full access to its powerful engine and the entire NPM ecosystem, but with a syntax that prioritizes symbols over keywords.
 
-The underscore \`_\` is the global output function.
+The underscore \`_\` is the global output function, transpiling to \`console.log\`.
 
 \`\`\`javascript
 _("Hi world")
@@ -96,9 +96,9 @@ _("Hi world")
 
 ## Declaration and Assignment
 
-Variable lifecycle is split into two distinct symbolic operations.
+Variable lifecycle is split into two distinct symbolic operations, providing a more concise alternative to \`let\`/\`const\` and subsequent assignment.
 
-- \`:\` **Declaration**: Binds a name in the current scope.
+- \`:\` **Declaration**: Binds a name in the current scope (like \`let\`).
 - \`=\` **Assignment**: Reassigns the value of an existing name.
 
 \`\`\`javascript
@@ -108,10 +108,10 @@ version = 1.1 // Assignment
 
 ## The Block: Unifying Objects and Functions
 
-The **Block** (\`{}\`) is Hi's foundational structure, unifying data objects and executable functions. It is a sequence of expressions that can be invoked with \`()\`.
+The **Block** (\`{}\`) is Hi's foundational structure, unifying data objects and executable functions into a single concept. It is a sequence of expressions that can be invoked with \`()\`.
 
 ### As a Data Structure (Object)
-A block can hold \`key: value\` pairs. A \`#\` prefix denotes a private property.
+A block can hold \`key: value\` pairs, transpiling to a standard JavaScript object. A \`#\` prefix denotes a private property.
 
 \`\`\`javascript
 player: {
@@ -124,7 +124,7 @@ _(player.hp)   // -0 (null) because #hp is private
 \`\`\`
 
 ### As Executable Code (Function)
-Invoking a block with \`()\` executes its expressions. The value of the last expression is implicitly returned.
+Invoking a block with \`()\` executes its expressions. The value of the last expression is implicitly returned. This transpiles to a JavaScript function.
 
 \`\`\`javascript
 // Simple invocation
@@ -137,7 +137,7 @@ _(add(2, 3)) // Prints 5
 \`\`\`
 
 ### As a Hybrid (Factory/Class)
-A block can contain both data and logic. When invoked, its internal declarations are re-initialized, making it a natural factory. The context symbol \`@\` can be used to return the newly created instance.
+A block containing both data and logic acts as a natural factory. The context symbol \`@\` (representing JS \`this\`) can be used to return the newly created instance.
 
 \`\`\`javascript
 createPlayer: (name) {
@@ -167,7 +167,7 @@ point: { x: 10, y: 20 }
 
 ## Arrow Expressions
 
-For concise single-expression functions, Hi provides the \`=>\` arrow syntax, inspired by JavaScript. It serves as a shorthand for a Block that immediately returns an expression, making it ideal for callbacks and functional patterns.
+To maintain familiarity and leverage powerful JS idioms, Hi directly adopts the arrow function syntax. It serves as a shorthand for a Block that immediately returns an expression.
 
 It's a direct replacement for \`(params) { ^ expression }\`.
 
@@ -178,7 +178,7 @@ add: (a, b) { ^ a + b }
 // Equivalent Arrow Expression
 add: (a, b) => a + b
 
-// Useful for functional helpers
+// Directly uses JS array methods
 numbers: [1, 2, 3]
 doubled: numbers.map((n) => n * 2)
 _(doubled) // [2, 4, 6]
@@ -186,17 +186,17 @@ _(doubled) // [2, 4, 6]
 
 ## Booleans and Equality
 
-Hi dispenses with boolean keywords in favor of canonical numeric values for truthiness.
+Hi dispenses with boolean keywords in favor of canonical numeric values, which map directly to JavaScript's truthiness model.
 
-- \`0\` is **falsy** (the canonical false).
-- \`!0\` is **truthy** (the canonical true, representing a logical NOT 0).
+- \`0\` is **falsy** (transpiles to \`false\`).
+- \`!0\` is **truthy** (transpiles to \`true\`).
 - \`-0\` represents null/undefined values.
-- All other numbers, and any non-empty string, block, or array are "truthy".
-- The \`==\` operator performs strict equality comparison (equivalent to JavaScript's \`===\`).
+- All other non-zero numbers, and any non-empty string, block, or array are "truthy", consistent with JS behavior.
+- The \`==\` operator performs strict equality comparison (transpiles to JavaScript's \`===\`).
 
 ## Conditional Expressions
 
-Hi uses a single ternary-like expression for all conditional logic. The simplest form acts like a standard \`if\` statement.
+Hi uses a single ternary-like expression for all conditional logic, which transpiles to JS \`if/else\` statements or ternary operators.
 
 \`\`\`javascript
 // A simple 'if' to execute code conditionally
@@ -204,22 +204,22 @@ status: "active"
 (status == "active") ? { _("User is active.") }
 \`\`\`
 
-You can provide an \`else\` branch using the colon (\`:\`) symbol to choose between two actions.
+You can provide an \`else\` branch using the colon (\`:\`) symbol.
 
 \`\`\`javascript
-// if / else for choosing an action
+// if / else
 isOnline: !0
 (isOnline == !0) ? { _("Online") } : { _("Offline") } // Prints "Online"
 \`\`\`
 
-This structure is powerful because it's an *expression* that always evaluates to a value. The value of the executed block becomes the value of the entire expression, allowing you to assign the result directly to a variable.
+This structure is an *expression* that always evaluates to a value, allowing the result to be directly assigned.
 
 \`\`\`javascript
 // if / else returning a value
 result: (1 > 2) ? { "A" } : { "B" } // result is "B"
 \`\`\`
 
-Expressions can be chained to create \`if / else if / else\` logic.
+Expressions can be chained for \`if / else if / else\` logic.
 
 \`\`\`javascript
 // if / else if / else
@@ -235,8 +235,10 @@ If a condition is false and no \`else\` branch is provided, the expression evalu
 
 ## Data Structures
 
+Hi provides a concise syntax for working with JavaScript's native data structures.
+
 ### Arrays
-Arrays are 0-indexed lists of values. They support random access via \`[]\` and are iterable.
+Hi arrays are JavaScript arrays. They are 0-indexed lists supporting all standard JS Array methods.
 
 \`\`\`javascript
 primes: [2, 3, 5, 7]
@@ -246,7 +248,7 @@ _(primes)     // Mutation: [1, 3, 5, 7]
 \`\`\`
 
 ### Strings
-Strings are sequences of characters. They are immutable but support random access and iteration.
+Hi strings are JavaScript strings. They are immutable sequences of characters supporting all standard JS String methods.
 
 \`\`\`javascript
 greeting: "Hi"
@@ -255,18 +257,18 @@ _(greeting[1]) // "i"
 
 ## Destructuring
 
-Destructuring provides an expressive way to extract data from Blocks and Arrays. The extraction operator \`->\` is used to unpack values, mirroring its use in module imports.
+Destructuring provides an expressive way to extract data. The extraction operator \`->\` offers a clearer, more tool-friendly alternative to JavaScript's syntax.
 
-- \`source -> { pattern }\`: Extracts properties from a Block.
+- \`source -> { pattern }\`: Extracts properties from an Object.
 - \`source -> [ pattern ]\`: Extracts elements from an Array.
-- \`prop -> alias\`: The same operator is used within the pattern for aliasing.
+- \`prop -> alias\`: Used within the pattern for aliasing.
 
 \`\`\`javascript
 // Setup
 user: { name: "Zeta", role: "Admin", id: 101 }
 coords: [10, -5, 8]
 
-// Extract 'name' and 'role' from the user block
+// Extract 'name' and 'role'
 user -> { name, role }
 _(name) // "Zeta"
 
@@ -274,17 +276,16 @@ _(name) // "Zeta"
 user -> { id -> userID }
 _(userID) // 101
 
-// Extract first two elements from the array
+// Extract array elements
 coords -> [x, y]
 _(y) // -5
 \`\`\`
 
 ## Repetition
 
-Repetition is handled by a unified iteration protocol: \`(source -> pattern) * { ... }\`. This single, concise syntax adapts to iterate over any collection type.
+Hi unifies iteration with a single syntax: \`(source -> pattern) * { ... }\`. This transpiles to the most appropriate JavaScript loop (\`for...of\`, \`for...in\`, etc.) based on the source type.
 
 ### Iterating Collections
-The \`->\` operator extracts elements from a source into a pattern.
 
 \`\`\`javascript
 // Iterate over an Array's values
@@ -296,9 +297,6 @@ The \`->\` operator extracts elements from a source into a pattern.
 // Iterate over a Block's key-value pairs
 ({ id: 1 } -> [k, v]) * { _(k + " is " + v) }
 
-// Iterate over a String's characters
-("Hi" -> char) * { _(char) }
-
 // Destructure directly in the loop signature
 users: [{ name: "Orion" }]
 (users -> { name }) * { _("User: " + name) }
@@ -308,17 +306,16 @@ users: [{ name: "Orion" }]
 The \`..\` operator creates an iterable numeric range for concise, traditional loops.
 
 \`\`\`javascript
-// A range from 0 up to (but not including) 3
 (0..3 -> i) * {
   _("Iteration: " + i) // Prints 0, 1, 2
 }
 \`\`\`
 
 ### Loop Control
-Control flow within loops is managed by distinct symbols:
-- \`><\`: **Break**. Immediately terminates the loop.
-- \`>>\`: **Continue**. Skips to the next iteration.
-- \`^\`: **Return**. Exits the parent block, not just the loop.
+Control flow symbols map directly to their JS counterparts.
+- \`><\`: **Break** (\`break\`).
+- \`>>\`: **Continue** (\`continue\`).
+- \`^\`: **Return** (\`return\`). Exits the parent function.
 
 \`\`\`javascript
 (0..10 -> i) * {
@@ -331,7 +328,7 @@ Control flow within loops is managed by distinct symbols:
 
 ## Imports
 
-Modules are imported using the \`+\` and \`->\` operators. This allows for destructuring and aliasing of imported members. Placing the module source first allows development tools to provide immediate, context-aware autocompletion for the members being imported—a direct ergonomic improvement over JavaScript's syntax.
+Hi streamlines JavaScript's module system with the \`+\` and \`->\` operators. This syntax improves tooling by placing the module source first, enabling immediate, context-aware autocompletion for the members being imported.
 
 \`\`\`javascript
 // Import 'block1' and 'block2' (as 'alias2') from a module
@@ -343,11 +340,10 @@ alias2("some value")
 
 ## Context Reference: @
 
-The \`@\` symbol provides a reference to the current execution context, similar to \`this\` in JavaScript. This allows a Block to refer to the object it was called on, making methods portable and reusable.
+The \`@\` symbol is a direct, one-character replacement for \`this\` in JavaScript, providing a reference to the current execution context.
 
 \`\`\`javascript
 // This block is a portable method.
-// It relies on '@' to get the context.
 loggable: {
   logId: { _("ID is: " + @id) }
 }
@@ -361,32 +357,24 @@ item.log() // Prints "ID is: abc-789" (@ is 'item')
 
 ## Expression Blocks and Fluent Chaining
 
-Hi adopts an expression-oriented design, similar to Rust. Every **Block** is an expression that yields a value.
+Hi adopts an expression-oriented design. Every **Block** is an expression that yields a value, transpiling to a JS IIFE or function body.
 
 - The value of the *last expression* in a Block is implicitly returned.
 - To return early or explicitly, use the return symbol \`^\`.
 
-This makes code more concise by eliminating the need for explicit \`return\` keywords in most cases.
-
 \`\`\`javascript
 // The last expression, \`a + b\`, is returned.
 add: (a, b) {
-  _("adding...") // Side-effect
-  a + b         // Return value
+  _("adding...")
+  a + b
 }
 
 result: add(2, 3) // result is 5
-
-// An early, explicit return
-check: (n) {
-  (n < 0) ? { ^ "Negative" }
-  "Positive"
-}
 \`\`\`
 
 ### Fluent Chaining
 
-To enable fluent method chaining, Hi adds one special rule: if the last expression in a block produces no value (e.g., an assignment), the block returns its own context (\`@\`) by default. This allows subsequent method calls on the same object.
+To enable fluent method chaining (e.g., \`obj.method1().method2()\`), if the last expression in a block produces no value (like an assignment), the block returns its own context (\`@\`) by default. This transpiles to returning \`this\`.
 
 \`\`\`javascript
 calculator: {
@@ -396,67 +384,49 @@ calculator: {
   get: { ^ total }               // Explicitly returns the final value
 }
 
-// .add() and .sub() return the calculator, allowing the chain
 result: calculator.add(10).sub(4).get()
-
 _(result) // Prints 6
 \`\`\`
 
-## Core Language Blueprint
+## Direct JavaScript Interoperability
 
-To create the initial Hi-to-JS transpiler, the following primitives and built-in functionalities must be defined. This serves as the blueprint for the core standard library.
+Hi does not create its own standard library or aliases for built-in methods. Instead, it provides **direct access** to the complete JavaScript standard library. All properties (\`.length\`) and methods (\`.toUpperCase()\`, \`.map()\`) are used with their standard JavaScript names.
 
-### Built-in Definitions Table
+This ensures zero learning curve for existing JS functionality and guarantees full compatibility.
 
-| Type | Name / Symbol | Description | Example |
-| :--- | :--- | :--- | :--- |
-| **Global** | \`_\` | The global output function. Transpiles to \`console.log\`. | \`_("hello")\` |
-| **Global** | \`Math\` | A global block containing mathematical constants and functions. | \`_(Math.PI)\` |
-| | | | |
-| **Number** | \`.str()\` | Converts the number to its string representation. | \`age: 21; _(age.str())\` |
-| **Number** | \`.fix(d)\` | Formats a number using fixed-point notation. | \`n: 3.14159; _(n.fix(2)) // "3.14"\` |
-| | | | |
-| **String** | \`.len\` | **Property**: Returns the number of characters in the string. | \`"hi".len // 2\` |
-| **String** | \`.num()\` | Parses the string, returning a number. | \`"42".num() // 42\` |
-| **String** | \`.upper()\` | Returns the string converted to uppercase. | \`"hi".upper() // "HI"\` |
-| **String** | \`.lower()\` | Returns the string converted to lowercase. | \`"HI".lower() // "hi"\` |
-| **String** | \`.trim()\` | Removes whitespace from both ends of a string. | \`" hi ".trim() // "hi"\` |
-| **String** | \`.split(d)\` | Divides a string into an ordered list of substrings. | \`"a-b-c".split("-") // ["a","b","c"]\` |
-| **String** | \`.slice(s,e)\`| Extracts a section of a string and returns it as a new string. | \`"hello".slice(1,3) // "el"\` |
-| **String** | \`.has(sub)\`| Determines whether a string contains a given substring. | \`"hi".has("i") // !0 (true)\` |
-| **String** | \`.replace(f,r)\` | Replaces the first occurrence of a substring. | \`"hi hi".replace("i","o") // "ho hi"\` |
-| **String** | \`.replaceAll(f,r)\` | Replaces all occurrences of a substring. | \`"hi hi".replaceAll("i","o") // "ho ho"\` |
-| | | | |
-| **Array** | \`.len\` | **Property**: Returns the number of elements in the array. | \`[1,2].len // 2\` |
-| **Array** | \`.add(v)\` | Adds one or more elements to the end of an array. | \`a:[1]; a.add(2) // a is now [1,2]\` |
-| **Array** | \`.pop()\` | Removes the last element from an array and returns it. | \`a:[1,2]; a.pop() // returns 2\` |
-| **Array** | \`.pre(v)\` | Adds one or more elements to the beginning of an array. | \`a:[2]; a.pre(1) // a is now [1,2]\` |
-| **Array** | \`.shift()\` | Removes the first element from an array and returns it. | \`a:[1,2]; a.shift() // returns 1\` |
-| **Array** | \`.each(fn)\` | Executes a provided function once for each array element. | \`[1,2].each((n)=>{_(n)})\` |
-| **Array** | \`.map(fn)\` | Creates a new array with the results of calling a function on every element. | \`[1,2].map((n)=>n*2) // [2,4]\` |
-| **Array** | \`.filter(fn)\` | Creates a new array with all elements that pass the test implemented by the provided function. | \`[1,2,3].filter((n)=>n>1) // [2,3]\` |
-| **Array** | \`.reduce(fn,iv)\`| Executes a reducer function on each element, resulting in a single output value. | \`[1,2,3].reduce((a,c)=>a+c, 0) // 6\` |
-| **Array** | \`.find(fn)\` | Returns the first element in the array that satisfies the provided testing function. | \`[1,2].find((n)=>n>1) // 2\` |
-| **Array** | \`.has(v)\` | Determines whether an array includes a certain value. | \`[1,2].has(2) // !0 (true)\` |
-| **Array** | \`.join(d)\` | Joins all elements of an array into a string. | \`["a","b"].join("-") // "a-b"\` |
-| **Array** | \`.slice(s,e)\`| Returns a shallow copy of a portion of an array into a new array object. | \`[1,2,3].slice(1) // [2,3]\` |
-| **Array** | \`.reverse()\`| Reverses an array in place. | \`a:[1,2]; a.reverse() // a is [2,1]\` |
-| **Array** | \`.sort(fn)\` | Sorts the elements of an array in place. | \`[3,1,2].sort() // [1,2,3]\` |
-| | | | |
-| **Block** | \`.keys()\` | Returns an array of a given block's own property names. | \`{a:1}.keys() // ["a"]\` |
-| **Block** | \`.values()\` | Returns an array of a given block's own property values. | \`{a:1}.values() // [1]\` |
-| **Block** | \`.has(key)\` | Checks if a block has a specified property as its own. | \`{a:1}.has("a") // !0 (true)\` |
-| | | | |
-| **Math** | \`.PI\` | **Property**: Ratio of a circle's circumference to its diameter. | \`Math.PI // 3.14159...\` |
-| **Math** | \`.abs(n)\` | Returns the absolute value of a number. | \`Math.abs(-5) // 5\` |
-| **Math** | \`.floor(n)\` | Returns the largest integer less than or equal to a number. | \`Math.floor(5.9) // 5\` |
-| **Math** | \`.ceil(n)\` | Returns the smallest integer greater than or equal to a number. | \`Math.ceil(5.1) // 6\` |
-| **Math** | \`.round(n)\` | Returns the value of a number rounded to the nearest integer. | \`Math.round(5.5) // 6\` |
-| **Math** | \`.max(a,b,..)\`| Returns the largest of the given numbers. | \`Math.max(1,5,2) // 5\` |
-| **Math** | \`.min(a,b,..)\`| Returns the smallest of the given numbers. | \`Math.min(1,5,2) // 1\` |
-| **Math** | \`.pow(b,e)\` | Returns base to the exponent power. | \`Math.pow(2,3) // 8\` |
-| **Math** | \`.sqrt(n)\` | Returns the square root of a number. | \`Math.sqrt(9) // 3\` |
-| **Math** | \`.rand()\` | Returns a pseudo-random number between 0 and 1. | \`Math.rand() // e.g., 0.123...\` |
+### Common JavaScript Built-ins
+
+| Type | Name / Property / Method | Example |
+| :--- | :--- | :--- |
+| **Global** | \`_\` | \`_("hello") // console.log\` |
+| **Global** | \`Math\` | \`_(Math.PI)\` |
+| **Global** | \`Object\` | \`Object.keys({a:1}) // ["a"]\` |
+| | | |
+| **Number** | \`.toFixed(digits)\` | \`n: 3.14159; _(n.toFixed(2)) // "3.14"\` |
+| **Number** | \`.toString()\` | \`age: 21; _(age.toString())\` |
+| | | |
+| **String** | \`.length\` | \`"hi".length // 2\` |
+| **String** | \`.toUpperCase()\` | \`"hi".toUpperCase() // "HI"\` |
+| **String** | \`.toLowerCase()\` | \`"HI".toLowerCase() // "hi"\` |
+| **String** | \`.trim()\` | \`" hi ".trim() // "hi"\` |
+| **String** | \`.split(separator)\` | \`"a-b-c".split("-") // ["a","b","c"]\` |
+| **String** | \`.slice(start, end)\`| \`"hello".slice(1,3) // "el"\` |
+| **String** | \`.includes(substr)\`| \`"hi".includes("i") // !0 (true)\` |
+| **String** | \`.replaceAll(find,r)\` | \`"hi hi".replaceAll("i","o") // "ho ho"\` |
+| | | |
+| **Array** | \`.length\` | \`[1,2].length // 2\` |
+| **Array** | \`.push(value)\` | \`a:[1]; a.push(2) // a is now [1,2]\` |
+| **Array** | \`.pop()\` | \`a:[1,2]; a.pop() // returns 2\` |
+| **Array** | \`.forEach(fn)\` | \`[1,2].forEach((n)=>{_(n)})\` |
+| **Array** | \`.map(fn)\` | \`[1,2].map((n)=>n*2) // [2,4]\` |
+| **Array** | \`.filter(fn)\` | \`[1,2,3].filter((n)=>n>1) // [2,3]\` |
+| **Array** | \`.reduce(fn, init)\`| \`[1,2,3].reduce((a,c)=>a+c, 0) // 6\` |
+| **Array** | \`.find(fn)\` | \`[1,2].find((n)=>n>1) // 2\` |
+| **Array** | \`.includes(value)\` | \`[1,2].includes(2) // !0 (true)\` |
+| **Array** | \`.join(separator)\` | \`["a","b"].join("-") // "a-b"\` |
+| **Array** | \`.sort()\` | \`[3,1,2].sort() // [1,2,3]\` |
+| | | |
+| **Object** | \`.hasOwnProperty(key)\` | \`{a:1}.hasOwnProperty("a") // !0 (true)\` |
 
 
 ---
