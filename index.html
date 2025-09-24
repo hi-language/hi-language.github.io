@@ -32,7 +32,7 @@
             <button id="sidebarBtnLeft" class="h-8 w-8 rounded-xl hover:bg-gray-100 active:scale-[.99] transition flex items-center justify-center" title="File Extensions">
                 <i data-lucide="panel-left" class="h-5 w-5"></i>
             </button>
-            <button class="hi-button text-2xl font-bold text-gray-900 px-4 py-2 rounded-lg cursor-default transition-all duration-300 hover:bg-gray-100 justify-self-center" data-page="home">
+            <button class="hi-button text-2xl font-bold text-gray-900 px-4 py-2 rounded-lg cursor-default transition-all duration-300 hover:bg-gray-100" data-page="home">
                 Hi
             </button>
             <button id="sidebarBtnRight" class="h-8 w-8 rounded-xl hover:bg-gray-100 active:scale-[.99] transition flex items-center justify-center justify-self-end" title="Resources">
@@ -164,59 +164,33 @@ alias2("some value")
 \`\`\`
 `,
             hib: `
-# Hi Block (.hib): A Symbolic Data Format
+# .hib (Hi Block)
 
-**Hi Block** is the native data representation format for the Hi language, designed to be a more powerful and expressive alternative to JSON. Where JSON is static data, a Hi Block is a living, symbolic structure.
+The JSON equivalent for the Hi language.
 
-## Beyond JSON
+A \`.hib\` file is implicitly a Block; the top-level \`{}\` are omitted. It is parsed as native Hi syntax, allowing for comments, executable logic, and symbolic types.
 
-While JSON is a universal standard, its rigidity limits it to simple key-value data. Hi is a symbolic language, and its data format reflects this philosophy. A \`.hib\` file is not just parsed; it's integrated directly as a Hi **Block**.
-
-### Core Features
-
-- **Native Syntax**: A \`.hib\` file uses standard Hi syntax. There is no separate parser needed. It's just a Block that can be imported and used immediately.
-- **Executable Data**: Because a Hi Block can contain functions (\`=>\` or other blocks), your data can include its own logic, validation, or helper methods. This is impossible in JSON.
-- **Symbolic & Concise**: Leverages Hi's native types like \`!0\` (true) and \`-0\` (null) for a more compact and golfed representation.
-- **Supports Comments**: Unlike JSON, \`.hib\` files can be documented with comments, improving maintainability.
-
-## Comparison
-
-Consider a simple configuration object.
-
-**JSON Example:**
-\`\`\`json
-{
-  "user": "Orion",
-  "level": 99,
-  "active": true,
-  "permissions": ["read", "write"]
-}
-\`\`\`
-
-**Hi Block (.hib) Example:**
+### Example: \`config.hib\`
 \`\`\`js
 // config.hib
-{
-  user: "Orion"
-  level: 99
-  active: !0 // Uses Hi's canonical boolean 'true'
-  permissions: ["read", "write"]
+user: "Orion"
+level: 99
+active: !0 // Hi's canonical boolean 'true'
+permissions: ["read", "write"]
 
-  // .hib files can contain executable logic
-  isAdmin: => @permissions.has("admin")
-  summary: => "User " + @user + " (Lvl " + @level + ")"
-}
+// Executable logic can be embedded directly.
+summary: { "User " + @user + " (Lvl " + @level + ")" }
 \`\`\`
 
-To use it in Hi, you simply import it:
+### Usage in \`.hi\`
+The file is imported using the \`+\` operator.
 \`\`\`js
+// main.hi
 config: + "./config.hib"
 
+_(config.user)      // "Orion"
 _(config.summary()) // "User Orion (Lvl 99)"
-_(config.isAdmin()) // 0 (false)
 \`\`\`
-
-The \`.hib\` format transforms data from a static list of properties into a dynamic, self-contained, and intelligent object.
 `,
             contact: `
 # Contact & Resources
