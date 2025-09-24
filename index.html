@@ -170,26 +170,38 @@ The JSON equivalent for the Hi language.
 
 A \`.hib\` file is implicitly a Block; the top-level \`{}\` are omitted. It is parsed as native Hi syntax, allowing for comments, executable logic, and symbolic types.
 
-### Example: \`config.hib\`
+### Example: \`theme.hib\`
 \`\`\`js
-// config.hib
-user: "Orion"
-level: 99
-active: !0 // Hi's canonical boolean 'true'
-permissions: ["read", "write"]
+// theme.hib
+// A .hib file can contain static data and dynamic logic.
+colors: {
+  primary: "#3498db"
+  accent: "#f1c40f"
+  text: "#2c3e50"
+}
 
-// Executable logic can be embedded directly.
-summary: { "User " + @user + " (Lvl " + @level + ")" }
+// Expressions can generate data structures.
+// This creates an array: [0, 4, 8, 12]
+spacing: (0..4 -> i) * { i * 4 }
+
+// A block that acts like a factory function.
+createRule: (selector, property, value) {
+  selector + " { " + property + ": " + value + "; }"
+}
 \`\`\`
 
 ### Usage in \`.hi\`
 The file is imported using the \`+\` operator.
 \`\`\`js
 // main.hi
-config: + "./config.hib"
+theme: + "./theme.hib"
 
-_(config.user)      // "Orion"
-_(config.summary()) // "User Orion (Lvl 99)"
+_(theme.colors.primary)     // "#3498db"
+_(theme.spacing[2])         // 8
+
+// Use the factory function from the .hib file.
+rule: theme.createRule(".title", "color", theme.colors.text)
+_(rule) // ".title { color: #2c3e50; }"
 \`\`\`
 `,
             contact: `
@@ -268,4 +280,3 @@ For inquiries, you can reach the development team at the following address:
     </script>
 </body>
 </html>
-
