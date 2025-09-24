@@ -166,45 +166,29 @@ alias2("some value")
             hib: `
 # .hib (Hi Block)
 
-Hi's native data-interchange format, analogous to JSON but with the full power of Hi syntax. A \`.hib\` file is a raw Block, so the top-level \`{}\` are omitted.
+The JSON equivalent for the Hi language.
 
-This allows \`.hib\` files to be more than static data. They can contain comments, executable logic, and utilize Hi's symbolic nature.
+A \`.hib\` file is implicitly a Block; the top-level \`{}\` are omitted. It is parsed as native Hi syntax, allowing for comments, executable logic, and symbolic types.
 
 ### Example: \`config.hib\`
-
-This data file showcases several core Hi features.
-
 \`\`\`js
 // config.hib
-
-// Standard key: value declarations.
 user: "Orion"
 level: 99
-
-// Symbolic boolean. 0 is falsy; !0 is canonical 'true'.
-active: !0
-
-// A JS-like array literal.
+active: !0 // Hi's canonical boolean 'true'
 permissions: ["read", "write"]
 
-// A block that acts as a method.
-// The '@' symbol is the context reference (like 'this' in JS).
+// Executable logic can be embedded directly.
 summary: { "User " + @user + " (Lvl " + @level + ")" }
 \`\`\`
 
 ### Usage in \`.hi\`
-
-A \`.hib\` file is imported as a Block using the unary \`+\` operator.
-
+The file is imported using the \`+\` operator.
 \`\`\`js
 // main.hi
 config: + "./config.hib"
 
-// Access properties directly.
 _(config.user)      // "Orion"
-_(config.active)    // true
-
-// Invoke the embedded block to get a computed value.
 _(config.summary()) // "User Orion (Lvl 99)"
 \`\`\`
 `,
@@ -284,3 +268,4 @@ For inquiries, you can reach the development team at the following address:
     </script>
 </body>
 </html>
+
