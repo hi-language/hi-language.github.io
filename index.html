@@ -5,46 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hi: A Symbolic Programming Language</title>
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
+    <!-- Markdown & Highlighting Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown-light.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css"/>
 
-    <script defer src="//unpkg.com/alpinejs"></script>
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Markdown-it and Highlight.js -->
     <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
 
     <style>
-        body { font-family: 'Poppins', sans-serif; background-color: #f9fafb; }
-        .markdown-body { font-size: 14px; line-height: 1.7; background-color: transparent; }
-        .markdown-body h1, .markdown-body h2, .markdown-body h3 { font-family: 'Poppins', sans-serif; font-weight: 600; border-bottom-color: #e5e7eb; }
-        .markdown-body pre { background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1rem; overflow-x: auto; }
-        .markdown-body code { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-variant-ligatures: none; }
-        :not(pre) > code { font-size: 85%; padding: .2em .4em; margin: 0; border-radius: 6px; background-color: rgba(175, 184, 193, 0.2); }
-        .hi-button { font-family: 'JetBrains Mono', monospace; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9fafb; /* bg-gray-50 */
+        }
+        .markdown-body {
+            font-size: 14px;
+            line-height: 1.7;
+            background-color: transparent;
+        }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            border-bottom-color: #e5e7eb; /* border-gray-200 */
+        }
+        .markdown-body pre {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        .markdown-body code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-variant-ligatures: none;
+        }
+        :not(pre) > code {
+            font-size: 85%;
+            padding: .2em .4em;
+            margin: 0;
+            border-radius: 6px;
+            background-color: rgba(175, 184, 193, 0.2);
+        }
+        .hi-button {
+            font-family: 'JetBrains Mono', monospace;
+        }
     </style>
 </head>
-<body class="text-gray-900 selection:bg-cyan-400/20" x-data @click.window="if ($event.target.closest('#sidebarOverlayLeft')) { document.getElementById('sidebarLeft').classList.add('-translate-x-full'); document.getElementById('sidebarOverlayLeft').classList.add('hidden'); } if ($event.target.closest('#sidebarOverlayRight')) { document.getElementById('sidebarRight').classList.add('translate-x-full'); document.getElementById('sidebarOverlayRight').classList.add('hidden'); }">
+<body class="text-gray-900 selection:bg-cyan-400/20">
 
-    <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-sm border-b border-gray-200">
-        <div class="mx-auto w-full max-w-4xl px-4 py-3 grid grid-cols-3 items-center">
-            <button id="sidebarBtnLeft" class="h-8 w-8 rounded-xl bg-gray-100 hover:bg-gray-200 active:scale-[.99] transition flex items-center justify-center" title="About" @click="document.getElementById('sidebarLeft').classList.remove('-translate-x-full'); document.getElementById('sidebarOverlayLeft').classList.remove('hidden')">
-                <i data-lucide="panel-left" class="h-5 w-5"></i>
+    <header class="sticky top-0 z-20 bg-white/80 backdrop-blur-sm border-b border-gray-200">
+        <div class="mx-auto w-full max-w-4xl px-4 py-3 flex items-center justify-between">
+            <button class="hi-button text-2xl font-bold text-gray-900 px-4 py-2 rounded-lg cursor-default transition-all duration-300 hover:bg-gray-100">
+                Hi
             </button>
-            <div class="justify-self-center">
-                <button class="hi-button text-2xl font-bold text-gray-900 px-4 py-2 rounded-lg cursor-default transition-all duration-300 hover:bg-gray-100">
-                    Hi
-                </button>
-            </div>
-            <div class="justify-self-end">
-                <button id="sidebarBtnRight" class="h-8 w-8 rounded-xl bg-gray-100 hover:bg-gray-200 active:scale-[.99] transition flex items-center justify-center" title="Connect" @click="document.getElementById('sidebarRight').classList.remove('translate-x-full'); document.getElementById('sidebarOverlayRight').classList.remove('hidden')">
-                    <i data-lucide="panel-right" class="h-5 w-5"></i>
-                </button>
-            </div>
+            <a href="https://github.com/hi-language" target="_blank" rel="noopener noreferrer" title="View GitHub Organization" class="text-gray-600 hover:text-gray-900 transition-colors p-2 rounded-lg hover:bg-gray-100">
+                <i data-lucide="github" class="h-5 w-5"></i>
+            </a>
         </div>
     </header>
 
@@ -53,37 +81,6 @@
             <!-- Markdown content will be rendered here -->
         </div>
     </main>
-
-    <!-- Left Sidebar -->
-    <div id="sidebarOverlayLeft" class="fixed inset-0 z-40 bg-black/20 hidden"></div>
-    <aside id="sidebarLeft" class="fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] bg-white border-r border-gray-200 shadow-xl transform -translate-x-full transition-transform duration-200 ease-out flex flex-col">
-        <div class="p-3 border-b flex items-center justify-between">
-            <span class="font-semibold hi-button">Hi Language</span>
-            <button class="p-1 rounded hover:bg-gray-100" @click="document.getElementById('sidebarLeft').classList.add('-translate-x-full'); document.getElementById('sidebarOverlayLeft').classList.add('hidden')"><i data-lucide="x" class="h-5 w-5"></i></button>
-        </div>
-        <div class="flex-1 p-4">
-            <p class="text-gray-700">A corely symbolic programming language designed for AI and code golfing.</p>
-        </div>
-    </aside>
-
-    <!-- Right Sidebar -->
-    <div id="sidebarOverlayRight" class="fixed inset-0 z-40 bg-black/20 hidden"></div>
-    <aside id="sidebarRight" class="fixed inset-y-0 right-0 z-50 w-72 max-w-[85vw] bg-white border-l border-gray-200 shadow-xl transform translate-x-full transition-transform duration-200 ease-out flex flex-col">
-        <div class="p-3 border-b flex items-center justify-between">
-            <span class="font-semibold">Connect</span>
-            <button class="p-1 rounded hover:bg-gray-100" @click="document.getElementById('sidebarRight').classList.add('translate-x-full'); document.getElementById('sidebarOverlayRight').classList.add('hidden')"><i data-lucide="x" class="h-5 w-5"></i></button>
-        </div>
-        <div class="flex-1 overflow-y-auto p-4 space-y-2">
-            <a href="https://github.com/hi-language" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-gray-700 hover:text-gray-900 hover:bg-gray-100 p-2 rounded-lg transition-colors">
-                <i data-lucide="github" class="h-5 w-5"></i>
-                <span>GitHub</span>
-            </a>
-            <a href="mailto:planetrenox@protonmail.com" class="flex items-center gap-3 text-gray-700 hover:text-gray-900 hover:bg-gray-100 p-2 rounded-lg transition-colors">
-                <i data-lucide="mail" class="h-5 w-5"></i>
-                <span>planetrenox@protonmail.com</span>
-            </a>
-        </div>
-    </aside>
     
     <script>
         const markdownContent = `
@@ -488,3 +485,5 @@ To create the initial Hi-to-JS transpiler, the following primitives and built-in
     </script>
 </body>
 </html>
+
+
