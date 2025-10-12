@@ -19,44 +19,17 @@
     </style>
   </head>
   <body>
-    <div class="w-full h-full bg-gray-50 text-gray-900 selection:bg-cyan-400/20 overflow-y-auto">
-      <style>
-        .sune-hi-doc .markdown-body{font-size:14px;line-height:1.7;background:0 0}
-        .sune-hi-doc .markdown-body h1,.sune-hi-doc .markdown-body h2,.sune-hi-doc .markdown-body h3{font-weight:600;border-bottom-color:#e5e7eb}
-        .sune-hi-doc .markdown-body pre{background-color:#fff;border:1px solid #e5e7eb;border-radius:.75rem;padding:1rem;overflow-x:auto}
-        .sune-hi-doc .markdown-body code{font-family:'JetBrains Mono',monospace;font-size:13px;font-variant-ligatures:none}
-        .sune-hi-doc :not(pre)>code{font-size:85%;padding:.2em .4em;margin:0;border-radius:6px;background-color:rgba(175,184,193,.2)}
-        .sune-hi-doc .hi-button{font-family:'JetBrains Mono',monospace}
-      </style>
-      <div class="sune-hi-doc">
-        <header class="sticky top-0 z-10 bg-white/80 backdrop-blur-sm border-b border-gray-200">
-          <div class="mx-auto w-full max-w-4xl px-4 py-3 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <span class="hi-button text-2xl font-bold text-gray-900 rounded-lg cursor-default">Hi</span>
-              <span class="text-xs bg-gray-100 text-gray-500 font-medium px-2 py-0.5 rounded-full">v0.1</span>
-            </div>
-            <a href="https://github.com/hi-language" target="_blank" rel="noopener noreferrer" title="View GitHub Organization" class="text-gray-600 hover:text-gray-900 transition-colors p-2 rounded-lg hover:bg-gray-100">
-              <i data-lucide="github" class="h-5 w-5"></i>
-            </a>
-          </div>
-        </header>
-        <main class="w-full flex flex-col items-center p-4 sm:p-8">
-          <div class="markdown-body w-full max-w-4xl">
-            <p class="text-center text-gray-400">Loading documentation...</p>
-          </div>
-        </main>
-      </div>
-      <script>
-        (() => {
-          const suneRoot=document.currentScript.parentElement;
-          const contentEl=suneRoot.querySelector('.markdown-body');
-          const mdContent=`
+    <div x-data="{
+      sidebarOpen: window.innerWidth > 1024,
+      activePage: 'blueprint',
+      pages: {
+        'blueprint': `
 # A corely symbolic language
 
 [placeholder topic]
 
 \`\`\`javascript
-_("Hi world")
+_(\"Hi world\")
 \`\`\`
 
 ## Declaration and Assignment
@@ -77,11 +50,11 @@ version = 1.1 // Assignment
 
 \`\`\`javascript
 player: {
-  name: "Orion"
+  name: \"Orion\"
   #hp: 100
 }
 
-_(player.name) // "Orion"
+_(player.name) // \"Orion\"
 _(player.hp)   // ~0 (null) because #hp is private
 \`\`\`
 
@@ -90,8 +63,8 @@ _(player.hp)   // ~0 (null) because #hp is private
 
 \`\`\`javascript
 // Simple invocation
-sayHi: { _("Hi") }
-sayHi() // Prints "Hi"
+sayHi: { _(\"Hi\") }
+sayHi() // Prints \"Hi\"
 
 // With parameters and return value
 add: (a, b) { a + b }
@@ -108,8 +81,8 @@ createPlayer: (name) {
   @ // Return the new block instance
 }
 
-player1: createPlayer("Orion")
-_(player1.name) // "Orion"
+player1: createPlayer(\"Orion\")
+_(player1.name) // \"Orion\"
 _(player1.hp)   // 100
 \`\`\`
 
@@ -154,8 +127,8 @@ _(doubled) // [2, 4, 6]
 
 \`\`\`javascript
 // A simple 'if' to execute code conditionally
-status: "active"
-(status == "active") ? { _("User is active.") }
+status: \"active\"
+(status == \"active\") ? { _(\"User is active.\") }
 \`\`\`
 
 [placeholder topic]
@@ -163,14 +136,14 @@ status: "active"
 \`\`\`javascript
 // if / else for choosing an action
 isOnline: !0
-(isOnline == !0) ? { _("Online") } : { _("Offline") } // Prints "Online"
+(isOnline == !0) ? { _(\"Online\") } : { _(\"Offline\") } // Prints \"Online\"
 \`\`\`
 
 [placeholder topic]
 
 \`\`\`javascript
 // if / else returning a value
-result: (1 > 2) ? { "A" } : { "B" } // result is "B"
+result: (1 > 2) ? { \"A\" } : { \"B\" } // result is \"B\"
 \`\`\`
 
 [placeholder topic]
@@ -178,14 +151,12 @@ result: (1 > 2) ? { "A" } : { "B" } // result is "B"
 \`\`\`javascript
 // if / else if / else
 score: 75
-grade: (score >= 90) ? { "A" }
-     : (score >= 80) ? { "B" }
-     : (score >= 70) ? { "C" }
-     : { "D" } 
-_(grade) // Prints "C"
+grade: (score >= 90) ? { \"A\" }
+     : (score >= 80) ? { \"B\" }
+     : (score >= 70) ? { \"C\" }
+     : { \"D\" } 
+_(grade) // Prints \"C\"
 \`\`\`
-
-[placeholder topic]
 
 ## Data Structures
 
@@ -203,8 +174,8 @@ _(primes)     // Mutation: [1, 3, 5, 7]
 [placeholder topic]
 
 \`\`\`javascript
-greeting: "Hi"
-_(greeting[1]) // "i"
+greeting: \"Hi\"
+_(greeting[1]) // \"i\"
 \`\`\`
 
 ## Destructuring
@@ -213,12 +184,12 @@ _(greeting[1]) // "i"
 
 \`\`\`javascript
 // Setup
-user: { name: "Zeta", role: "Admin", id: 101 }
+user: { name: \"Zeta\", role: \"Admin\", id: 101 }
 coords: [10, -5, 8]
 
 // Extract 'name' and 'role' from the user block
 user -> { name, role }
-_(name) // "Zeta"
+_(name) // \"Zeta\"
 
 // Extract 'id' and alias it to 'userID'
 user -> { id -> userID }
@@ -238,20 +209,20 @@ _(y) // -5
 
 \`\`\`javascript
 // Iterate over an Array's values
-(["a", "b"] -> item) * { _(item) }
+([\"a\", \"b\"] -> item) * { _(item) }
 
 // Iterate over an Array with index and value
-(["a", "b"] -> [i, item]) * { _(i + ": " + item) }
+([\"a\", \"b\"] -> [i, item]) * { _(i + \": \" + item) }
 
 // Iterate over a Block's key-value pairs
-({ id: 1 } -> [k, v]) * { _(k + " is " + v) }
+({ id: 1 } -> [k, v]) * { _(k + \" is \" + v) }
 
 // Iterate over a String's characters
-("Hi" -> char) * { _(char) }
+(\"Hi\" -> char) * { _(char) }
 
 // Destructure directly in the loop signature
-users: [{ name: "Orion" }]
-(users -> { name }) * { _("User: " + name) }
+users: [{ name: \"Orion\" }]
+(users -> { name }) * { _(\"User: \" + name) }
 \`\`\`
 
 ### Numeric Ranges
@@ -260,7 +231,7 @@ users: [{ name: "Orion" }]
 \`\`\`javascript
 // A range from 0 up to (but not including) 3
 (0..3 -> i) * {
-  _("Iteration: " + i) // Prints 0, 1, 2
+  _(\"Iteration: \" + i) // Prints 0, 1, 2
 }
 \`\`\`
 
@@ -271,7 +242,7 @@ users: [{ name: "Orion" }]
 (0..10 -> i) * {
   (i == 2) ? { >> }   // Skip 2
   (i == 5) ? { >< }  // Break at 5
-  _("i is " + i)
+  _(\"i is \" + i)
 }
 // Prints: i is 0, i is 1, i is 3, i is 4
 \`\`\`
@@ -282,10 +253,10 @@ users: [{ name: "Orion" }]
 
 \`\`\`javascript
 // Import 'block1' and 'block2' (as 'alias2') from a module
-+ "npm://hi-lang@0.1/path/file.hi" -> { block1, block2 -> alias2 }
++ \"npm://hi-lang@0.1/path/file.hi\" -> { block1, block2 -> alias2 }
 
 block1()
-alias2("some value")
+alias2(\"some value\")
 \`\`\`
 
 ## Context Reference: @
@@ -296,14 +267,14 @@ alias2("some value")
 // This block is a portable method.
 // It relies on '@' to get the context.
 loggable: {
-  logId: { _("ID is: " + @id) }
+  logId: { _(\"ID is: \" + @id) }
 }
 
 user: { id: 101, log: loggable.logId }
-item: { id: "abc-789", log: loggable.logId }
+item: { id: \"abc-789\", log: loggable.logId }
 
-user.log() // Prints "ID is: 101" (@ is 'user')
-item.log() // Prints "ID is: abc-789" (@ is 'item')
+user.log() // Prints \"ID is: 101\" (@ is 'user')
+item.log() // Prints \"ID is: abc-789\" (@ is 'item')
 \`\`\`
 
 ## Expression Blocks and Fluent Chaining
@@ -313,7 +284,7 @@ item.log() // Prints "ID is: abc-789" (@ is 'item')
 \`\`\`javascript
 // The last expression, \`a + b\`, is returned.
 add: (a, b) {
-  _("adding...") // Side-effect
+  _(\"adding...\") // Side-effect
   a + b         // Return value
 }
 
@@ -321,8 +292,8 @@ result: add(2, 3) // result is 5
 
 // An early, explicit return
 check: (n) {
-  (n < 0) ? { ^ "Negative" }
-  "Positive"
+  (n < 0) ? { ^ \"Negative\" }
+  \"Positive\"
 }
 \`\`\`
 
@@ -346,23 +317,78 @@ _(result) // Prints 6
 
 ---
 
-<p class="text-sm text-gray-600">Hi is in early development. The syntax and features are subject to change.</p>
-`;
-          const init=()=>{
-            if(!window.markdownit||!window.hljs){setTimeout(init,50);return}
-            const md=window.markdownit({
-              html:!0,linkify:!0,typographer:!0,
-              highlight:(s,l)=>{
-                if(l&&hljs.getLanguage(l))try{return hljs.highlight(s,{language:l,ignoreIllegals:!0}).value}catch(_){}
-                return md.utils.escapeHtml(s)
-              }
-            });
-            contentEl.innerHTML=md.render(mdContent);
-            window.lucide?.createIcons()
-          };
-          init();
-        })()
-      </script>
+<p class=\"text-sm text-gray-600\">Hi is in early development. The syntax and features are subject to change.</p>
+`,
+        'json': `
+# Building a better JSON
+
+[placeholder topic]
+`
+      },
+      renderContent() {
+        const contentEl = this.$root.querySelector('.markdown-body');
+        const mdContent = this.pages[this.activePage];
+        const init = () => {
+          if (!window.markdownit || !window.hljs) { setTimeout(init, 50); return }
+          const md = window.markdownit({
+            html: !0, linkify: !0, typographer: !0,
+            highlight: (s, l) => {
+              if (l && hljs.getLanguage(l)) try { return hljs.highlight(s, { language: l, ignoreIllegals: !0 }).value } catch (_) { }
+              return md.utils.escapeHtml(s)
+            }
+          });
+          contentEl.innerHTML = md.render(mdContent);
+          window.lucide?.createIcons();
+        };
+        init();
+      }
+    }" x-init="$watch('activePage', renderContent); renderContent()" class="w-full h-full bg-gray-50 text-gray-900 selection:bg-cyan-400/20 flex">
+      
+      <!-- Sidebar -->
+      <aside x-show="sidebarOpen" class="w-64 bg-white border-r border-gray-200 flex-shrink-0 text-sm font-medium text-gray-700">
+        <div class="p-4 border-b h-[57px]"></div>
+        <nav class="p-2">
+          <a href="#" @click.prevent="activePage = 'blueprint'" class="block p-2 rounded" :class="activePage == 'blueprint' ? 'bg-gray-100 font-semibold text-gray-900' : 'hover:bg-gray-100'">Language Blueprint</a>
+          <a href="#" @click.prevent="activePage = 'json'" class="block p-2 rounded" :class="activePage == 'json' ? 'bg-gray-100 font-semibold text-gray-900' : 'hover:bg-gray-100'">Building a better JSON</a>
+        </nav>
+      </aside>
+      
+      <!-- Main Content -->
+      <div class="flex-1 flex flex-col overflow-hidden">
+        <div class="sune-hi-doc h-full flex flex-col">
+          <style>
+            .sune-hi-doc .markdown-body{font-size:14px;line-height:1.7;background:0 0}
+            .sune-hi-doc .markdown-body h1,.sune-hi-doc .markdown-body h2,.sune-hi-doc .markdown-body h3{font-weight:600;border-bottom-color:#e5e7eb}
+            .sune-hi-doc .markdown-body pre{background-color:#fff;border:1px solid #e5e7eb;border-radius:.75rem;padding:1rem;overflow-x:auto}
+            .sune-hi-doc .markdown-body code{font-family:'JetBrains Mono',monospace;font-size:13px;font-variant-ligatures:none}
+            .sune-hi-doc :not(pre)>code{font-size:85%;padding:.2em .4em;margin:0;border-radius:6px;background-color:rgba(175,184,193,.2)}
+            .sune-hi-doc .hi-button{font-family:'JetBrains Mono',monospace}
+          </style>
+          <header class="sticky top-0 z-10 bg-white/80 backdrop-blur-sm border-b border-gray-200 flex-shrink-0">
+            <div class="mx-auto w-full max-w-7xl px-4 py-3 flex items-center justify-between relative">
+              <div>
+                <button @click="sidebarOpen = !sidebarOpen" class="text-gray-600 hover:text-gray-900 transition-colors p-2 -ml-2 rounded-lg hover:bg-gray-100">
+                  <i data-lucide="panel-left" class="h-5 w-5"></i>
+                </button>
+              </div>
+              <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-3">
+                <span class="hi-button text-2xl font-bold text-gray-900 rounded-lg cursor-default">Hi</span>
+                <span class="text-xs bg-gray-100 text-gray-500 font-medium px-2 py-0.5 rounded-full">v0.1</span>
+              </div>
+              <div>
+                <a href="https://github.com/hi-language" target="_blank" rel="noopener noreferrer" title="View GitHub Organization" class="text-gray-600 hover:text-gray-900 transition-colors p-2 rounded-lg hover:bg-gray-100">
+                  <i data-lucide="github" class="h-5 w-5"></i>
+                </a>
+              </div>
+            </div>
+          </header>
+          <main class="w-full flex-1 flex flex-col items-center p-4 sm:p-8 overflow-y-auto">
+            <div class="markdown-body w-full max-w-4xl">
+              <p class="text-center text-gray-400">Loading documentation...</p>
+            </div>
+          </main>
+        </div>
+      </div>
     </div>
   </body>
 </html>
