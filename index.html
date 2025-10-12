@@ -13,13 +13,14 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
-    <script defer src="//unpkg.com/alpinejs"></script>
+    <script defer src="//unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
     <style>
       html,body{height:100%}body{margin:0}
+      [x-cloak]{display:none!important}
     </style>
   </head>
-  <body>
-    <div class="w-full h-full bg-gray-50 text-gray-900 selection:bg-cyan-400/20 overflow-y-auto">
+  <body x-data="{ sidebarOpen: true, page: 'blueprint' }">
+    <div class="w-full h-full flex bg-gray-50 text-gray-900 selection:bg-cyan-400/20">
       <style>
         .sune-hi-doc .markdown-body{font-size:14px;line-height:1.7;background:0 0}
         .sune-hi-doc .markdown-body h1,.sune-hi-doc .markdown-body h2,.sune-hi-doc .markdown-body h3{font-weight:600;border-bottom-color:#e5e7eb}
@@ -28,9 +29,18 @@
         .sune-hi-doc :not(pre)>code{font-size:85%;padding:.2em .4em;margin:0;border-radius:6px;background-color:rgba(175,184,193,.2)}
         .sune-hi-doc .hi-button{font-family:'JetBrains Mono',monospace}
       </style>
-      <div class="sune-hi-doc">
+      <aside x-show="sidebarOpen" x-transition class="w-64 border-r border-gray-200 bg-white/50 p-4 flex-shrink-0">
+        <nav class="flex flex-col gap-1">
+          <a href="#" @click.prevent="page='blueprint'" :class="page==='blueprint'?'bg-gray-100':'text-gray-600 hover:bg-gray-100'" class="px-3 py-2 rounded-md text-sm font-medium transition-colors">Language Blueprint</a>
+          <a href="#" @click.prevent="page='json'" :class="page==='json'?'bg-gray-100':'text-gray-600 hover:bg-gray-100'" class="px-3 py-2 rounded-md text-sm font-medium transition-colors">Building a better JSON</a>
+        </nav>
+      </aside>
+      <div class="sune-hi-doc flex-1 flex flex-col overflow-y-auto">
         <header class="sticky top-0 z-10 bg-white/80 backdrop-blur-sm border-b border-gray-200">
-          <div class="mx-auto w-full max-w-4xl px-4 py-3 flex items-center justify-between">
+          <div class="w-full px-4 py-3 flex items-center justify-between">
+            <button @click="sidebarOpen=!sidebarOpen" title="Toggle sidebar" class="text-gray-600 hover:text-gray-900 transition-colors p-2 rounded-lg hover:bg-gray-100">
+              <i data-lucide="panel-left" class="h-5 w-5"></i>
+            </button>
             <div class="flex items-center gap-3">
               <span class="hi-button text-2xl font-bold text-gray-900 rounded-lg cursor-default">Hi</span>
               <span class="text-xs bg-gray-100 text-gray-500 font-medium px-2 py-0.5 rounded-full">v0.1</span>
@@ -41,16 +51,16 @@
           </div>
         </header>
         <main class="w-full flex flex-col items-center p-4 sm:p-8">
-          <div class="markdown-body w-full max-w-4xl">
-            <p class="text-center text-gray-400">Loading documentation...</p>
-          </div>
+          <div x-show="page === 'blueprint'" x-cloak id="blueprint-content" class="markdown-body w-full max-w-4xl"></div>
+          <div x-show="page === 'json'" x-cloak id="json-content" class="markdown-body w-full max-w-4xl"></div>
         </main>
       </div>
       <script>
         (() => {
-          const suneRoot=document.currentScript.parentElement;
-          const contentEl=suneRoot.querySelector('.markdown-body');
-          const mdContent=`
+          const root=document.currentScript.parentElement;
+          const blueprintEl=root.querySelector('#blueprint-content');
+          const jsonEl=root.querySelector('#json-content');
+          const blueprintMd=`
 # A corely symbolic language
 
 [placeholder topic]
@@ -184,8 +194,6 @@ grade: (score >= 90) ? { "A" }
      : { "D" } 
 _(grade) // Prints "C"
 \`\`\`
-
-[placeholder topic]
 
 ## Data Structures
 
@@ -348,8 +356,9 @@ _(result) // Prints 6
 
 <p class="text-sm text-gray-600">Hi is in early development. The syntax and features are subject to change.</p>
 `;
+          const jsonMd=`# Building a better JSON\n\n[placeholder topic]`;
           const init=()=>{
-            if(!window.markdownit||!window.hljs){setTimeout(init,50);return}
+            if(!window.markdownit||!window.hljs)return setTimeout(init,50);
             const md=window.markdownit({
               html:!0,linkify:!0,typographer:!0,
               highlight:(s,l)=>{
@@ -357,7 +366,8 @@ _(result) // Prints 6
                 return md.utils.escapeHtml(s)
               }
             });
-            contentEl.innerHTML=md.render(mdContent);
+            if(blueprintEl)blueprintEl.innerHTML=md.render(blueprintMd);
+            if(jsonEl)jsonEl.innerHTML=md.render(jsonMd);
             window.lucide?.createIcons()
           };
           init();
@@ -366,4 +376,3 @@ _(result) // Prints 6
     </div>
   </body>
 </html>
-
